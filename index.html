@@ -3,610 +3,624 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kifud — Nutrición con amor en el recreo</title>
+<title>Kifud — Lonchera saludable para tu hijo</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Nunito+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --o:#F4721B;--od:#C2490A;--ol:#FEF0E6;--om:#F9A06B;
-  --y:#F7C948;--yl:#FFFBEA;
-  --c:#E8503A;
-  --off:#FFFDF9;--dark:#1C1612;--mid:#6B5E54;--light:#B8A99F;
-  --cream:#FBF6EF;--white:#FFFFFF;
+  --yellow:#FFF5C8;--yellow-d:#F0BC32;--yellow-dk:#C9970A;
+  --yellow-vivid:#F0BC32;--yellow-vivid-l:#FDF3D0;--yellow-vivid-dk:#A07A00;
+  --red:#E8503A;--red-l:#FDECEA;
+  --green:#3AAD5E;--green-l:#E8F7EE;
+  --blue:#2B6FD4;--blue-l:#E8F0FC;
+  --orange:#F4721B;--orange-l:#FEF0E6;
+  --dark:#1C1612;--mid:#6B5E54;--light:#B8A99F;
+  --white:#FFFFFF;--off:#FFFDF6;
 }
-body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off);color:var(--dark);overflow-x:hidden}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito Sans',sans-serif;background:var(--off);color:var(--dark);overflow-x:hidden}
 
-/* ── NAV ── */
-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 52px;background:var(--off);border-bottom:1px solid rgba(0,0,0,.06);position:sticky;top:0;z-index:100;backdrop-filter:blur(8px)}
-.logo{font-family:'Playfair Display',serif;font-size:24px;color:var(--od);text-decoration:none;letter-spacing:-.02em}
-.logo span{color:var(--o)}
-.logo em{font-style:italic;color:var(--c)}
-.navlinks{display:flex;gap:28px;align-items:center}
-.navlinks a{font-size:14px;color:var(--mid);text-decoration:none;font-weight:500}
-.navlinks a:hover{color:var(--o)}
-.btnnav{background:var(--o);color:#fff;padding:10px 24px;border-radius:100px;font-size:13px;font-weight:600;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
-.btnnav:hover{background:var(--od)}
+/* NAV */
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 52px;background:var(--white);border-bottom:2px solid var(--yellow-d);position:sticky;top:0;z-index:100}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a{font-size:14px;color:var(--mid);text-decoration:none;font-weight:600}
+.navlinks a:hover{color:var(--orange)}
+.nav-cta{background:var(--red);color:#fff !important;padding:10px 24px;border-radius:100px;font-size:14px;font-weight:800 !important;transition:.2s}
+.nav-cta:hover{background:#c43e2a !important}
 
-/* ── HERO ── */
-.hero{display:grid;grid-template-columns:1fr 1fr;min-height:92vh;padding:0 52px;align-items:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;right:0;top:0;width:50%;height:100%;background:var(--ol);z-index:0;border-radius:0 0 0 80px}
-.hleft{padding:60px 48px 60px 0;position:relative;z-index:1}
-.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;color:var(--o);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.eyebrow::before{content:'';width:28px;height:2px;background:var(--o);display:inline-block;border-radius:2px}
-h1{font-family:'Playfair Display',serif;font-size:58px;line-height:1.06;color:var(--dark);margin-bottom:26px;letter-spacing:-.02em}
-h1 em{color:var(--o);font-style:italic}
-.hsub{font-size:17px;color:var(--mid);line-height:1.75;margin-bottom:40px;max-width:430px;font-weight:300}
-.hactions{display:flex;gap:12px;flex-wrap:wrap}
-.btnp{background:var(--dark);color:#fff;padding:14px 32px;border-radius:100px;font-size:15px;font-weight:600;border:none;cursor:pointer;text-decoration:none;display:inline-block;transition:.2s}
-.btnp:hover{background:var(--od)}
-.btns{background:transparent;color:var(--dark);padding:14px 24px;border-radius:100px;font-size:15px;border:1.5px solid rgba(0,0,0,.2);cursor:pointer;text-decoration:none;display:inline-block;font-weight:500;transition:.2s}
-.btns:hover{border-color:var(--o);color:var(--o)}
-.hnote{font-size:13px;color:var(--light);margin-top:18px;display:flex;align-items:center;gap:6px}
-.hnote::before{content:'✓';color:var(--o);font-weight:700}
-.hright{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;padding:60px 20px 60px 60px;min-height:100%}
+/* HERO */
+.hero{background:#FFF9E0;padding:64px 52px 0;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:flex-end;overflow:hidden;position:relative;border-bottom:4px solid var(--yellow-d)}
+.hleft{padding-bottom:64px}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--white);border-radius:100px;padding:6px 16px;font-size:12px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;border:2px solid var(--yellow-d)}
+h1{font-family:'Nunito',sans-serif;font-size:54px;line-height:1.08;color:var(--dark);font-weight:900;margin-bottom:20px;letter-spacing:-.02em}
+h1 .red{color:var(--red)}
+h1 .green{color:var(--green)}
+h1 .blue{color:var(--blue)}
+.hero-sub{font-size:17px;color:var(--mid);line-height:1.75;max-width:460px;margin-bottom:36px}
+.hero-sub strong{color:var(--dark);font-weight:700}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn-red{background:var(--red);color:#fff;padding:15px 34px;border-radius:100px;font-size:16px;font-weight:800;text-decoration:none;display:inline-block;transition:.2s;font-family:'Nunito',sans-serif;border:none;cursor:pointer}
+.btn-red:hover{background:#c43e2a;transform:translateY(-2px)}
+.btn-ghost{color:var(--dark);padding:15px 24px;border-radius:100px;font-size:15px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:2.5px solid rgba(0,0,0,.12);transition:.2s;font-family:'Nunito',sans-serif}
+.btn-ghost:hover{border-color:var(--orange);color:var(--orange)}
+.hero-note{font-size:12px;color:var(--mid);margin-top:16px;display:flex;align-items:center;gap:6px}
+.hero-note::before{content:'✓';color:var(--green);font-weight:900;font-size:14px}
+.hright{display:flex;flex-direction:column;gap:12px;padding-bottom:0;justify-content:flex-end}
+.dish-preview{background:var(--white);border-radius:20px;padding:14px 18px;display:flex;align-items:center;gap:14px;box-shadow:0 4px 20px rgba(0,0,0,.07);border:2px solid transparent;transition:.3s}
+.dish-preview:hover{border-color:var(--yellow-d);transform:translateX(-4px)}
+.dp-emoji{font-size:32px;flex-shrink:0;width:50px;height:50px;background:var(--yellow);border-radius:14px;display:flex;align-items:center;justify-content:center}
+.dp-name{font-size:13px;font-weight:800;color:var(--dark);margin-bottom:3px;font-family:'Nunito',sans-serif;line-height:1.3}
+.dp-benefit{font-size:12px;color:var(--mid)}
+.dp-tag{font-size:11px;font-weight:800;padding:2px 10px;border-radius:100px;flex-shrink:0;margin-left:auto}
+.tag-brain{background:var(--blue-l);color:var(--blue)}
+.tag-muscle{background:var(--red-l);color:var(--red)}
+.tag-bones{background:var(--green-l);color:var(--green)}
+.tag-energy{background:var(--orange-l);color:var(--orange)}
 
-/* phone mockup */
-.phone{width:256px;background:#fff;border-radius:36px;border:7px solid var(--dark);overflow:hidden;box-shadow:20px 24px 60px rgba(0,0,0,.16);position:relative}
-.phonebar{background:var(--dark);height:26px;display:flex;align-items:center;justify-content:center}
-.phonedot{width:8px;height:8px;border-radius:50%;background:var(--off);opacity:.3}
-.phonescreen{padding:18px}
-.psh{font-size:10px;color:var(--o);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:10px;display:flex;align-items:center;gap:5px}
-.psh::before{content:'👧🏻';font-size:12px}
-.pst{font-family:'Playfair Display',serif;font-size:16px;color:var(--dark);margin-bottom:3px;line-height:1.2}
-.pss{font-size:11px;color:var(--mid);margin-bottom:14px;font-weight:300}
-.psl{font-size:9px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:600}
-.psd{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:var(--cream);border-radius:10px;margin-bottom:5px}
-.psd.sel{background:var(--ol);border:1px solid var(--om)}
-.psdn{font-size:11px;font-weight:600;color:var(--dark)}
-.psdsh{font-size:9px;color:var(--mid);margin-top:2px}
-.psde{font-size:14px}
-.psc{width:16px;height:16px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pse{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--light);flex-shrink:0}
-.pspill{margin-top:14px;background:var(--ol);border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px}
-.pspill-icon{font-size:18px}
-.pspill-txt{font-size:11px;color:var(--od);font-weight:600;line-height:1.3}
-.pspill-sub{font-size:9px;color:var(--mid);font-weight:400}
-.psbtn{width:100%;background:var(--o);color:#fff;border:none;border-radius:10px;padding:11px;font-size:12px;font-weight:700;margin-top:10px;cursor:pointer;letter-spacing:.04em}
+/* TRUST BAR */
+.trustbar{background:var(--dark);padding:16px 52px;display:flex;justify-content:center;gap:48px;align-items:center;flex-wrap:wrap}
+.trust-item{display:flex;align-items:center;gap:10px;font-size:13px;color:rgba(255,255,255,.6);font-weight:600}
+.trust-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
-/* floating badge */
-.fbadge{position:absolute;top:30%;right:-20px;background:#fff;border-radius:16px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.12);display:flex;align-items:center;gap:10px;width:180px}
-.fbadge-icon{font-size:22px}
-.fbadge-txt{font-size:12px;font-weight:700;color:var(--dark);line-height:1.2}
-.fbadge-sub{font-size:10px;color:var(--mid);font-weight:400}
-.fbadge2{position:absolute;bottom:28%;left:-24px;background:var(--dark);border-radius:16px;padding:12px 16px;box-shadow:0 8px 30px rgba(0,0,0,.18);display:flex;align-items:center;gap:10px}
-.fbadge2-icon{font-size:20px}
-.fbadge2-txt{font-size:12px;font-weight:600;color:#fff}
-.fbadge2-sub{font-size:10px;color:rgba(255,255,255,.5)}
+/* SECTION BASE */
+.section{padding:80px 52px}
+.section-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:14px}
+.section-eye::before{content:'';width:20px;height:3px;background:var(--orange);border-radius:2px}
+h2{font-family:'Nunito',sans-serif;font-size:42px;line-height:1.1;font-weight:900;letter-spacing:-.02em;margin-bottom:12px}
+.section-sub{font-size:16px;color:var(--mid);line-height:1.75;max-width:540px}
 
-/* ── TRUST BAR ── */
-.trustbar{background:var(--dark);padding:18px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.trustitem{display:flex;align-items:center;gap:10px}
-.trustdot{width:6px;height:6px;border-radius:50%;background:var(--o);flex-shrink:0}
-.trusttxt{font-size:13px;color:rgba(255,255,255,.7);font-weight:300}
-.trusttxt strong{color:#fff;font-weight:600}
+/* POR QUÉ */
+.porque{background:var(--white)}
+.porque-intro{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-bottom:56px}
+.porque-right{background:#FFF9E0;border-radius:28px;padding:32px;border:3px solid var(--yellow-d)}
+.pq-stat{padding:16px 0;border-bottom:2px dashed var(--yellow-d);display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.pq-stat:last-child{border-bottom:none;padding-bottom:0}
+.pq-stat-label{font-size:13px;color:var(--mid);max-width:200px;line-height:1.5}
+.pq-stat-val{font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:var(--dark);text-align:right;flex-shrink:0}
+.pq-stat-val em{font-size:12px;font-style:normal;color:var(--orange);font-family:'Nunito Sans',sans-serif;font-weight:700;display:block}
+.mamas-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.mama-card{background:var(--off);border-radius:24px;padding:28px;border:2px solid transparent;transition:.2s}
+.mama-card:hover{border-color:var(--yellow-d);background:var(--yellow);transform:translateY(-4px)}
+.mama-svg-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;flex-shrink:0}
+.mama-svg-icon svg{width:22px;height:22px}
+.mama-title{font-family:'Nunito',sans-serif;font-size:18px;font-weight:800;margin-bottom:8px;color:var(--dark)}
+.mama-desc{font-size:13px;color:var(--mid);line-height:1.7}
 
-/* ── HOW IT WORKS ── */
-section.how{padding:88px 52px;background:#fff}
-.seye{font-size:11px;color:var(--o);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.seye::before{content:'';width:20px;height:2px;background:var(--o);border-radius:2px}
-.stit{font-family:'Playfair Display',serif;font-size:40px;color:var(--dark);margin-bottom:52px;line-height:1.1}
-.stit em{color:var(--o);font-style:italic}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
-.step{padding:28px 24px;background:var(--cream);border-radius:20px;position:relative;overflow:hidden}
-.step::after{content:attr(data-num);position:absolute;bottom:-12px;right:12px;font-family:'Playfair Display',serif;font-size:80px;color:var(--ol);font-style:italic;font-weight:600;line-height:1;pointer-events:none}
-.stepico{font-size:28px;margin-bottom:16px}
-.steptit{font-size:15px;font-weight:700;margin-bottom:8px;color:var(--dark)}
-.stepdesc{font-size:13px;color:var(--mid);line-height:1.65;font-weight:300}
-.steptag{display:inline-block;margin-top:14px;font-size:11px;color:var(--od);background:var(--ol);padding:4px 12px;border-radius:100px;font-weight:600}
+/* CÓMO FUNCIONA */
+.how{background:var(--off)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:52px}
+.step{background:var(--white);border-radius:24px;padding:28px 24px;border:2px solid transparent;transition:.2s}
+.step:hover{border-color:var(--yellow-d);background:var(--yellow)}
+.step-num{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:#fff;margin-bottom:16px}
+.n1{background:var(--red)}.n2{background:var(--blue)}.n3{background:var(--green)}.n4{background:var(--orange)}
+.step-svg-icon{width:44px;height:44px;border-radius:12px;background:var(--yellow-d);display:flex;align-items:center;justify-content:center;margin-bottom:16px;color:var(--dark)}
+.step-svg-icon svg{width:22px;height:22px}
+.step-title{font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;margin-bottom:8px}
+.step-desc{font-size:13px;color:var(--mid);line-height:1.65}
+.step-tag{display:inline-block;margin-top:14px;font-size:11px;font-weight:800;padding:4px 12px;border-radius:100px;background:var(--yellow-d);color:var(--dark)}
 
-/* ── MENU ── */
-section.menu-sec{padding:88px 52px;background:var(--off)}
-.mtop{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px;gap:20px;flex-wrap:wrap}
-.mtopleft .seye{margin-bottom:12px}
-.mtopleft h2{font-family:'Playfair Display',serif;font-size:40px;line-height:1.08}
-.mtopleft h2 em{color:var(--o);font-style:italic}
-.mtopr{font-size:14px;color:var(--mid);max-width:280px;line-height:1.75;font-weight:300}
-.dtabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
-.dtab{padding:9px 20px;border-radius:100px;font-size:13px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:transparent;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.15s}
-.dtab:hover{border-color:var(--o);color:var(--o)}
+/* CAJA SORPRESA */
+.sorpresa{background:#F0BC32;padding:80px 52px;text-align:center;position:relative;overflow:hidden}
+.sorpresa-eye{display:inline-flex;align-items:center;gap:10px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--dark);margin-bottom:16px;opacity:.55}
+.sorpresa-eye::before,.sorpresa-eye::after{content:'';width:20px;height:3px;background:var(--dark);border-radius:2px;opacity:.4}
+.sorpresa h2{color:var(--dark);font-size:46px;margin-bottom:16px}
+.sorpresa-sub{font-size:17px;color:rgba(28,22,18,.6);max-width:600px;margin:0 auto 48px;line-height:1.8}
+.sorpresa-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:960px;margin:0 auto}
+.sg-card{background:rgba(255,255,255,.55);border:2px solid rgba(255,255,255,.8);border-radius:24px;padding:28px 20px;transition:.2s;backdrop-filter:blur(4px)}
+.sg-card:hover{background:rgba(255,255,255,.85);transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+.sg-icon{width:52px;height:52px;border-radius:16px;background:var(--dark);display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.sg-icon svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.sg-title{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;color:var(--dark);margin-bottom:6px;line-height:1.3}
+.sg-desc{font-size:12px;color:var(--mid);line-height:1.6}
+.sorpresa-cta{margin-top:40px;font-size:17px;color:rgba(28,22,18,.55);font-style:italic}
+.sorpresa-cta strong{color:var(--dark);font-style:normal;font-family:'Nunito',sans-serif;font-weight:900}
+
+/* MENÚ */
+.menu-sec{background:#FFF9E0;border-top:3px solid var(--yellow-d);border-bottom:3px solid var(--yellow-d)}
+.menu-week-tabs{display:flex;gap:12px;margin-bottom:28px;flex-wrap:wrap;align-items:center}
+.wtab{font-family:'Nunito',sans-serif;font-size:15px;font-weight:800;padding:10px 24px;border-radius:100px;cursor:pointer;border:2.5px solid rgba(0,0,0,.12);background:var(--white);color:var(--mid);transition:.15s}
+.wtab:hover{border-color:var(--orange);color:var(--orange)}
+.wtab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.wtab-next{border-color:var(--orange);color:var(--orange)}
+.wtab-next.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.week-label{font-size:12px;color:var(--mid);font-weight:600;background:var(--white);border-radius:100px;padding:6px 16px;border:1.5px solid rgba(0,0,0,.08)}
+.dtabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.dtab{padding:8px 18px;border-radius:100px;font-size:13px;cursor:pointer;border:2px solid rgba(0,0,0,.1);background:rgba(255,255,255,.7);color:var(--mid);font-family:'Nunito',sans-serif;font-weight:700;transition:.15s}
+.dtab:hover{border-color:var(--orange);color:var(--orange)}
 .dtab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
-.dshow{display:grid;grid-template-columns:1fr 1fr;border-radius:24px;overflow:hidden;border:1px solid rgba(0,0,0,.07)}
-.dvis{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px;min-height:440px}
-.dvbg{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:150px;opacity:.14;user-select:none}
-.dvday{font-size:10px;color:var(--od);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:10px;position:relative}
-.dvname{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);line-height:1.15;position:relative;margin-bottom:16px}
-.gipill{display:inline-flex;align-items:center;gap:6px;font-size:12px;background:rgba(255,255,255,.8);padding:6px 14px;border-radius:100px;color:var(--od);font-weight:600;position:relative;backdrop-filter:blur(6px)}
-.gidot{width:7px;height:7px;border-radius:50%}
-.gilow2{background:var(--o)}
-.gimid2{background:#BA7517}
-.dinfo{padding:32px;display:flex;flex-direction:column;gap:14px;background:#fff}
-.ib{padding:14px;background:var(--cream);border-radius:14px}
-.ibt{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--light);font-weight:700;margin-bottom:10px}
-.tagcloud{display:flex;flex-wrap:wrap;gap:5px}
-.itag{font-size:11px;color:var(--od);background:var(--ol);padding:3px 10px;border-radius:100px;font-weight:500}
-.vtag{font-size:11px;color:#534AB7;background:#EEEDFE;padding:3px 10px;border-radius:100px;font-weight:500}
-.nrow{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
-.nc{text-align:center;background:#fff;border-radius:8px;padding:8px 4px}
-.ncv{font-size:15px;font-weight:700;color:var(--dark)}
-.ncl{font-size:9px;color:var(--light);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
-.ben{display:flex;gap:8px;font-size:13px;color:var(--mid);padding:5px 0;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.5}
-.ben:last-child{border-bottom:none}
-.bdot{width:5px;height:5px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:7px}
+.dish-card{background:var(--white);border-radius:28px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 8px 40px rgba(0,0,0,.08)}
+.dish-vis{position:relative;display:flex;flex-direction:column;justify-content:flex-end;padding:36px;min-height:420px}
+.dish-big-emoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:160px;opacity:.12;user-select:none}
+.dish-day-badge{font-size:11px;font-weight:800;color:var(--orange);text-transform:uppercase;letter-spacing:.12em;margin-bottom:10px;position:relative}
+.dish-name{font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:var(--dark);line-height:1.15;position:relative;margin-bottom:14px}
+.dish-body{padding:32px;display:flex;flex-direction:column;gap:14px}
+.dish-section{background:var(--off);border-radius:16px;padding:14px 16px}
+.ds-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:10px}
+.ing-tags{display:flex;flex-wrap:wrap;gap:5px}
+.ing-tag{font-size:11px;font-weight:700;color:var(--orange);background:var(--orange-l);padding:3px 10px;border-radius:100px}
+.macro-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
+.macro{text-align:center;background:var(--white);border-radius:10px;padding:8px 4px}
+.macro-v{font-size:15px;font-weight:800;color:var(--dark);font-family:'Nunito',sans-serif}
+.macro-l{font-size:9px;color:var(--light);margin-top:2px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.benefit-row{display:flex;gap:10px;font-size:13px;color:var(--mid);padding:5px 0;border-bottom:1px solid rgba(0,0,0,.05);line-height:1.5;align-items:flex-start}
+.benefit-row:last-child{border-bottom:none}
+.benefit-dot{width:22px;height:22px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;margin-top:1px}
+.bd-brain{background:var(--blue-l)}.bd-muscle{background:var(--red-l)}.bd-bones{background:var(--green-l)}.bd-energy{background:var(--orange-l)}
 
-/* ── NUTRIÓLOGAS ── */
-section.nutri{padding:88px 52px;background:#fff}
-.nutgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:0}
-.nutcard{border-radius:22px;overflow:hidden;border:1px solid rgba(0,0,0,.07);background:#fff;transition:box-shadow .2s}
-.nutcard:hover{box-shadow:0 12px 40px rgba(0,0,0,.1)}
-.nutcard-top{display:flex;align-items:center;gap:16px;padding:24px 24px 20px}
-.nut-avatar{width:54px;height:54px;border-radius:50%;border:3px solid;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:17px;font-weight:600;flex-shrink:0}
-.nut-name{font-size:16px;font-weight:700;color:var(--dark)}
-.nut-title{font-size:12px;color:var(--mid);margin-top:2px;font-weight:400}
-.nut-stars{color:var(--y);font-size:13px;letter-spacing:1px}
-.nut-rating{font-size:11px;color:var(--mid);margin-left:5px}
-.nutcard-body{padding:0 24px 20px}
-.nut-bio{font-size:13px;color:var(--mid);line-height:1.7;margin-bottom:14px;font-weight:300}
-.nut-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.nut-tag{font-size:11px;color:var(--od);background:var(--ol);padding:4px 12px;border-radius:100px;font-weight:600}
-.nut-methods{display:flex;flex-wrap:wrap;gap:5px}
-.nut-method{font-size:11px;color:var(--mid);background:var(--cream);padding:3px 10px;border-radius:100px}
-.nutcard-foot{display:flex;justify-content:space-between;align-items:center;padding:16px 24px;background:var(--cream);border-top:1px solid rgba(0,0,0,.05)}
-.nut-cupo{font-size:12px;color:var(--mid)} 
-.nut-cupo span{color:var(--od);font-weight:700}
-.nut-btn{background:var(--o);color:#fff;border:none;border-radius:100px;padding:9px 22px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;letter-spacing:.04em;transition:.2s}
-.nut-btn:hover{background:var(--od)}
+/* PRECIO */
+.precio-sec{background:var(--white)}
+.precio-inner{display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;margin-top:52px}
+.precio-features{display:flex;flex-direction:column;gap:16px}
+.pf-item{display:flex;align-items:flex-start;gap:14px}
+.pf-icon{width:40px;height:40px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px}
+.pf-title{font-weight:800;font-family:'Nunito',sans-serif;font-size:15px;margin-bottom:2px}
+.pf-desc{font-size:13px;color:var(--mid)}
+.precio-card{background:#FFF9E0;border-radius:28px;padding:36px;border:3px solid var(--yellow-d);position:relative;overflow:hidden}
+.precio-card::before{content:'';position:absolute;right:-40px;top:-40px;width:140px;height:140px;background:var(--yellow-d);border-radius:50%;opacity:.25}
+.pc-badge{display:inline-block;background:var(--red);color:#fff;font-size:11px;font-weight:800;padding:4px 14px;border-radius:100px;text-transform:uppercase;margin-bottom:20px}
+.pc-price{font-family:'Nunito',sans-serif;font-size:62px;font-weight:900;color:var(--dark);line-height:1;margin-bottom:6px}
+.pc-price span{font-size:22px;color:var(--mid);font-weight:600}
+.pc-period{font-size:14px;color:var(--mid);margin-bottom:24px;font-weight:600}
+.pc-includes{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.pc-inc{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--dark);font-weight:700}
+.pc-inc::before{content:'✓';width:22px;height:22px;background:var(--green);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:900;flex-shrink:0}
+.pc-note{font-size:12px;color:var(--mid);text-align:center;margin-top:14px}
 
-/* ── PARA COLEGIOS ── */
-section.colegios{padding:88px 52px;background:var(--ol)}
-.colegio-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
-.colegio-left h2{font-family:'Playfair Display',serif;font-size:40px;line-height:1.1;margin-bottom:20px}
-.colegio-left h2 em{color:var(--o);font-style:italic}
-.colegio-left p{font-size:15px;color:var(--mid);line-height:1.8;margin-bottom:32px;font-weight:300}
-.colegio-benefits{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.cbenefit{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:var(--dark)}
-.cben-ico{width:28px;height:28px;border-radius:50%;background:var(--o);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;margin-top:-2px}
-.colegio-right{background:#fff;border-radius:24px;padding:32px;box-shadow:0 16px 50px rgba(244,114,27,.15)}
-.cright-head{font-size:11px;font-weight:700;color:var(--o);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px}
-.cstat{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.06)}
-.cstat:last-child{border-bottom:none}
-.cstat-label{font-size:13px;color:var(--mid)}
-.cstat-val{font-family:'Playfair Display',serif;font-size:22px;color:var(--dark);font-weight:600}
-.cstat-val em{font-size:14px;color:var(--o);font-style:italic;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700}
+/* CAFÉ */
+.cafe-sec{background:var(--dark);padding:72px 52px}
+.cafe-inner{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.cafe-eye{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow-d);margin-bottom:14px}
+.cafe-eye::before{content:'';width:20px;height:3px;background:var(--yellow-d);border-radius:2px}
+.cafe-steps{display:flex;flex-direction:column;gap:16px;margin-top:28px}
+.cafe-step{display:flex;gap:16px;align-items:flex-start}
+.cafe-step-num{width:36px;height:36px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:16px;font-weight:900;color:#fff}
+.cafe-step-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:3px;font-family:'Nunito',sans-serif}
+.cafe-step-desc{font-size:13px;color:rgba(255,255,255,.4);line-height:1.55}
+.cafe-card{background:rgba(255,255,255,.06);border:2px solid rgba(255,255,255,.1);border-radius:24px;padding:32px}
+.cafe-card-head{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow-d);margin-bottom:24px}
+.cafe-stat{display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.cafe-stat:last-child{border-bottom:none}
+.cafe-stat-label{font-size:13px;color:rgba(255,255,255,.4)}
+.cafe-stat-val{font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;color:#fff;text-align:right}
+.cafe-stat-val em{font-size:12px;font-style:normal;color:var(--yellow-d);font-family:'Nunito Sans',sans-serif;font-weight:700;display:block}
 
-/* ── TESTIMONIOS ── */
-section.testi{padding:88px 52px;background:var(--dark)}
-.testit{font-family:'Playfair Display',serif;font-size:36px;color:#fff;margin-bottom:48px;line-height:1.15}
-.testit em{color:var(--om);font-style:italic}
-.testgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.testcard{background:rgba(255,255,255,.06);border-radius:20px;padding:28px;border:1px solid rgba(255,255,255,.09)}
-.testquote{font-size:32px;color:var(--o);line-height:1;margin-bottom:12px;font-family:'Playfair Display',serif}
-.testtxt{font-size:14px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:20px;font-weight:300}
-.testauth{font-size:14px;color:#fff;font-weight:700}
-.testrole{font-size:12px;color:rgba(255,255,255,.4);margin-top:3px}
-.teststar{color:var(--y);font-size:12px;letter-spacing:2px;margin-bottom:10px}
+/* CTA */
+.cta-sec{background:#FFF9E0;padding:100px 52px;text-align:center;border-top:3px solid var(--yellow-d)}
+.cta-h{font-family:'Nunito',sans-serif;font-size:56px;font-weight:900;line-height:1.06;color:var(--dark);margin-bottom:18px;letter-spacing:-.02em}
+.cta-h .red{color:var(--red)}
+.cta-sub{font-size:17px;color:var(--mid);max-width:500px;margin:0 auto 40px;line-height:1.75}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.cta-note{font-size:12px;color:var(--mid);margin-top:18px}
 
-/* ── CTA ── */
-section.cta{padding:110px 52px;background:var(--off);text-align:center}
-.ctatit{font-family:'Playfair Display',serif;font-size:54px;color:var(--dark);margin-bottom:18px;line-height:1.08}
-.ctatit em{color:var(--o);font-style:italic}
-.ctasub{font-size:17px;color:var(--mid);max-width:480px;margin:0 auto 40px;line-height:1.75;font-weight:300}
-.ctaacts{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.ctanote{font-size:12px;color:var(--light);margin-top:20px}
+/* FOOTER */
+footer{background:var(--dark);padding:36px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-links{display:flex;gap:24px}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;font-weight:600}
+.footer-links a:hover{color:rgba(255,255,255,.7)}
+.footer-txt{font-size:12px;color:rgba(255,255,255,.2)}
 
-/* ── ESCÁPATE CAFÉ STRIP ── */
-.cafebar{background:var(--cream);padding:22px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;border-top:1px solid rgba(0,0,0,.06);border-bottom:1px solid rgba(0,0,0,.06)}
-.cafebar-left{font-size:14px;color:var(--mid)}
-.cafebar-left strong{color:var(--dark)}
-.cafebar-badge{display:flex;align-items:center;gap:10px;background:#fff;padding:10px 20px;border-radius:100px;border:1px solid rgba(0,0,0,.08)}
-.cafebar-badge-ico{font-size:18px}
-.cafebar-badge-txt{font-size:13px;font-weight:600;color:var(--dark)}
-.cafebar-badge-sub{font-size:11px;color:var(--mid)}
+/* MODAL */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.modal-bg.open{display:flex}
+.modal{background:#fff;border-radius:28px;width:100%;max-width:440px;overflow:hidden}
+.modal-head{background:var(--yellow);padding:28px 28px 22px;border-bottom:2px solid var(--yellow-d)}
+.modal-logo{height:34px;margin-bottom:12px}
+.modal-title{font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:var(--dark);margin-bottom:6px}
+.modal-sub{font-size:13px;color:var(--mid);line-height:1.6}
+.modal-body{padding:22px 28px}
+.mfgroup{margin-bottom:14px}
+.mflabel{display:block;font-size:10px;font-weight:800;color:var(--light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.mfinput{width:100%;padding:11px 16px;border:2.5px solid rgba(0,0,0,.1);border-radius:14px;font-size:14px;font-family:'Nunito Sans',sans-serif;color:var(--dark);outline:none;transition:.15s;background:#fff}
+.mfinput:focus{border-color:var(--orange)}
+.alergia-note{background:var(--red-l);border:1.5px solid rgba(232,80,58,.2);border-radius:14px;padding:12px 14px;font-size:12px;color:#9B2A1A;line-height:1.65;margin-bottom:16px;display:flex;gap:8px;align-items:flex-start}
+.alergia-note::before{content:'⚠️';flex-shrink:0}
+.check-row{display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;color:var(--dark);font-weight:700;padding:12px 16px;background:var(--off);border-radius:14px;border:2.5px solid rgba(0,0,0,.08);margin-bottom:4px;transition:.15s;user-select:none}
+.check-row:hover{border-color:var(--green);background:var(--green-l)}
+.check-row input{width:18px;height:18px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.modal-footer{padding:14px 28px 24px;display:flex;flex-direction:column;gap:10px}
+.modal-submit{width:100%;padding:14px;background:var(--red);color:#fff;border:none;border-radius:100px;font-size:16px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;transition:.2s}
+.modal-submit:hover{background:#c43e2a}
+.modal-submit:disabled{background:var(--light);cursor:not-allowed;transform:none}
+.modal-cancel{background:none;border:none;font-size:13px;color:var(--light);cursor:pointer;font-family:'Nunito Sans',sans-serif;font-weight:600}
 
-/* ── FOOTER ── */
-footer{padding:40px 52px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;background:var(--dark)}
-.flogo{font-family:'Playfair Display',serif;font-size:20px;color:rgba(255,255,255,.4)}
-.flogo span{color:var(--o)}
-.flinks{display:flex;gap:24px}
-.flinks a{font-size:12px;color:rgba(255,255,255,.35);text-decoration:none;transition:.2s}
-.flinks a:hover{color:rgba(255,255,255,.7)}
-.ftxt{font-size:12px;color:rgba(255,255,255,.25)}
-.fservice{font-size:11px;color:rgba(255,255,255,.2);font-style:italic}
+/* TOAST */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 24px;border-radius:100px;font-size:14px;font-weight:700;z-index:9999;opacity:0;transition:opacity .3s;white-space:nowrap;font-family:'Nunito',sans-serif;pointer-events:none}
 
-/* ── ANIMATIONS ── */
-@keyframes floatA{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.phone{animation:floatA 5s ease-in-out infinite}
-.fbadge{animation:floatA 5s ease-in-out infinite 1.2s}
-.fbadge2{animation:floatA 5s ease-in-out infinite 2.4s}
+@keyframes floatUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.hleft{animation:floatUp .6s ease both}
+.hright{animation:floatUp .6s ease .15s both}
 
-/* ── RESPONSIVE BASICS ── */
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr;min-height:auto}
-  .hero::before{display:none}
+  .hero,.porque-intro,.precio-inner,.cafe-inner{grid-template-columns:1fr}
   .hright{display:none}
-  nav{padding:16px 24px}
-  .hleft{padding:60px 0 48px}
-  section.how,section.menu-sec,section.nutri,section.colegios,section.testi,section.cta{padding:60px 24px}
-  .steps{grid-template-columns:1fr 1fr}
-  .dshow{grid-template-columns:1fr}
-  .nutgrid,.testgrid,.colegio-inner{grid-template-columns:1fr}
-  .hero,.trustbar,.cafebar,.footer{padding-left:24px;padding-right:24px}
+  .sorpresa-grid{grid-template-columns:1fr 1fr}
+  nav,.hero,.section,.cafe-sec,.cta-sec,.sorpresa,footer{padding-left:24px;padding-right:24px}
+  .steps,.mamas-grid{grid-template-columns:1fr 1fr}
+  .dish-card{grid-template-columns:1fr}
+  h1{font-size:38px}
+  h2{font-size:32px}
+  .cta-h{font-size:36px}
+  .sorpresa h2{font-size:32px}
+  .trustbar{gap:20px;padding:16px 24px}
 }
 </style>
 </head>
 <body>
 
-<!-- ── NAVEGACIÓN ── -->
+<!-- NAV -->
 <nav>
-  <a href="index.html" class="logo">Ki<em>fud</em><span>·</span></a>
+  <a href="index.html"><img src="logo-kifud.png" alt="Kifud" style="height:44px;display:block"></a>
   <div class="navlinks">
-    <a href="mama.html">Para mamás</a>
-    <a href="colegios.html">Colegios</a>
-    <a href="pediatras.html">Pediatras</a>
-    <a href="nutriologa-kifud.html">Nutriólogas</a>
-    <a href="mama.html" class="btnnav">Empieza hoy →</a>
+    <a href="#porque">¿Por qué Kifud?</a>
+    <a href="#menu">Ver menú</a>
+    <a href="#precio">Precio</a>
+    <a href="#" onclick="openModal();return false;" class="nav-cta">Quiero una lonchera →</a>
   </div>
 </nav>
 
-<!-- ── HERO ── -->
+<!-- HERO -->
 <section class="hero">
   <div class="hleft">
-    <div class="eyebrow">Un servicio de Nutrilú · Saltillo</div>
-    <h1>Nutrición con<br>amor en el<br><em>recreo.</em></h1>
-    <p class="hsub">Loncheras saludables diseñadas por nutriólogas, pensadas para el crecimiento de tu hijo. Tú eliges el menú, nosotras preparamos todo con cariño.</p>
-    <div class="hactions">
-      <a href="mama.html" class="btnp">Ver menús de esta semana</a>
-      <a href="colegios.html" class="btns">¿Eres colegio? →</a>
+    <div class="hero-tag">Loncheras saludables · Saltillo</div>
+    <h1>La lonchera que <span class="red">tu hijo</span> va a <span class="green">pedir</span> <span class="blue">de nuevo.</span></h1>
+    <p class="hero-sub">Loncheras saludables preparadas por una nutrióloga, diseñadas para el crecimiento de tu hijo. <strong>Tú te despreocupas — él come bien.</strong></p>
+    <div class="hero-actions">
+      <button class="btn-red" onclick="openModal()">Quiero una lonchera Kifud 🎉</button>
+      <a href="#menu" class="btn-ghost">Ver el menú →</a>
     </div>
-    <p class="hnote">Sin compromiso largo · Recoge en Escápate Café</p>
+    <p class="hero-note">Sin contratos largos · Recoge en Escápate Café</p>
   </div>
-
   <div class="hright">
-    <!-- Floating badges -->
-    <div class="fbadge">
-      <div class="fbadge-icon">👩‍⚕️</div>
-      <div>
-        <div class="fbadge-txt">Nutrióloga certificada</div>
-        <div class="fbadge-sub">diseña cada menú</div>
-      </div>
-    </div>
-
-    <div class="phone">
-      <div class="phonebar"><div class="phonedot"></div></div>
-      <div class="phonescreen">
-        <div class="psh">Menú de Sofía esta semana</div>
-        <div class="pst">Elige tu lonchera 🌮</div>
-        <div class="pss">Semana del 7 al 11 de Abril</div>
-        <div class="psl">Selecciona un platillo</div>
-        <div class="psd sel">
-          <div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="psde">🥕</span><div class="psdn">Pollo al limón + quinoa</div></div>
-            <div class="psdsh">470 kcal · bajo índice glucémico</div>
-          </div>
-          <div class="psc"><svg width="8" height="6" viewBox="0 0 8 6" fill="none"><path d="M1 3L3 5L7 1" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        </div>
-        <div class="psd">
-          <div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="psde">🐠</span><div class="psdn">Pasta integral + salmón</div></div>
-            <div class="psdsh">430 kcal · alto en omega-3</div>
-          </div>
-          <div class="pse"></div>
-        </div>
-        <div class="psd">
-          <div>
-            <div style="display:flex;align-items:center;gap:6px"><span class="psde">🥑</span><div class="psdn">Bowl de leguminosas</div></div>
-            <div class="psdsh">390 kcal · alto en fibra</div>
-          </div>
-          <div class="pse"></div>
-        </div>
-        <div class="pspill">
-          <div class="pspill-icon">📍</div>
-          <div>
-            <div class="pspill-txt">Recoge en Escápate Café</div>
-            <div class="pspill-sub">Lista a las 7:30 am · Lun–Vie</div>
-          </div>
-        </div>
-        <button class="psbtn">CONFIRMAR MENÚ</button>
-      </div>
-    </div>
-
-    <div class="fbadge2">
-      <div class="fbadge2-icon">⭐</div>
-      <div>
-        <div class="fbadge2-txt">4.9 · 148 mamás felices</div>
-        <div class="fbadge2-sub">en Saltillo este ciclo</div>
-      </div>
-    </div>
+    <div class="dish-preview"><div class="dp-emoji">🐟</div><div><div class="dp-name">Croquetitas de Atún con Puré de Camote</div><div class="dp-benefit">Apoya el desarrollo cerebral</div></div><span class="dp-tag tag-brain">🧠 Cerebro</span></div>
+    <div class="dish-preview"><div class="dp-emoji">🍗</div><div><div class="dp-name">Rollitos de Pollo y Espinaca</div><div class="dp-benefit">Favorece el crecimiento muscular</div></div><span class="dp-tag tag-muscle">💪 Músculos</span></div>
+    <div class="dish-preview"><div class="dp-emoji">🧡</div><div><div class="dp-name">Nuggets Caseros de Pollo y Avena</div><div class="dp-benefit">Los niños los piden de nuevo</div></div><span class="dp-tag tag-energy">⚡ Energía</span></div>
+    <div class="dish-preview"><div class="dp-emoji">🥦</div><div><div class="dp-name">Tortitas de Papa y Brócoli con Queso</div><div class="dp-benefit">Fortalece huesos y dientes</div></div><span class="dp-tag tag-bones">🦷 Huesos</span></div>
   </div>
 </section>
 
-<!-- ── TRUST BAR ── -->
+<!-- TRUST BAR -->
 <div class="trustbar">
-  <div class="trustitem"><div class="trustdot"></div><span class="trusttxt"><strong>Nutriólogas certificadas</strong> diseñan cada platillo</span></div>
-  <div class="trustitem"><div class="trustdot"></div><span class="trusttxt"><strong>Sin conservadores</strong> ni colorantes artificiales</span></div>
-  <div class="trustitem"><div class="trustdot"></div><span class="trusttxt"><strong>Menú semanal</strong> elegido por ti desde tu celular</span></div>
-  <div class="trustitem"><div class="trustdot"></div><span class="trusttxt"><strong>Recoge en Escápate Café</strong> antes de la escuela</span></div>
+  <div class="trust-item"><div class="trust-dot" style="background:var(--yellow-d)"></div>Nutrióloga certif. diseña cada platillo</div>
+  <div class="trust-item"><div class="trust-dot" style="background:var(--red)"></div>Sin conservadores ni colorantes</div>
+  <div class="trust-item"><div class="trust-dot" style="background:var(--green)"></div>Menú diferente cada semana</div>
+  <div class="trust-item"><div class="trust-dot" style="background:var(--blue)"></div>Recoge en Escápate Café</div>
 </div>
 
-<!-- ── CÓMO FUNCIONA ── -->
-<section class="how">
-  <div class="seye">Así funciona</div>
-  <div class="stit">Cuatro pasos,<br><em>cero estrés</em> para ti.</div>
-  <div class="steps">
-    <div class="step" data-num="1">
-      <div class="stepico">📱</div>
-      <div class="steptit">Elige el menú</div>
-      <div class="stepdesc">Cada semana recibes el menú diseñado por la nutrióloga. Tú seleccionas los platillos para cada día según los gustos de tu hijo.</div>
-      <span class="steptag">Desde tu celular</span>
+<!-- 1. POR QUÉ IMPORTA -->
+<section class="section porque" id="porque">
+  <div class="porque-intro">
+    <div>
+      <div class="section-eye">Por qué importa</div>
+      <h2>Porque tú sí te preocupas por lo que come tu hijo.</h2>
+      <p class="section-sub" style="margin-top:14px">Una lonchera no es solo llenar el estómago. Es darle a tu hijo los nutrientes que necesita para crecer, aprender y tener energía durante todo el día. Eso es exactamente lo que hacemos en Kifud.</p>
     </div>
-    <div class="step" data-num="2">
-      <div class="stepico">👩‍🍳</div>
-      <div class="steptit">Nosotras preparamos</div>
-      <div class="stepdesc">La nutrióloga supervisa la preparación con ingredientes frescos, sin conservadores. Todo con los estándares de higiene que tu familia merece.</div>
-      <span class="steptag">Con amor y técnica</span>
+    <div class="porque-right">
+      <div class="pq-stat">
+        <span class="pq-stat-label">La lonchera representa la ingesta calórica diaria del niño en edad escolar</span>
+        <div class="pq-stat-val">30–40%<em>del día</em></div>
+      </div>
+      <div class="pq-stat">
+        <span class="pq-stat-label">Los niños que comen bien se concentran y rinden más en clases</span>
+        <div class="pq-stat-val">+40%<em>de concentración</em></div>
+      </div>
+      <div class="pq-stat">
+        <span class="pq-stat-label">Energía estable con carbohidratos complejos y proteína real</span>
+        <div class="pq-stat-val">Cero<em>bajones de energía</em></div>
+      </div>
     </div>
-    <div class="step" data-num="3">
-      <div class="stepico">☕</div>
-      <div class="steptit">Recoge en Escápate Café</div>
-      <div class="stepdesc">La lonchera está lista a las 7:30 am. Pásala a recoger en tu camino al colegio. Sin filas, sin esperas, sin sorpresas.</div>
-      <span class="steptag">Lunes a viernes</span>
+  </div>
+  <div class="mamas-grid">
+    <div class="mama-card">
+      <div class="mama-svg-icon" style="background:var(--blue-l);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="5" r="3"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M9 9h6"/></svg></div>
+      <div class="mama-title">Apoya su desarrollo cerebral</div>
+      <div class="mama-desc">Omega-3, hierro y vitaminas del complejo B en cada platillo — los nutrientes que su cerebro necesita para aprender y concentrarse en clases.</div>
     </div>
-    <div class="step" data-num="4">
-      <div class="stepico">🌟</div>
-      <div class="steptit">Tu hijo disfruta</div>
-      <div class="stepdesc">Lonchera nutritiva, rica y con la variedad que los niños necesitan para rendir en clases y crecer sanos. Tú te quedas tranquila.</div>
-      <span class="steptag">Nutrición real</span>
+    <div class="mama-card">
+      <div class="mama-svg-icon" style="background:var(--red-l);color:var(--red)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div>
+      <div class="mama-title">Proteína real para crecer</div>
+      <div class="mama-desc">Pollo, atún, salmón, lentejas — proteína completa para el desarrollo muscular y la energía que los niños necesitan cada día de escuela.</div>
+    </div>
+    <div class="mama-card">
+      <div class="mama-svg-icon" style="background:var(--green-l);color:var(--green)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <div class="mama-title">Calcio para huesos fuertes</div>
+      <div class="mama-desc">Queso, brócoli, espinaca — fuentes de calcio en platillos que los niños realmente comen. No se lo van a dejar en el tuper.</div>
+    </div>
+    <div class="mama-card">
+      <div class="mama-svg-icon" style="background:var(--orange-l);color:var(--orange)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div>
+      <div class="mama-title">Sin ultra-procesados</div>
+      <div class="mama-desc">Cero colorantes artificiales, cero conservadores, cero glutamato. Solo ingredientes que reconocerías en cualquier cocina de casa.</div>
+    </div>
+    <div class="mama-card">
+      <div class="mama-svg-icon" style="background:var(--yellow-vivid-l);color:var(--yellow-vivid-dk)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+      <div class="mama-title">Energía estable toda la mañana</div>
+      <div class="mama-desc">Carbohidratos complejos y fibra para que tu hijo no tenga el bajón a media mañana. Más concentración, mejor actitud en clases.</div>
+    </div>
+    <div class="mama-card">
+      <div class="mama-svg-icon" style="background:var(--blue-l);color:var(--blue)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="mama-title">Una cosa menos para ti</div>
+      <div class="mama-desc">No más "¿qué le pongo hoy?" Una nutrióloga lo resuelve por ti. Tu mañana empieza sin ese estrés extra.</div>
     </div>
   </div>
 </section>
 
-<!-- ── MENÚ DE EJEMPLO ── -->
-<section class="menu-sec">
-  <div class="mtop">
-    <div class="mtopleft">
-      <div class="seye">Menú semanal</div>
-      <h2>Platillos que los<br>niños <em>piden de nuevo.</em></h2>
+<!-- 2. CÓMO FUNCIONA -->
+<section class="section how" id="como-funciona">
+  <div class="section-eye">Así funciona</div>
+  <h2>Cuatro pasos,<br>cero estrés para ti.</h2>
+  <p class="section-sub">Nosotros nos encargamos de todo. Tú solo recoge y lleva a tu hijo a la escuela como siempre.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num n1">1</div>
+      <div class="step-svg-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="4" width="24" height="24" rx="4"/><path d="M10 16h12M16 10v12"/></svg></div>
+      <div class="step-title">Te suscribes</div>
+      <div class="step-desc">Llena un formulario con los datos de tu hijo. En menos de 5 minutos estás en la lista de espera.</div>
+      <span class="step-tag">Solo 5 min</span>
     </div>
-    <p class="mtopr">Cada semana, menús variados y nutritivos. Ingredientes frescos, recetas aprobadas por nutrióloga pediátrica.</p>
+    <div class="step">
+      <div class="step-num n2">2</div>
+      <div class="step-svg-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="6" width="24" height="22" rx="3"/><path d="M4 12h24M10 4v4M22 4v4"/></svg></div>
+      <div class="step-title">Ves el menú en tu perfil</div>
+      <div class="step-desc">Cada semana el menú aparece en tu perfil de Kifud. Siempre sabes qué va a comer tu hijo, con tiempo.</div>
+      <span class="step-tag">Desde tu perfil</span>
+    </div>
+    <div class="step">
+      <div class="step-num n3">3</div>
+      <div class="step-svg-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 26c0-5.5 4.5-10 10-10s10 4.5 10 10"/><circle cx="16" cy="10" r="5"/><path d="M10 26h12"/></svg></div>
+      <div class="step-title">La nutrióloga cocina</div>
+      <div class="step-desc">Con ingredientes frescos del día, sin conservadores. Tu lonchera lista para recoger desde la tarde.</div>
+      <span class="step-tag">Ingredientes frescos</span>
+    </div>
+    <div class="step">
+      <div class="step-num n4">4</div>
+      <div class="step-svg-icon"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 10h16l-2 12H10L8 10z"/><path d="M5 10h22M12 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+      <div class="step-title">Tu hijo come bien</div>
+      <div class="step-desc">Recoge la tarde anterior en Escápate Café. Sin carreras en la mañana. La mejor lonchera del salón.</div>
+      <span class="step-tag">Lista desde la tarde</span>
+    </div>
   </div>
-  <div class="dtabs">
+</section>
+
+<!-- 3. CAJA SORPRESA -->
+<section class="sorpresa">
+  <div class="sorpresa-eye">El secreto de Kifud</div>
+  <h2>La lonchera que tu hijo<br>espera con emoción.</h2>
+  <p class="sorpresa-sub">El menú cambia cada semana. Ingredientes distintos, platillos nuevos, sabores que sorprenden. Tu hijo va a querer llegar al recreo para ver qué le tocó hoy.</p>
+  <div class="sorpresa-grid">
+    <div class="sg-card">
+      <div class="sg-icon">
+        <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>
+      </div>
+      <div class="sg-title">Menú diferente cada semana</div>
+      <div class="sg-desc">Nunca comen lo mismo dos semanas seguidas. Siempre algo nuevo que descubrir.</div>
+    </div>
+    <div class="sg-card">
+      <div class="sg-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/><path d="M12 8v4l3 3"/></svg>
+      </div>
+      <div class="sg-title">Preparado fresco cada día</div>
+      <div class="sg-desc">Ingredientes del día, sin conservadores. Cocinado hoy, listo esta tarde.</div>
+    </div>
+    <div class="sg-card">
+      <div class="sg-icon">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20z"/></svg>
+      </div>
+      <div class="sg-title">Diseñado por nutrióloga</div>
+      <div class="sg-desc">Cada platillo cubre los nutrientes clave para su etapa escolar. Nada es al azar.</div>
+    </div>
+    <div class="sg-card">
+      <div class="sg-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 21.593c-5.63-5.539-11-10.297-11-14.402C1 3.335 4.668 1 7.5 1c1.993 0 4.032.828 5.5 2.5C14.467 1.828 16.006 1 18.5 1 21.33 1 25 3.335 25 7.19c0 4.106-5.36 8.862-11 14.403z" stroke-width="1.8"/></svg>
+      </div>
+      <div class="sg-title">La parte favorita de su día</div>
+      <div class="sg-desc">Que el recreo sea lo que más esperan. La lonchera como su momento favorito.</div>
+    </div>
+  </div>
+  <p class="sorpresa-cta">Tú ya no tienes que romperte la cabeza pensando qué ponerle.<br><strong>Eso lo resolvemos nosotros.</strong></p>
+</section>
+
+<!-- 4. MENÚ -->
+<section class="section menu-sec" id="menu">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;margin-bottom:12px">
+    <div>
+      <div class="section-eye">Menú de ejemplo</div>
+      <h2>Mira lo que comen<br>esta semana.</h2>
+    </div>
+    <p style="font-size:14px;color:var(--mid);max-width:240px;line-height:1.7">Ingredientes frescos · preparación diaria · recetas de nutrióloga</p>
+  </div>
+  <div class="menu-week-tabs">
+    <button class="wtab active" onclick="setWeek('current',this)">📅 Esta semana</button>
+    <button class="wtab wtab-next" onclick="setWeek('next',this)">✨ Próxima semana</button>
+    <span class="week-label" id="week-label">7 – 11 de Abril · Ejemplo</span>
+  </div>
+  <div class="dtabs" id="day-tabs">
     <button class="dtab active" onclick="showDish(0,this)">Lunes</button>
     <button class="dtab" onclick="showDish(1,this)">Martes</button>
     <button class="dtab" onclick="showDish(2,this)">Miércoles</button>
     <button class="dtab" onclick="showDish(3,this)">Jueves</button>
     <button class="dtab" onclick="showDish(4,this)">Viernes</button>
   </div>
-  <div class="dshow" id="dshow"></div>
+  <div id="dish-area"></div>
 </section>
 
-<!-- ── NUTRIÓLOGAS ── -->
-<section class="nutri">
-  <div class="seye">Nuestras expertas</div>
-  <div class="stit" style="margin-bottom:36px">Las nutriólogas detrás<br>de <em>cada lonchera.</em></div>
-  <div class="nutgrid">
-
-    <div class="nutcard">
-      <div class="nutcard-top">
-        <div class="nut-avatar" style="background:#FEF0E6;color:#C2490A;border-color:#F4721B">AV</div>
-        <div class="nut-meta">
-          <div class="nut-name">Ana Lucía Vázquez</div>
-          <div class="nut-title">Lic. Nutrición · UANL · 6 años exp. infantil</div>
-          <div><span class="nut-stars">★★★★★</span><span class="nut-rating">5.0 · 73 reseñas</span></div>
-        </div>
-      </div>
-      <div class="nutcard-body">
-        <div class="nut-bio">Especialista en nutrición pediátrica con enfoque en desarrollo cognitivo. Diseña menús que los niños aman y las mamás aprueban: coloridos, variados y con los nutrientes exactos para cada etapa escolar.</div>
-        <div class="nut-tags">
-          <span class="nut-tag">Nutrición infantil</span>
-          <span class="nut-tag">Desarrollo cognitivo</span>
-          <span class="nut-tag">Sin ultraprocesados</span>
-        </div>
-        <div class="nut-methods">
-          <div class="nut-method">Al vapor</div>
-          <div class="nut-method">Horneado</div>
-          <div class="nut-method">Proteína vegetal</div>
-          <div class="nut-method">Prep. diaria</div>
-        </div>
-      </div>
-      <div class="nutcard-foot">
-        <div class="nut-cupo">Disponibilidad: <span>22 lugares</span></div>
-        <a href="mama.html"><button class="nut-btn">Elegirla →</button></a>
-      </div>
+<!-- 5. PRECIO -->
+<section class="section precio-sec" id="precio">
+  <div><div class="section-eye">Precio</div><h2>Simple. Sin sorpresas.</h2><p class="section-sub">Un solo plan para todos. Todos los niños comen el mismo menú nutritivo de la semana.</p></div>
+  <div class="precio-inner">
+    <div class="precio-features">
+      <div class="pf-item"><div class="pf-icon" style="background:var(--blue-l)">🧠</div><div><div class="pf-title">Diseñado para el desarrollo de tu hijo</div><div class="pf-desc">Cada platillo apoya el crecimiento cerebral, muscular y óseo en edad escolar.</div></div></div>
+      <div class="pf-item"><div class="pf-icon" style="background:var(--green-l)">🥦</div><div><div class="pf-title">Sin conservadores ni colorantes</div><div class="pf-desc">Ingredientes frescos preparados el mismo día. Nada que no reconocerías en casa.</div></div></div>
+      <div class="pf-item"><div class="pf-icon" style="background:var(--yellow)">📱</div><div><div class="pf-title">Menú semanal visible en tu perfil</div><div class="pf-desc">Siempre sabes qué va a comer tu hijo. Con anticipación, sin sorpresas desagradables.</div></div></div>
+      <div class="pf-item"><div class="pf-icon" style="background:var(--red-l)">☕</div><div><div class="pf-title">Lista desde la tarde · sin carreras</div><div class="pf-desc">Recoge la tarde anterior en Escápate Café. Tu mañana empieza tranquila.</div></div></div>
+      <div class="pf-item"><div class="pf-icon" style="background:var(--orange-l)">🔄</div><div><div class="pf-title">Cancela cuando quieras</div><div class="pf-desc">Sin contratos largos. Sin penalizaciones. Pausa en vacaciones y regresa cuando quieras.</div></div></div>
     </div>
-
-    <div class="nutcard">
-      <div class="nutcard-top">
-        <div class="nut-avatar" style="background:#FFFBEA;color:#8A6800;border-color:#F7C948">LR</div>
-        <div class="nut-meta">
-          <div class="nut-name">Laura Rincón</div>
-          <div class="nut-title">Lic. Nutrición · UAdeC · 9 años exp.</div>
-          <div><span class="nut-stars">★★★★★</span><span class="nut-rating">4.9 · 91 reseñas</span></div>
-        </div>
-      </div>
-      <div class="nutcard-body">
-        <div class="nut-bio">Con casi una década de experiencia en nutrición familiar y pediátrica, Laura es experta en lograr que niños con paladares exigentes acepten nuevos sabores y hábitos saludables de por vida.</div>
-        <div class="nut-tags">
-          <span class="nut-tag">Hábitos alimenticios</span>
-          <span class="nut-tag">Paladares exigentes</span>
-          <span class="nut-tag">Cocina mexicana sana</span>
-        </div>
-        <div class="nut-methods">
-          <div class="nut-method">Recetas tradicionales</div>
-          <div class="nut-method">Bajo azúcar</div>
-          <div class="nut-method">Alta fibra</div>
-          <div class="nut-method">Prep. diaria</div>
-        </div>
-      </div>
-      <div class="nutcard-foot">
-        <div class="nut-cupo">Disponibilidad: <span>Lista de espera</span></div>
-        <a href="mama.html"><button class="nut-btn" style="background:var(--cream);color:var(--mid)">Unirse a lista</button></a>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ── PARA COLEGIOS ── -->
-<section class="colegios">
-  <div class="colegio-inner">
-    <div class="colegio-left">
-      <div class="seye">Para instituciones</div>
-      <h2>¿Tu colegio quiere<br>ofrecer Kifud a<br><em>sus familias?</em></h2>
-      <p>Nos aliamos con escuelas privadas de Saltillo para llevar loncheras saludables directamente a tu comunidad. Sin logística complicada para tu institución.</p>
-      <div class="colegio-benefits">
-        <div class="cbenefit"><div class="cben-ico">✓</div>Comunicación directa con padres de familia</div>
-        <div class="cbenefit"><div class="cben-ico">📋</div>Reporte nutricional mensual para la dirección</div>
-        <div class="cbenefit"><div class="cben-ico">🎓</div>Talleres de nutrición infantil sin costo</div>
-        <div class="cbenefit"><div class="cben-ico">🤝</div>Tu colegio como punto de recogida opcional</div>
-      </div>
-      <a href="colegios.html" class="btnp">Ver propuesta para colegios</a>
-    </div>
-    <div class="colegio-right">
-      <div class="cright-head">Nuestros números este ciclo</div>
-      <div class="cstat">
-        <span class="cstat-label">Niños atendidos</span>
-        <span class="cstat-val">148 <em>activos</em></span>
-      </div>
-      <div class="cstat">
-        <span class="cstat-label">Colegios aliados</span>
-        <span class="cstat-val">6 <em>instituciones</em></span>
-      </div>
-      <div class="cstat">
-        <span class="cstat-label">Loncheras entregadas</span>
-        <span class="cstat-val">3,400+ <em>este ciclo</em></span>
-      </div>
-      <div class="cstat">
-        <span class="cstat-label">Satisfacción de mamás</span>
-        <span class="cstat-val">4.9 <em>/ 5.0 ⭐</em></span>
-      </div>
-      <div class="cstat">
-        <span class="cstat-label">Sin conservadores</span>
-        <span class="cstat-val">100% <em>natural</em></span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── TESTIMONIOS ── -->
-<section class="testi">
-  <div class="testit">"Lo que dicen<br>las <em>mamás de Kifud."</em></div>
-  <div class="testgrid">
-    <div class="testcard">
-      <div class="teststar">★★★★★</div>
-      <div class="testquote">"</div>
-      <div class="testtxt">Mi hijo antes era un desastre a la hora de la lonchera. Con Kifud llegó a casa y me dijo 'Mami, pídeme lo mismo el viernes.' Eso no tiene precio.</div>
-      <div class="testauth">Claudia M.</div>
-      <div class="testrole">Mamá de Emilio, 8 años · Colegio Americano</div>
-    </div>
-    <div class="testcard">
-      <div class="teststar">★★★★★</div>
-      <div class="testquote">"</div>
-      <div class="testtxt">Por fin una opción que no me da culpa. Sé exactamente qué le están dando a mi hija, quién lo preparó y que tiene todo lo que necesita para crecer bien.</div>
-      <div class="testauth">Fernanda R.</div>
-      <div class="testrole">Mamá de Isabella, 7 años · Tec de Monterrey Kids</div>
-    </div>
-    <div class="testcard">
-      <div class="teststar">★★★★★</div>
-      <div class="testquote">"</div>
-      <div class="testtxt">Lo recomendé en el grupo de WhatsApp del salón y ya somos 12 mamás suscribirtas. La nutrióloga es increíble y la comida es de verdad deliciosa.</div>
-      <div class="testauth">Patricia G.</div>
-      <div class="testrole">Mamá de Mateo, 9 años · Colegio Inglés</div>
-    </div>
-  </div>
-</section>
-
-<!-- ── ESCÁPATE CAFÉ ── -->
-<div class="cafebar">
-  <div class="cafebar-left">Punto de recogida oficial: <strong>Escápate Café · Saltillo, Coahuila</strong></div>
-  <div class="cafebar-badge">
-    <div class="cafebar-badge-ico">⏰</div>
     <div>
-      <div class="cafebar-badge-txt">Lista a las 7:30 am</div>
-      <div class="cafebar-badge-sub">Lunes a viernes, durante el ciclo escolar</div>
+      <div class="precio-card">
+        <div class="pc-badge">✦ Plan único</div>
+        <div class="pc-price"><span>$</span>90 <span style="font-size:16px">MXN</span></div>
+        <div class="pc-period">por lonchera · lunes a viernes</div>
+        <div class="pc-includes">
+          <div class="pc-inc">Platillo del día · preparado fresco</div>
+          <div class="pc-inc">Diseñado por nutrióloga certificada</div>
+          <div class="pc-inc">Menú semanal en tu perfil</div>
+          <div class="pc-inc">Sin conservadores ni colorantes</div>
+          <div class="pc-inc">Recoge en Escápate Café</div>
+        </div>
+        <button class="btn-red" style="width:100%;text-align:center" onclick="openModal()">Quiero suscribirme 🎉</button>
+        <div class="pc-note">~$1,800 MXN al mes · 20 loncheras · cancela cuando quieras</div>
+      </div>
     </div>
   </div>
-  <div class="cafebar-badge">
-    <div class="cafebar-badge-ico">📍</div>
-    <div>
-      <div class="cafebar-badge-txt">¿Dónde quedamos?</div>
-      <div class="cafebar-badge-sub">Ver ubicación en Google Maps →</div>
-    </div>
-  </div>
-</div>
-
-<!-- ── CTA FINAL ── -->
-<section class="cta">
-  <div class="eyebrow" style="justify-content:center">Sin contratos largos</div>
-  <h2 class="ctatit">Empieza esta<br><em>semana.</em></h2>
-  <p class="ctasub">Regístrate hoy y elige el menú de tu hijo para los próximos días. Comida real, preparada con amor, lista antes de la escuela.</p>
-  <div class="ctaacts">
-    <a href="mama.html" class="btnp">Quiero una lonchera Kifud</a>
-    <a href="pediatras.html" class="btns">Soy pediatra →</a>
-  </div>
-  <p class="ctanote">Un servicio de Nutrilú · Saltillo, Coahuila · 2026</p>
 </section>
 
+<!-- 6. ESCÁPATE CAFÉ -->
+<section class="cafe-sec">
+  <div class="cafe-inner">
+    <div>
+      <div class="cafe-eye">Punto de recogida</div>
+      <h2 style="font-family:'Nunito',sans-serif;font-size:40px;font-weight:900;line-height:1.1;color:#fff;margin-bottom:14px">Recoge en<br><span style="color:var(--yellow-d)">Escápate Café.</span></h2>
+      <p style="font-size:15px;color:rgba(255,255,255,.45);line-height:1.75">Tu lonchera lista desde la tarde anterior. Sin filas, sin esperas. De camino a casa ya traes todo listo para mañana.</p>
+      <div class="cafe-steps">
+        <div class="cafe-step"><div class="cafe-step-num" style="background:var(--red)">1</div><div><div class="cafe-step-title">La nutrióloga cocina</div><div class="cafe-step-desc">Preparación fresca con ingredientes de temporada.</div></div></div>
+        <div class="cafe-step"><div class="cafe-step-num" style="background:var(--yellow-d)">2</div><div><div class="cafe-step-title">Lista desde las 4pm</div><div class="cafe-step-desc">Pásala a recoger de camino a casa. Lunes a viernes.</div></div></div>
+        <div class="cafe-step"><div class="cafe-step-num" style="background:var(--green)">3</div><div><div class="cafe-step-title">Tu hijo la lleva al recreo</div><div class="cafe-step-desc">Sin carreras en la mañana. Todo listo desde la noche anterior.</div></div></div>
+      </div>
+      <button class="btn-red" style="margin-top:28px" onclick="openModal()">Reservar mi lugar →</button>
+    </div>
+    <div>
+      <div class="cafe-card">
+        <div class="cafe-card-head">Escápate Café · Saltillo, Coahuila</div>
+        <div class="cafe-stat"><span class="cafe-stat-label">Horario de recogida</span><div class="cafe-stat-val">4–8 pm<em>Lunes a viernes</em></div></div>
+        <div class="cafe-stat"><span class="cafe-stat-label">Identificación</span><div class="cafe-stat-val">Nombre del niño<em>en la etiqueta</em></div></div>
+        <div class="cafe-stat"><span class="cafe-stat-label">Temperatura</span><div class="cafe-stat-val">Refrigerada<em>Trae tu tuper o cooler</em></div></div>
+        <div class="cafe-stat"><span class="cafe-stat-label">Avisos</span><div class="cafe-stat-val">Desde tu perfil<em>antes de que cierre</em></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. CTA FINAL -->
+<section class="cta-sec">
+  <div class="section-eye" style="justify-content:center">Sin contratos · Sin compromisos</div>
+  <h2 class="cta-h">Dale a tu hijo la<br>mejor <span class="red">lonchera</span> del salón.</h2>
+  <p class="cta-sub">Regístrate hoy y forma parte de las primeras familias Kifud en Saltillo. Cupo limitado para el piloto de lanzamiento.</p>
+  <div class="cta-actions">
+    <button class="btn-red" onclick="openModal()">Quiero suscribirme 🎉</button>
+    <a href="#porque" class="btn-ghost">¿Por qué Kifud? →</a>
+  </div>
+  <p class="cta-note">Un servicio de Nutrilú · Saltillo, Coahuila · 2026</p>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <div class="flogo">Ki<span>fud</span></div>
-  <div class="flinks">
+  <a href="index.html"><img src="logo-kifud.png" alt="Kifud" style="height:32px;opacity:.55"></a>
+  <div class="footer-links">
     <a href="#">Términos y condiciones</a>
     <a href="#">Aviso de privacidad</a>
     <a href="#">Contacto</a>
   </div>
-  <div>
-    <div class="ftxt">Saltillo, Coahuila · 2026</div>
-    <div class="fservice">Un servicio de Nutrilú</div>
-  </div>
+  <div class="footer-txt">Un servicio de Nutrilú · 2026</div>
 </footer>
 
-<script>
-const M=[
-  {day:'Lunes',emoji:'🥕',color:'#FEF0E6',name:'Pollo al limón con quinoa y verduras de temporada',gi:'Bajo–Moderado (44–50)',gil:true,
-   ingredients:['Pechuga de pollo','Quinoa blanca','Calabacita','Zanahoria','Pimiento morrón','Limón','Aceite de oliva'],
-   nutrition:[{v:'420',l:'kcal'},{v:'32g',l:'proteína'},{v:'12g',l:'grasas'},{v:'38g',l:'carbos'},{v:'5g',l:'fibra'}],
-   vitamins:['Vitamina B6','Potasio','Hierro','Vitamina C','Zinc','Niacina'],
-   benefits:['Proteína magra ideal para desarrollo muscular infantil','Baja en grasas — perfecta para energía sostenida en clases','Rico en fibra que mejora la digestión del niño']},
-  {day:'Martes',emoji:'🍝',color:'#FFFBEA',name:'Pasta integral con atún y jitomate fresco',gi:'Moderado (48–52)',gil:true,
-   ingredients:['Pasta integral','Atún al natural','Jitomate cherry','Aceite de oliva','Albahaca','Limón','Ajo'],
-   nutrition:[{v:'400',l:'kcal'},{v:'28g',l:'proteína'},{v:'10g',l:'grasas'},{v:'46g',l:'carbos'},{v:'6g',l:'fibra'}],
-   vitamins:['Omega-3','Vitamina D','Vitamina B12','Folato','Vitamina C','Hierro'],
-   benefits:['Omega-3 del atún apoya el desarrollo cerebral','Pasta integral aporta energía duradera','Licopeno del jitomate — antioxidante natural']},
-  {day:'Miércoles',emoji:'🥑',color:'#FFF4ED',name:'Bowl de leguminosas con aguacate y arroz integral',gi:'Bajo (42–47)',gil:true,
-   ingredients:['Frijoles negros','Arroz integral','Aguacate','Zanahoria rallada','Cilantro','Limón','Aceite de oliva'],
-   nutrition:[{v:'410',l:'kcal'},{v:'18g',l:'proteína'},{v:'14g',l:'grasas'},{v:'44g',l:'carbos'},{v:'10g',l:'fibra'}],
-   vitamins:['Hierro vegetal','Folato','Vitamina K','Vitamina E','Magnesio','Potasio'],
-   benefits:['Altísima fibra — favorece saciedad y digestión sana','Grasas saludables del aguacate para el cerebro','Proteína vegetal completa con todos los aminoácidos']},
-  {day:'Jueves',emoji:'🍗',color:'#FEEFEE',name:'Pollo a la mostaza con puré de papa y brócoli',gi:'Moderado (50–55)',gil:false,
-   ingredients:['Muslo de pollo sin piel','Papa','Brócoli','Mostaza Dijon','Ajo','Cebolla','Aceite de oliva'],
-   nutrition:[{v:'440',l:'kcal'},{v:'34g',l:'proteína'},{v:'13g',l:'grasas'},{v:'40g',l:'carbos'},{v:'5g',l:'fibra'}],
-   vitamins:['Vitamina C','Vitamina K','Folato','Potasio','Vitamina B6','Calcio'],
-   benefits:['Brócoli — uno de los vegetales más nutritivos para niños','Pollo como fuente de proteína completa','Calcio del brócoli apoya el desarrollo óseo']},
-  {day:'Viernes',emoji:'🌮',name:'Taquitos de frijol y queso con ensalada de nopal',gi:'Bajo–Moderado (45–50)',color:'#FFF9E6',gil:true,
-   ingredients:['Tortillas de maíz','Frijoles refritos sin grasa','Queso Oaxaca','Nopal cocido','Jitomate','Cebolla','Cilantro','Limón'],
-   nutrition:[{v:'380',l:'kcal'},{v:'16g',l:'proteína'},{v:'11g',l:'grasas'},{v:'50g',l:'carbos'},{v:'8g',l:'fibra'}],
-   vitamins:['Calcio','Hierro','Vitamina C','Vitamina B12','Fibra prebiótica','Folato'],
-   benefits:['Cocina mexicana tradicional, nutritiva y familiar','Nopal — prebiótico natural que cuida la microbiota','Calcio del queso para huesos fuertes en crecimiento']}
-];
+<!-- MODAL LISTA DE ESPERA -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-head">
+      <img src="logo-kifud.png" alt="Kifud" class="modal-logo">
+      <div class="modal-title">¡Reserva tu lugar! 🎉</div>
+      <div class="modal-sub">Estamos arrancando en Saltillo. Regístrate y te avisamos en cuanto abramos.</div>
+    </div>
+    <div class="modal-body">
+      <div class="mfgroup"><label class="mflabel">Tu nombre (mamá o papá)</label><input class="mfinput" id="f-mama" placeholder="Ej: Claudia Martínez"></div>
+      <div class="mfgroup"><label class="mflabel">Tu WhatsApp</label><input class="mfinput" id="f-wa" type="tel" placeholder="+52 844 000 0000"></div>
+      <div class="mfgroup"><label class="mflabel">Colegio de tu hijo</label><input class="mfinput" id="f-colegio" placeholder="Ej: Colegio Americano"></div>
+      <div class="alergia-note">
+        Por el momento, Kifud <strong>no cuenta con menú para niños con alergias alimentarias</strong> (gluten, lácteos, nueces u otras). Si tu hijo tiene alguna alergia, te contactaremos cuando tengamos esta opción disponible.
+      </div>
+      <label class="check-row">
+        <input type="checkbox" id="f-sin-alergia" onchange="toggleSubmit()">
+        Mi hijo no tiene alergias alimentarias
+      </label>
+    </div>
+    <div class="modal-footer">
+      <button class="modal-submit" id="modal-btn" onclick="submitForm()" disabled>Reservar mi lugar en Kifud →</button>
+      <button class="modal-cancel" onclick="closeModal()">Cancelar</button>
+    </div>
+  </div>
+</div>
 
+<div id="toast"></div>
+
+<script>
+const MENU_CURRENT=[
+  {day:'Lunes',emoji:'🐟',color:'#EEF6FE',name:'Croquetitas de Atún con Puré de Camote',kcal:270,prot:21,fat:7,carb:32,fiber:5,ingredients:['Atún en agua','Huevo','Pan molido integral','Camote','Brócoli','Mantequilla sin sal'],benefits:[{icon:'🧠',cls:'bd-brain',txt:'Apoya el desarrollo cerebral y la memoria gracias al omega-3'},{icon:'👁',cls:'bd-bones',txt:'Favorece la visión y defensas con vitamina A del camote'},{icon:'💪',cls:'bd-muscle',txt:'Contribuye al crecimiento con proteína completa'},{icon:'⚡',cls:'bd-energy',txt:'Aporta energía estable para toda la mañana de clases'}]},
+  {day:'Martes',emoji:'🍔',color:'#FEF0E6',name:'Mini Hamburguesas de Lentejas y Queso',kcal:290,prot:15,fat:8,carb:42,fiber:8,ingredients:['Lentejas cocidas','Huevo','Pan molido integral','Queso bajo en grasa','Pan mini integral'],benefits:[{icon:'💪',cls:'bd-muscle',txt:'Favorecen el crecimiento con proteína vegetal completa'},{icon:'🌿',cls:'bd-bones',txt:'Mejoran la digestión con 8g de fibra por porción'},{icon:'🦴',cls:'bd-bones',txt:'Fortalecen huesos y músculos con magnesio y calcio'},{icon:'🛡',cls:'bd-brain',txt:'Apoyan la salud visual e inmunológica'}]},
+  {day:'Miércoles',emoji:'🥗',color:'#E8F7EE',name:'Ensalada de Pollo con Frutas Dulces',kcal:250,prot:18,fat:5,carb:32,fiber:4,ingredients:['Pechuga de pollo','Manzana roja','Uvas partidas','Lechuga romana','Yogurt natural sin azúcar'],benefits:[{icon:'🦷',cls:'bd-bones',txt:'Favorece la salud ósea y dental con calcio del yogurt'},{icon:'🛡',cls:'bd-brain',txt:'Refuerza el sistema inmune con vitamina C de las frutas'},{icon:'🌿',cls:'bd-bones',txt:'Apoya la digestión con fibra natural de frutas y verdura'},{icon:'💪',cls:'bd-muscle',txt:'Proteína magra de pollo para el desarrollo muscular'}]},
+  {day:'Jueves',emoji:'🥦',color:'#FFF5C8',name:'Tortitas de Papa y Brócoli con Queso Fundido',kcal:230,prot:10,fat:8,carb:28,fiber:4,ingredients:['Papa cocida','Brócoli al vapor','Queso bajo en grasa','Huevo','Pan molido integral'],benefits:[{icon:'🦷',cls:'bd-bones',txt:'Fortalece huesos y dientes con calcio del queso y brócoli'},{icon:'🛡',cls:'bd-brain',txt:'Refuerza el sistema inmune con vitamina C del brócoli'},{icon:'👁',cls:'bd-bones',txt:'Favorece la salud visual con vitamina A'},{icon:'🌿',cls:'bd-energy',txt:'Mejora la digestión con fibra natural de las verduras'}]},
+  {day:'Viernes',emoji:'🧡',color:'#FEF0E6',name:'Nuggets Caseros de Pollo y Avena',kcal:240,prot:20,fat:8,carb:20,fiber:3,ingredients:['Pechuga de pollo molida','Hojuelas de avena','Huevo','Zanahoria rallada','Especias suaves'],benefits:[{icon:'💪',cls:'bd-muscle',txt:'Favorecen el crecimiento con proteína magra de pollo'},{icon:'🌿',cls:'bd-energy',txt:'Mejoran la digestión con fibra soluble de la avena'},{icon:'⚡',cls:'bd-energy',txt:'Energía estable sin azúcares añadidos'},{icon:'🧠',cls:'bd-brain',txt:'Hierro y zinc que apoyan el desarrollo cognitivo'}]},
+];
+const MENU_NEXT=[
+  {day:'Lunes',emoji:'🥙',color:'#E8F7EE',name:'Rollitos de Pollo y Espinaca con Tortilla Integral',kcal:240,prot:20,fat:7,carb:26,fiber:4,ingredients:['Pechuga de pollo','Espinaca baby','Queso bajo en grasa','Tortilla integral'],benefits:[{icon:'💪',cls:'bd-muscle',txt:'Alto en proteína magra para el crecimiento'},{icon:'🦴',cls:'bd-bones',txt:'Calcio del queso para huesos fuertes'},{icon:'🧠',cls:'bd-brain',txt:'Vitamina K de la espinaca apoya el cerebro'},{icon:'⚡',cls:'bd-energy',txt:'Carbohidratos complejos de la tortilla integral'}]},
+  {day:'Martes',emoji:'🐟',color:'#EEF6FE',name:'Mini Pastelitos de Salmón con Papa',kcal:260,prot:18,fat:10,carb:24,fiber:3,ingredients:['Salmón cocido','Papa cocida','Huevo','Perejil','Pan molido integral'],benefits:[{icon:'🧠',cls:'bd-brain',txt:'Omega-3 del salmón estimula el cerebro y la memoria'},{icon:'🦴',cls:'bd-bones',txt:'Fortalece huesos y dientes con fósforo y calcio'},{icon:'🛡',cls:'bd-brain',txt:'Vitamina D refuerza las defensas naturales'},{icon:'⚡',cls:'bd-energy',txt:'Energía estable con proteína y carbohidratos'}]},
+  {day:'Miércoles',emoji:'🍝',color:'#FFF5C8',name:'Nidos de Pasta Integral con Pollo y Brócoli',kcal:270,prot:20,fat:8,carb:32,fiber:6,ingredients:['Pasta integral','Pechuga de pollo','Brócoli','Queso parmesano'],benefits:[{icon:'💪',cls:'bd-muscle',txt:'Proteína completa para el desarrollo muscular'},{icon:'🛡',cls:'bd-brain',txt:'Vitamina C del brócoli fortalece las defensas'},{icon:'🦴',cls:'bd-bones',txt:'Calcio para el crecimiento óseo saludable'},{icon:'🌿',cls:'bd-energy',txt:'Fibra para una digestión sana y saciedad'}]},
+  {day:'Jueves',emoji:'🫙',color:'#FDECEA',name:'Albóndigas de Res en Salsa de Calabaza',kcal:290,prot:20,fat:12,carb:24,fiber:4,ingredients:['Carne molida de res magra','Huevo','Pan molido integral','Calabaza','Zanahoria'],benefits:[{icon:'🩸',cls:'bd-muscle',txt:'Hierro hemo previene la anemia infantil'},{icon:'💪',cls:'bd-muscle',txt:'Proteína completa para la formación muscular'},{icon:'👁',cls:'bd-bones',txt:'Vitamina A de la calabaza apoya la visión'},{icon:'⚡',cls:'bd-energy',txt:'Energía equilibrada de proteína y verduras'}]},
+  {day:'Viernes',emoji:'🥒',color:'#E8F7EE',name:'Barquitos de Calabacita Rellenos de Pollo',kcal:210,prot:18,fat:7,carb:18,fiber:4,ingredients:['Calabacitas','Pollo molido','Jitomate','Queso rallado','Elote amarillo'],benefits:[{icon:'🌿',cls:'bd-energy',txt:'Favorece la salud digestiva con fibra natural'},{icon:'💪',cls:'bd-muscle',txt:'Proteína de pollo para el desarrollo muscular'},{icon:'🛡',cls:'bd-brain',txt:'Vitaminas A y C para defensas fuertes'},{icon:'🦷',cls:'bd-bones',txt:'Calcio del queso para huesos y dientes'}]},
+];
+let currentMenu=MENU_CURRENT;
+
+function setWeek(week,btn){
+  document.querySelectorAll('.wtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  currentMenu=week==='current'?MENU_CURRENT:MENU_NEXT;
+  document.getElementById('week-label').textContent=week==='current'?'7 – 11 de Abril · Ejemplo':'14 – 18 de Abril · Ejemplo';
+  showDish(0,document.querySelector('.dtab'));
+  document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
+  document.querySelector('.dtab').classList.add('active');
+}
 function showDish(i,btn){
   document.querySelectorAll('.dtab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  const d=M[i];
-  document.getElementById('dshow').innerHTML=`
-    <div class="dvis" style="background:${d.color}">
-      <div class="dvbg">${d.emoji}</div>
-      <div class="dvday">${d.day}</div>
-      <div class="dvname">${d.name}</div>
-      <div class="gipill"><div class="gidot ${d.gil?'gilow2':'gimid2'}"></div>Índice glucémico ${d.gi}</div>
-    </div>
-    <div class="dinfo">
-      <div class="ib"><div class="ibt">Ingredientes</div><div class="tagcloud">${d.ingredients.map(x=>`<span class="itag">${x}</span>`).join('')}</div></div>
-      <div class="ib"><div class="ibt">Información nutricional</div><div class="nrow">${d.nutrition.map(n=>`<div class="nc"><div class="ncv">${n.v}</div><div class="ncl">${n.l}</div></div>`).join('')}</div></div>
-      <div class="ib"><div class="ibt">Vitaminas y minerales</div><div class="tagcloud">${d.vitamins.map(x=>`<span class="vtag">${x}</span>`).join('')}</div></div>
-      <div class="ib"><div class="ibt">Beneficios para la salud</div>${d.benefits.map(x=>`<div class="ben"><div class="bdot"></div>${x}</div>`).join('')}</div>
+  if(btn)btn.classList.add('active');
+  const d=currentMenu[i];
+  document.getElementById('dish-area').innerHTML=`
+    <div class="dish-card">
+      <div class="dish-vis" style="background:${d.color}">
+        <div class="dish-big-emoji">${d.emoji}</div>
+        <div class="dish-day-badge">${d.day}</div>
+        <div class="dish-name">${d.name}</div>
+      </div>
+      <div class="dish-body">
+        <div class="dish-section"><div class="ds-title">Ingredientes</div><div class="ing-tags">${d.ingredients.map(x=>`<span class="ing-tag">${x}</span>`).join('')}</div></div>
+        <div class="dish-section"><div class="ds-title">Información nutricional</div><div class="macro-row">
+          <div class="macro"><div class="macro-v">${d.kcal}</div><div class="macro-l">kcal</div></div>
+          <div class="macro"><div class="macro-v">${d.prot}g</div><div class="macro-l">prot</div></div>
+          <div class="macro"><div class="macro-v">${d.fat}g</div><div class="macro-l">grasa</div></div>
+          <div class="macro"><div class="macro-v">${d.carb}g</div><div class="macro-l">carbos</div></div>
+          <div class="macro"><div class="macro-v">${d.fiber}g</div><div class="macro-l">fibra</div></div>
+        </div></div>
+        <div class="dish-section"><div class="ds-title">¿Qué le da a tu hijo? 🌟</div>
+          ${d.benefits.map(b=>`<div class="benefit-row"><div class="benefit-dot ${b.cls}">${b.icon}</div>${b.txt}</div>`).join('')}
+        </div>
+      </div>
     </div>`;
 }
-showDish(0,document.querySelector('.dtab.active'));
+
+function openModal(){document.getElementById('modal-bg').classList.add('open')}
+function closeModal(){document.getElementById('modal-bg').classList.remove('open')}
+document.getElementById('modal-bg').addEventListener('click',function(e){if(e.target===this)closeModal()})
+function toggleSubmit(){document.getElementById('modal-btn').disabled=!document.getElementById('f-sin-alergia').checked}
+function submitForm(){
+  const mama=document.getElementById('f-mama').value.trim();
+  const wa=document.getElementById('f-wa').value.trim();
+  if(!mama||!wa){showToast('Nombre y WhatsApp son obligatorios');return}
+  closeModal();
+  showToast(`¡Listo, ${mama}! Te avisamos cuando abramos 🎉`);
+}
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._to);t._to=setTimeout(()=>t.style.opacity='0',3500);
+}
+showDish(0,document.querySelector('.dtab'));
 </script>
 </body>
 </html>
