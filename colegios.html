@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kifud — Portal para Colegios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#F4721B;--od:#C2490A;--ol:#FEF0E6;--om:#F9A06B;
+  --y:#F7C948;--yl:#FFFBEA;
+  --off:#FFFDF9;--dark:#1C1612;--mid:#6B5E54;--light:#B8A99F;
+  --cream:#FBF6EF;--white:#FFFFFF;
+  --danger:#E24B4A;--dgl:#FCEBEB;
+  --ok:#16A34A;--okl:#DCFCE7;
+  --purple:#7F77DD;--purplel:#EEEDFE;
+  --warn:#C47A00;--warnl:#FFFBEA;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off);color:var(--dark)}
+
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--dark);padding:24px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.slogo{font-family:'Playfair Display',serif;font-size:20px;color:#fff;text-decoration:none;display:block;letter-spacing:-.02em;margin-bottom:4px}
+.slogo span{color:var(--o)}
+.slogo em{font-style:italic;color:var(--om)}
+.srole{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.snav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;color:rgba(255,255,255,.45);cursor:pointer;text-decoration:none;border:none;background:transparent;width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.15s}
+.snav:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.snav.active{background:var(--od);color:#fff}
+.snav svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
+.snav.active svg{opacity:1}
+.sdivider{height:1px;background:rgba(255,255,255,.07);margin:6px 0}
+.sp{flex:1}
+.cinfo{padding:12px 14px;background:rgba(255,255,255,.06);border-radius:10px;margin-top:8px}
+.cinfo-name{font-size:13px;font-weight:700;color:#fff}
+.cinfo-sub{font-size:11px;color:rgba(255,255,255,.3);margin-top:2px;font-weight:400}
+
+/* ── MAIN ── */
+.main{padding:28px 30px;overflow-y:auto}
+.view{display:none}
+.view.active{display:block}
+.top-bar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.pt{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);line-height:1.1}
+.pt em{color:var(--o);font-style:italic}
+.ps{font-size:13px;color:var(--mid);margin-top:5px;font-weight:300}
+
+/* ── BUTTONS ── */
+.btno{background:var(--o);color:#fff;border:none;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s;text-decoration:none;display:inline-block}
+.btno:hover{background:var(--od)}
+.btnd{background:var(--dark);color:#fff;border:none;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s}
+.btnd:hover{background:#333}
+.btn-out{background:transparent;border:1.5px solid rgba(0,0,0,.12);color:var(--dark);padding:9px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s}
+.btn-out:hover{border-color:var(--o);color:var(--o)}
+.btn-sm{font-size:12px;padding:6px 14px;border-radius:100px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:transparent;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;transition:.12s}
+.btn-sm:hover{border-color:var(--o);color:var(--o)}
+.btn-sm-o{font-size:12px;padding:6px 14px;border-radius:100px;cursor:pointer;border:none;background:var(--o);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700}
+
+/* ── METRICS ── */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.metric{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,.06)}
+.ml{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:700}
+.mv{font-size:22px;font-weight:700;color:var(--dark)}
+.ms{font-size:11px;color:var(--mid);margin-top:3px;font-weight:300}
+.mb{display:inline-block;margin-top:5px;font-size:11px;padding:2px 9px;border-radius:100px;font-weight:600}
+.mb-o{background:var(--ol);color:var(--od)}
+.mb-ok{background:var(--okl);color:var(--ok)}
+.mb-y{background:var(--yl);color:var(--warn)}
+.mb-p{background:var(--purplel);color:var(--purple)}
+
+/* ── CARD ── */
+.card{background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.06);margin-bottom:18px}
+.card-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid rgba(0,0,0,.06)}
+.card-title{font-size:14px;font-weight:700;color:var(--dark)}
+.card-actions{display:flex;gap:8px;align-items:center}
+.inner{padding:18px 20px}
+
+/* ── FAMILIA TABLE ── */
+.fam-head,.fam-row{display:grid;grid-template-columns:1fr 110px 120px 90px 80px 70px;gap:10px;align-items:center;padding:11px 20px}
+.fam-head{font-size:10px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(0,0,0,.06)}
+.fam-row{border-bottom:1px solid rgba(0,0,0,.04);font-size:13px;transition:.1s}
+.fam-row:last-child{border-bottom:none}
+.fam-row:hover{background:var(--cream)}
+.fam-name{font-weight:700;color:var(--dark)}
+.fam-sub{font-size:11px;color:var(--mid);margin-top:2px;font-weight:400}
+.pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:100px;font-weight:600}
+.pill-ok{background:var(--okl);color:var(--ok)}
+.pill-off{background:var(--cream);color:var(--light)}
+.pill-o{background:var(--ol);color:var(--od)}
+.pill-y{background:var(--yl);color:var(--warn)}
+.fam-action{font-size:11px;color:var(--o);cursor:pointer;border:none;background:none;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ── USAGE BARS ── */
+.ub{margin-bottom:14px}
+.ub-header{display:flex;justify-content:space-between;font-size:13px;margin-bottom:6px}
+.ub-lbl{color:var(--dark);font-weight:500}
+.ub-val{color:var(--mid);font-size:12px;font-weight:300}
+.ub-track{height:8px;background:var(--cream);border-radius:4px;overflow:hidden}
+.ub-fill{height:100%;border-radius:4px;transition:width .6s}
+
+/* ── GRID2 ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+
+/* ── INVOICE ── */
+.inv-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px;gap:8px}
+.inv-row:last-child{border-bottom:none}
+.inv-date{color:var(--mid);font-size:12px;font-weight:300}
+.inv-amt{font-weight:700}
+.inv-pill{font-size:11px;padding:2px 9px;border-radius:100px;font-weight:600}
+.inv-paid{background:var(--okl);color:var(--ok)}
+.inv-pend{background:var(--yl);color:var(--warn)}
+.inv-btn{font-size:11px;color:var(--mid);border:1.5px solid rgba(0,0,0,.1);background:none;padding:3px 10px;border-radius:100px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600}
+
+/* ── CONTACT CARD ── */
+.contact-card{background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.06);padding:18px 20px;display:flex;gap:16px;align-items:flex-start;margin-bottom:18px}
+.contact-av{width:44px;height:44px;border-radius:50%;background:var(--ol);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--od);flex-shrink:0;border:2px solid var(--om)}
+.contact-links{font-size:12px;margin-top:8px;display:flex;gap:14px;flex-wrap:wrap}
+.contact-links a{color:var(--o);text-decoration:none;font-weight:600}
+
+/* ── ALERT ── */
+.alert{display:flex;align-items:flex-start;gap:10px;border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:18px}
+.alert-warn{background:var(--yl);border:1px solid rgba(196,122,0,.2);color:var(--warn)}
+.alert-ok{background:var(--okl);border:1px solid rgba(22,163,74,.2);color:var(--ok)}
+
+/* ── FORM ── */
+.fgroup{margin-bottom:16px}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;font-size:10px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid rgba(0,0,0,.1);border-radius:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);background:#fff;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--o)}
+textarea{resize:vertical;min-height:80px}
+
+/* ── PROPUESTA HERO ── */
+.prop-hero{background:var(--dark);border-radius:16px;padding:32px 36px;margin-bottom:18px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+.prop-title{font-family:'Playfair Display',serif;font-size:26px;color:#fff;margin-bottom:8px;line-height:1.15}
+.prop-title em{color:var(--om);font-style:italic}
+.prop-sub{font-size:13px;color:rgba(255,255,255,.45);line-height:1.75;font-weight:300}
+.prop-stat{text-align:right;flex-shrink:0}
+.ps-num{font-family:'Playfair Display',serif;font-size:52px;color:var(--om);line-height:1}
+.ps-lbl{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px;font-weight:500;text-transform:uppercase;letter-spacing:.08em}
+
+/* ── BENEFICIOS GRID ── */
+.ben-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px}
+.ben-card{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,.06)}
+.ben-icon{font-size:26px;margin-bottom:10px}
+.ben-title{font-size:14px;font-weight:700;margin-bottom:6px;color:var(--dark)}
+.ben-desc{font-size:12px;color:var(--mid);line-height:1.65;font-weight:300}
+
+/* ── PLAN TABLE ── */
+.plan-tbl{width:100%;border-collapse:collapse;font-size:13px}
+.plan-tbl th{background:var(--cream);font-size:10px;color:var(--mid);text-transform:uppercase;letter-spacing:.08em;text-align:left;padding:10px 16px;font-weight:700;border-bottom:1px solid rgba(0,0,0,.06)}
+.plan-tbl td{padding:12px 16px;border-bottom:1px solid rgba(0,0,0,.05)}
+.plan-tbl tr:last-child td{border-bottom:none}
+.plan-tbl tr:hover td{background:var(--cream)}
+
+/* ── SATISFACCIÓN ── */
+.satisf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:18px}
+.satisf-card{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,.06);text-align:center}
+.satisf-num{font-family:'Playfair Display',serif;font-size:36px;color:var(--dark);margin-bottom:4px;font-weight:600}
+.satisf-lbl{font-size:12px;color:var(--mid);font-weight:500}
+.satisf-sub{font-size:11px;color:var(--light);margin-top:3px;font-weight:300}
+
+/* ── PENDING CARD ── */
+.pending-card{background:var(--yl);border:1px solid rgba(196,122,0,.2);border-radius:12px;padding:18px 20px;margin-bottom:18px}
+.pending-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.pending-title{font-size:13px;font-weight:700;color:var(--warn)}
+
+/* ── REPORT ROWS ── */
+.report-row{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px}
+.report-row:last-child{border-bottom:none}
+
+/* ── CHART BARS ── */
+.cbars{display:flex;align-items:flex-end;gap:8px;height:100px;margin-top:8px}
+.cbar-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.cbar{width:100%;border-radius:4px 4px 0 0;background:var(--om);transition:height .5s}
+.cbar.high{background:var(--o)}
+.cbar-lbl{font-size:9px;color:var(--light);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+
+/* ── MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.modal-head{padding:20px 22px;border-bottom:1px solid rgba(0,0,0,.07);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark)}
+.modal-close{width:28px;height:28px;border-radius:50%;background:var(--cream);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--mid)}
+.modal-body{padding:22px}
+.modal-foot{padding:14px 22px;border-top:1px solid rgba(0,0,0,.07);display:flex;gap:10px;justify-content:flex-end}
+.mbtn-ghost{padding:9px 20px;border-radius:100px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--mid)}
+.mbtn-prim{padding:9px 22px;border-radius:100px;background:var(--o);border:none;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;white-space:nowrap;font-weight:500}
+
+/* ── UPLOAD ── */
+.upload-area{border:1.5px dashed rgba(0,0,0,.12);border-radius:10px;padding:28px;text-align:center;cursor:pointer;transition:.2s;background:var(--cream)}
+.upload-area:hover{border-color:var(--o);background:var(--ol)}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <a href="index.html" class="slogo">Ki<em>fud</em><span>·</span></a>
+  <div class="srole">Portal de Colegio</div>
+
+  <button class="snav active" onclick="showV('resumen',this)">
+    <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+    Resumen
+  </button>
+  <button class="snav" onclick="showV('familias',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 13c0-2.8 2.2-5 5-5"/><circle cx="12" cy="7" r="2"/><path d="M9 15c0-2.2 1.3-4 3-4s3 1.8 3 4"/></svg>
+    Familias suscritas
+  </button>
+  <button class="snav" onclick="showV('altas',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="3"/><path d="M3 14c0-2.8 2.2-5 5-5s5 2.2 5 5"/><path d="M11 3h4M13 1v4"/></svg>
+    Alta de familias
+  </button>
+  <button class="snav" onclick="showV('reportes',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 9l2 2 4-4"/></svg>
+    Reportes
+  </button>
+
+  <div class="sdivider"></div>
+
+  <button class="snav" onclick="showV('propuesta',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h5"/></svg>
+    Propuesta Kifud
+  </button>
+  <button class="snav" onclick="showV('facturacion',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="1.5"/><path d="M5 8h6M5 11h4"/></svg>
+    Facturación
+  </button>
+  <button class="snav" onclick="showV('contacto',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3z"/><path d="M2 3l6 5 6-5"/></svg>
+    Contacto Kifud
+  </button>
+
+  <div class="sp"></div>
+  <div class="sdivider"></div>
+
+  <div class="cinfo">
+    <div style="font-size:18px;margin-bottom:6px">🏫</div>
+    <div class="cinfo-name">Colegio Americano</div>
+    <div class="cinfo-sub">Saltillo · Aliado desde Ene 2025</div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- ════════ RESUMEN ════════ -->
+  <div class="view active" id="v-resumen">
+    <div class="top-bar">
+      <div>
+        <div class="pt">Buenos días, <em>Colegio Americano 👋</em></div>
+        <div class="ps">Ciclo Enero–Junio 2025 · Semana 9 de 18</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-out" onclick="showV('reportes',document.querySelectorAll('.snav')[4])">Ver reporte mensual</button>
+        <button class="btno" onclick="showV('altas',document.querySelectorAll('.snav')[3])">+ Alta de familia</button>
+      </div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="ml">Familias activas</div>
+        <div class="mv">47</div>
+        <div class="ms">De 60 cupo máximo</div>
+        <div class="mb mb-o">13 disponibles</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Niños atendidos</div>
+        <div class="mv">52</div>
+        <div class="ms">Algunos con hermanos</div>
+        <div class="mb mb-ok">+3 este mes</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Loncheras esta semana</div>
+        <div class="mv">240</div>
+        <div class="ms">Recogidas en Escápate Café</div>
+        <div class="mb mb-ok">96% asistencia</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Satisfacción mamás</div>
+        <div class="mv">4.9</div>
+        <div class="ms">De 5.0 · 148 reseñas</div>
+        <div class="mb mb-y">⭐ Excelente</div>
+      </div>
+    </div>
+
+    <!-- Semana en curso -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Semana en curso — 7 al 11 de Abril</div>
+        <div class="card-actions">
+          <span style="font-size:12px;color:var(--ok);font-weight:600">✓ Menú confirmado</span>
+        </div>
+      </div>
+      <div class="inner" style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+        <div style="background:var(--ol);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">🥕</div>
+          <div style="font-size:12px;font-weight:700;color:var(--od);margin-bottom:2px">Lunes</div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.4">Pollo al limón con quinoa</div>
+          <div style="font-size:10px;color:var(--ok);margin-top:6px;font-weight:700">52 loncheras</div>
+        </div>
+        <div style="background:var(--yl);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">🍝</div>
+          <div style="font-size:12px;font-weight:700;color:var(--warn);margin-bottom:2px">Martes</div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.4">Pasta integral con atún</div>
+          <div style="font-size:10px;color:var(--ok);margin-top:6px;font-weight:700">48 loncheras</div>
+        </div>
+        <div style="background:#FFF4ED;border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">🥑</div>
+          <div style="font-size:12px;font-weight:700;color:#B25000;margin-bottom:2px">Miércoles</div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.4">Bowl de leguminosas</div>
+          <div style="font-size:10px;color:var(--ok);margin-top:6px;font-weight:700">51 loncheras</div>
+        </div>
+        <div style="background:var(--cream);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">🍗</div>
+          <div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:2px">Jueves</div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.4">Pollo mostaza + puré</div>
+          <div style="font-size:10px;color:var(--warn);margin-top:6px;font-weight:700">44 confirmadas</div>
+        </div>
+        <div style="background:var(--cream);border-radius:12px;padding:14px;text-align:center">
+          <div style="font-size:20px;margin-bottom:6px">🌮</div>
+          <div style="font-size:12px;font-weight:700;color:var(--mid);margin-bottom:2px">Viernes</div>
+          <div style="font-size:11px;color:var(--mid);line-height:1.4">Taquitos de frijol</div>
+          <div style="font-size:10px;color:var(--warn);margin-top:6px;font-weight:700">41 confirmadas</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2 col -->
+    <div class="g2">
+      <!-- Asistencia semanal -->
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Asistencia semanal</div><div style="font-size:12px;color:var(--mid)">Ciclo actual</div></div>
+        <div class="inner">
+          <div class="cbars" id="res-bars"></div>
+        </div>
+      </div>
+      <!-- Alertas -->
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Avisos importantes</div></div>
+        <div class="inner" style="display:flex;flex-direction:column;gap:10px">
+          <div class="alert alert-ok"><span>✓</span>Menú semana 10 (14–18 Abr) ya está disponible para elegir</div>
+          <div class="alert alert-warn"><span>⚠</span>8 familias aún no confirman menú para esta semana. Cierre: domingo 6pm</div>
+          <div style="padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--mid)">Solicitud nueva — Familia Morales</span><span class="pill pill-y">Pendiente</span></div>
+          <div style="padding:11px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--mid)">Recibiste reporte nutricional de Marzo</span><button class="btn-sm" onclick="showToast('Descargando PDF…')">Descargar</button></div>
+          <div style="padding:11px 0;font-size:13px;display:flex;justify-content:space-between"><span style="color:var(--mid)">Taller de nutrición infantil — 25 Abr</span><span class="pill pill-o">Confirmado</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grados rápido -->
+    <div class="card">
+      <div class="card-header"><div class="card-title">Participación por grado</div><button class="btn-sm" onclick="showV('reportes',document.querySelectorAll('.snav')[4])">Ver detalle →</button></div>
+      <div class="inner" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px">
+        <div style="text-align:center;padding:14px;background:var(--cream);border-radius:10px"><div style="font-size:22px;font-weight:700;color:var(--o)">12</div><div style="font-size:11px;color:var(--mid);margin-top:3px;font-weight:500">1° Primaria</div></div>
+        <div style="text-align:center;padding:14px;background:var(--cream);border-radius:10px"><div style="font-size:22px;font-weight:700;color:var(--o)">9</div><div style="font-size:11px;color:var(--mid);margin-top:3px;font-weight:500">2° Primaria</div></div>
+        <div style="text-align:center;padding:14px;background:var(--cream);border-radius:10px"><div style="font-size:22px;font-weight:700;color:var(--o)">8</div><div style="font-size:11px;color:var(--mid);margin-top:3px;font-weight:500">3° Primaria</div></div>
+        <div style="text-align:center;padding:14px;background:var(--ol);border-radius:10px;border:1px solid rgba(244,114,27,.15)"><div style="font-size:22px;font-weight:700;color:var(--od)">14</div><div style="font-size:11px;color:var(--od);margin-top:3px;font-weight:700">4° Primaria ⭐</div></div>
+        <div style="text-align:center;padding:14px;background:var(--cream);border-radius:10px"><div style="font-size:22px;font-weight:700;color:var(--o)">6</div><div style="font-size:11px;color:var(--mid);margin-top:3px;font-weight:500">5° Primaria</div></div>
+        <div style="text-align:center;padding:14px;background:var(--cream);border-radius:10px"><div style="font-size:22px;font-weight:700;color:var(--o)">3</div><div style="font-size:11px;color:var(--mid);margin-top:3px;font-weight:500">Kinder</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ FAMILIAS ════════ -->
+  <div class="view" id="v-familias">
+    <div class="top-bar">
+      <div><div class="pt">Familias <em>suscritas</em></div><div class="ps">47 familias · 52 niños activos este ciclo</div></div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="text" id="fam-search" placeholder="Buscar familia o niño…" oninput="filterFams(this.value)" style="width:220px;padding:9px 14px;border-radius:100px">
+        <select onchange="filterFamsPlan(this.value)" style="width:160px;border-radius:100px;padding:9px 14px">
+          <option value="">Todos los planes</option>
+          <option value="completo">Plan Completo</option>
+          <option value="basico">Plan Básico</option>
+          <option value="premium">Plan Premium</option>
+        </select>
+        <button class="btno" onclick="showV('altas',document.querySelectorAll('.snav')[3])">+ Alta nueva</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="fam-head">
+        <div>Familia / Niño</div><div>Plan</div><div>Estado</div><div>Desde</div><div>Mensualidad</div><div>Acción</div>
+      </div>
+      <div id="fam-list"></div>
+    </div>
+  </div>
+
+  <!-- ════════ ALTA DE FAMILIAS ════════ -->
+  <div class="view" id="v-altas">
+    <div class="top-bar">
+      <div><div class="pt">Alta de <em>familias</em></div><div class="ps">Registra nuevas familias al programa Kifud</div></div>
+    </div>
+
+    <!-- tabs -->
+    <div style="display:flex;gap:8px;margin-bottom:20px">
+      <button class="btn-sm" id="tab-manual-btn" onclick="switchTab('manual',this)" style="background:var(--dark);color:#fff;border-color:var(--dark)">Registro manual</button>
+      <button class="btn-sm" id="tab-csv-btn" onclick="switchTab('csv',this)">Importar CSV</button>
+    </div>
+
+    <!-- manual -->
+    <div id="tab-manual">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Datos de la mamá</div></div>
+        <div class="inner">
+          <div class="frow2" style="margin-bottom:14px">
+            <div class="fgroup" style="margin:0"><label>Nombre completo</label><input id="add-mama" placeholder="Ej: Claudia Martínez"></div>
+            <div class="fgroup" style="margin:0"><label>Teléfono WhatsApp</label><input id="add-tel" placeholder="+52 844 000 0000"></div>
+          </div>
+          <div class="frow2" style="margin-bottom:14px">
+            <div class="fgroup" style="margin:0"><label>Correo electrónico</label><input id="add-email" type="email" placeholder="mama@correo.com"></div>
+            <div class="fgroup" style="margin:0"><label>Grado del niño</label>
+              <select id="add-grado">
+                <option>Kinder</option><option>1° Primaria</option><option selected>2° Primaria</option>
+                <option>3° Primaria</option><option>4° Primaria</option><option>5° Primaria</option><option>6° Primaria</option>
+              </select>
+            </div>
+          </div>
+          <div class="frow2" style="margin-bottom:14px">
+            <div class="fgroup" style="margin:0"><label>Nombre del niño</label><input id="add-nino" placeholder="Ej: Emilio García"></div>
+            <div class="fgroup" style="margin:0"><label>Edad del niño</label><input id="add-edad" type="number" min="4" max="14" placeholder="8"></div>
+          </div>
+          <div class="frow2" style="margin-bottom:14px">
+            <div class="fgroup" style="margin:0"><label>Plan</label>
+              <select id="add-plan">
+                <option value="basico">Plan Básico — 3 loncheras/sem · $1,600/mes</option>
+                <option value="completo" selected>Plan Completo — 5 loncheras/sem · $2,800/mes</option>
+                <option value="premium">Plan Premium — 5 loncheras + snack · $3,400/mes</option>
+              </select>
+            </div>
+            <div class="fgroup" style="margin:0"><label>Nutrióloga asignada</label>
+              <select id="add-nut">
+                <option value="ana">Ana Lucía Vázquez (22 lugares disponibles)</option>
+                <option value="laura">Laura Rincón (lista de espera)</option>
+              </select>
+            </div>
+          </div>
+          <div class="fgroup"><label>Alergias o restricciones alimenticias</label><input id="add-alergias" placeholder="Ej: Sin gluten, alérgico a nueces… (dejar vacío si ninguna)"></div>
+          <button class="btno" onclick="addFamily()">Agregar a la lista →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- csv -->
+    <div id="tab-csv" style="display:none">
+      <div class="card">
+        <div class="card-header"><div class="card-title">Importar desde CSV</div><button class="btn-sm" onclick="downloadTemplate()">⬇ Descargar plantilla</button></div>
+        <div class="inner">
+          <div class="upload-area" id="drop-area" ondragover="event.preventDefault();this.style.borderColor='var(--o)'" ondragleave="this.style.borderColor=''" ondrop="handleDrop(event)">
+            <div style="font-size:32px;margin-bottom:10px">📄</div>
+            <div style="font-size:14px;font-weight:700;color:var(--dark);margin-bottom:6px">Arrastra tu archivo .csv aquí</div>
+            <div style="font-size:12px;color:var(--mid);margin-bottom:14px;font-weight:300">o haz clic para seleccionarlo</div>
+            <input type="file" accept=".csv" style="display:none" id="csv-input" onchange="handleCSV(this.files[0])">
+            <button class="btn-out" onclick="document.getElementById('csv-input').click()">Seleccionar archivo</button>
+          </div>
+          <div id="csv-ph"></div>
+          <div id="csv-prev" style="display:none"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- pending -->
+    <div id="pending-card" style="display:none">
+      <div class="pending-card">
+        <div class="pending-head">
+          <div class="pending-title">Familias por confirmar <span id="pending-count">(0)</span></div>
+          <div style="display:flex;gap:8px">
+            <button class="btn-sm" onclick="pending=[];renderPending();showToast('Lista limpiada')">Limpiar</button>
+            <button class="btn-sm-o" onclick="confirmAll()">Confirmar todas →</button>
+          </div>
+        </div>
+        <div id="pending-list"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ REPORTES ════════ -->
+  <div class="view" id="v-reportes">
+    <div class="top-bar">
+      <div><div class="pt">Reportes <em>del ciclo</em></div><div class="ps">Enero–Junio 2025 · Colegio Americano</div></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-out" onclick="showToast('Generando PDF…')">⬇ Descargar PDF</button>
+        <button class="btno" onclick="showToast('Enviando por correo a la dirección…')">Enviar a dirección</button>
+      </div>
+    </div>
+
+    <div class="satisf-grid">
+      <div class="satisf-card"><div class="satisf-num">3,420</div><div class="satisf-lbl">Loncheras entregadas</div><div class="satisf-sub">este ciclo</div></div>
+      <div class="satisf-card"><div class="satisf-num">94.7%</div><div class="satisf-lbl">Tasa de asistencia</div><div class="satisf-sub">promedio semanas 1–9</div></div>
+      <div class="satisf-card"><div class="satisf-num" style="color:var(--o)">4.9</div><div class="satisf-lbl">Satisfacción de mamás</div><div class="satisf-sub">de 5.0 · 148 reseñas</div></div>
+    </div>
+
+    <div class="g2">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Asistencia por semana</div></div>
+        <div class="inner">
+          <div class="cbars" id="rep-bars"></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Platillos más elegidos</div></div>
+        <div class="inner">
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Pollo al limón + quinoa</span><span class="ub-val">148 veces</span></div><div class="ub-track"><div class="ub-fill" style="width:92%;background:var(--o)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Taquitos de frijol y queso</span><span class="ub-val">136 veces</span></div><div class="ub-track"><div class="ub-fill" style="width:85%;background:var(--om)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Pasta integral con atún</span><span class="ub-val">121 veces</span></div><div class="ub-track"><div class="ub-fill" style="width:75%;background:var(--y)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Bowl de leguminosas</span><span class="ub-val">109 veces</span></div><div class="ub-track"><div class="ub-fill" style="width:68%;background:var(--cream)"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-top:18px">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Distribución nutricional promedio</div></div>
+        <div class="inner">
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Proteína</span><span class="ub-val">28g por lonchera</span></div><div class="ub-track"><div class="ub-fill" style="width:70%;background:var(--o)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Carbohidratos complejos</span><span class="ub-val">42g por lonchera</span></div><div class="ub-track"><div class="ub-fill" style="width:82%;background:var(--om)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Fibra dietética</span><span class="ub-val">7g por lonchera</span></div><div class="ub-track"><div class="ub-fill" style="width:56%;background:var(--y)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Grasas saludables</span><span class="ub-val">13g por lonchera</span></div><div class="ub-track"><div class="ub-fill" style="width:40%;background:var(--cream)"></div></div></div>
+          <div style="background:var(--ol);border-radius:10px;padding:12px 14px;margin-top:12px;font-size:12px;color:var(--od);font-weight:500">🎓 Certificado nutricional disponible para presentar a padres de familia</div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Reportes descargables</div></div>
+        <div class="inner">
+          <div class="report-row"><span style="font-weight:600">Reporte Marzo 2025</span><button class="btn-sm" onclick="showToast('Descargando…')">⬇ PDF</button></div>
+          <div class="report-row"><span style="font-weight:600">Reporte Febrero 2025</span><button class="btn-sm" onclick="showToast('Descargando…')">⬇ PDF</button></div>
+          <div class="report-row"><span style="font-weight:600">Reporte Enero 2025</span><button class="btn-sm" onclick="showToast('Descargando…')">⬇ PDF</button></div>
+          <div class="report-row"><span style="font-weight:600">Resumen nutricional ciclo</span><button class="btn-sm" onclick="showToast('Descargando…')">⬇ PDF</button></div>
+          <div class="report-row" style="border-bottom:none"><span style="font-weight:600">Lista de alergias registradas</span><button class="btn-sm" onclick="showToast('Descargando…')">⬇ Excel</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ PROPUESTA ════════ -->
+  <div class="view" id="v-propuesta">
+    <div class="top-bar">
+      <div><div class="pt">Propuesta <em>Kifud</em></div><div class="ps">Para presentar a tu comunidad de padres</div></div>
+      <button class="btno" onclick="showToast('Generando PDF de propuesta…')">⬇ Descargar presentación</button>
+    </div>
+
+    <div class="prop-hero">
+      <div>
+        <div class="prop-title">Nutrición con amor<br>en el <em>recreo.</em></div>
+        <div class="prop-sub">Kifud es un servicio de loncheras saludables diseñadas por nutriólogas certificadas, pensadas especialmente para niños en edad escolar. Un servicio de Nutrilú, Saltillo.</div>
+      </div>
+      <div class="prop-stat">
+        <div class="ps-num">148</div>
+        <div class="ps-lbl">Niños activos</div>
+        <div style="font-size:28px;color:var(--om);font-family:'Playfair Display',serif;font-weight:600;margin-top:12px">4.9★</div>
+        <div class="ps-lbl">Satisfacción</div>
+      </div>
+    </div>
+
+    <div class="ben-grid">
+      <div class="ben-card"><div class="ben-icon">👩‍⚕️</div><div class="ben-title">Nutriólogas certificadas</div><div class="ben-desc">Cada menú es diseñado y supervisado por nutriólogas con especialidad pediátrica. No improvisamos: hay ciencia detrás de cada lonchera.</div></div>
+      <div class="ben-card"><div class="ben-icon">📱</div><div class="ben-title">Las mamás eligen el menú</div><div class="ben-desc">Las mamás reciben el menú semanal por WhatsApp y seleccionan el platillo de su hijo desde el celular. Sin papeles, sin complicaciones.</div></div>
+      <div class="ben-card"><div class="ben-icon">☕</div><div class="ben-title">Recogida sin logística</div><div class="ben-desc">Las loncheras se recogen en Escápate Café antes de la escuela. Sin sistemas de entrega complicados para tu institución.</div></div>
+      <div class="ben-card"><div class="ben-icon">📋</div><div class="ben-title">Reportes para la dirección</div><div class="ben-desc">Mensualmente recibes un reporte nutricional del programa: participación, platillos más elegidos, tasa de asistencia y satisfacción.</div></div>
+      <div class="ben-card"><div class="ben-icon">🎓</div><div class="ben-title">Talleres para padres</div><div class="ben-desc">Organizamos talleres de nutrición infantil sin costo para los padres de tu comunidad escolar. Una actividad más para tu calendario.</div></div>
+      <div class="ben-card"><div class="ben-icon">🤝</div><div class="ben-title">Sin compromiso largo</div><div class="ben-desc">Las familias se suscriben por ciclo escolar. No hay contratos anuales forzados ni costos de cancelación. Confianza, no letra pequeña.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title">Planes disponibles para familias</div></div>
+      <div class="inner">
+        <table class="plan-tbl">
+          <tr><th>Plan</th><th>Loncheras</th><th>Incluye</th><th>Precio mensual</th><th>Precio semanal</th></tr>
+          <tr><td><strong>Plan Básico</strong></td><td>3/semana (L, Mi, V)</td><td>Platillo principal · Diseño nutricional</td><td><strong>$1,600 MXN</strong></td><td>$400 MXN</td></tr>
+          <tr><td><strong style="color:var(--o)">Plan Completo ⭐</strong></td><td>5/semana (L–V)</td><td>Platillo principal · Diseño nutricional · Notas de nutrióloga</td><td><strong style="color:var(--o)">$2,800 MXN</strong></td><td>$700 MXN</td></tr>
+          <tr><td><strong>Plan Premium</strong></td><td>5/semana + snack tarde</td><td>Todo lo anterior + snack saludable + consulta mensual</td><td><strong>$3,400 MXN</strong></td><td>$850 MXN</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="satisf-card" style="margin-bottom:0"><div class="satisf-num">6</div><div class="satisf-lbl">Colegios aliados</div><div class="satisf-sub">en Saltillo este ciclo</div></div>
+      <div class="satisf-card" style="margin-bottom:0"><div class="satisf-num">0%</div><div class="satisf-lbl">Costo para la institución</div><div class="satisf-sub">Kifud no cobra al colegio</div></div>
+    </div>
+  </div>
+
+  <!-- ════════ FACTURACIÓN ════════ -->
+  <div class="view" id="v-facturacion">
+    <div class="top-bar">
+      <div><div class="pt"><em>Facturación</em></div><div class="ps">Historial de pagos del programa Kifud en tu colegio</div></div>
+      <button class="btn-out" onclick="openModal()">Actualizar datos de facturación</button>
+    </div>
+
+    <div class="g2">
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Resumen de cobros</div></div>
+        <div class="inner">
+          <div class="ub" style="margin-bottom:18px"><div class="ub-header"><span class="ub-lbl">Familias en Plan Completo</span><span class="ub-val">28 familias</span></div><div class="ub-track"><div class="ub-fill" style="width:60%;background:var(--o)"></div></div></div>
+          <div class="ub" style="margin-bottom:18px"><div class="ub-header"><span class="ub-lbl">Familias en Plan Básico</span><span class="ub-val">14 familias</span></div><div class="ub-track"><div class="ub-fill" style="width:30%;background:var(--om)"></div></div></div>
+          <div class="ub"><div class="ub-header"><span class="ub-lbl">Familias en Plan Premium</span><span class="ub-val">5 familias</span></div><div class="ub-track"><div class="ub-fill" style="width:11%;background:var(--y)"></div></div></div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(0,0,0,.06);display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:500">Total mensual del colegio</span><span style="font-family:'Playfair Display',serif;font-size:20px;color:var(--o)">$118,600 MXN</span></div>
+        </div>
+      </div>
+      <div class="card" style="margin-bottom:0">
+        <div class="card-header"><div class="card-title">Historial de facturación</div></div>
+        <div class="inner">
+          <div class="inv-row"><span class="inv-date">Abr 2025</span><span class="inv-amt">$118,600</span><span class="inv-pill inv-pend">Pendiente</span><button class="inv-btn" onclick="showToast('Factura Abr enviada por correo')">Ver</button></div>
+          <div class="inv-row"><span class="inv-date">Mar 2025</span><span class="inv-amt">$115,200</span><span class="inv-pill inv-paid">Pagado</span><button class="inv-btn" onclick="showToast('Descargando…')">PDF</button></div>
+          <div class="inv-row"><span class="inv-date">Feb 2025</span><span class="inv-amt">$110,400</span><span class="inv-pill inv-paid">Pagado</span><button class="inv-btn" onclick="showToast('Descargando…')">PDF</button></div>
+          <div class="inv-row"><span class="inv-date">Ene 2025</span><span class="inv-amt">$98,000</span><span class="inv-pill inv-paid">Pagado</span><button class="inv-btn" onclick="showToast('Descargando…')">PDF</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CONTACTO ════════ -->
+  <div class="view" id="v-contacto">
+    <div class="top-bar">
+      <div><div class="pt">Contacto <em>Kifud</em></div><div class="ps">Tu equipo de apoyo para el programa</div></div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-av">AV</div>
+      <div>
+        <div style="font-size:15px;font-weight:700">Ana Lucía Vázquez</div>
+        <div style="font-size:12px;color:var(--mid);margin-top:2px;font-weight:300">Nutrióloga asignada al Colegio Americano · Especialista pediátrica</div>
+        <div class="contact-links">
+          <a href="#">📱 WhatsApp</a>
+          <a href="#">✉ Enviar correo</a>
+          <a href="#">📅 Agendar consulta</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-card">
+      <div class="contact-av" style="background:var(--yl);color:var(--warn);border-color:var(--y)">KA</div>
+      <div>
+        <div style="font-size:15px;font-weight:700">Coordinación Kifud</div>
+        <div style="font-size:12px;color:var(--mid);margin-top:2px;font-weight:300">Atención a colegios · Altas, cambios de plan y soporte administrativo</div>
+        <div class="contact-links">
+          <a href="#">📱 WhatsApp Kifud</a>
+          <a href="#">✉ <span class="__cf_email__" data-cfemail="87e4e8ebe2e0eee8f4c7eceee1f2e3a9eaff">[email&#160;protected]</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><div class="card-title">Enviar mensaje al equipo Kifud</div></div>
+      <div class="inner">
+        <div class="fgroup"><label>Asunto</label><select><option>Pregunta sobre el programa</option><option>Alta de nueva familia</option><option>Solicitud de reporte</option><option>Taller de nutrición</option><option>Otro</option></select></div>
+        <div class="fgroup"><label>Mensaje</label><textarea placeholder="Escribe tu mensaje aquí…" rows="5"></textarea></div>
+        <button class="btno" onclick="showToast('Mensaje enviado. Te respondemos en menos de 24hrs ✓')">Enviar mensaje →</button>
+      </div>
+    </div>
+
+    <div style="background:var(--dark);border-radius:16px;padding:24px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:11px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-weight:700">Punto de recogida de loncheras</div>
+        <div style="font-family:'Playfair Display',serif;font-size:22px;color:#fff">Escápate <em style="color:var(--om)">Café</em></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.4);margin-top:4px;font-weight:300">Saltillo, Coahuila · Loncheras listas a las 7:30 am</div>
+      </div>
+      <a href="#" style="background:var(--o);color:#fff;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none">📍 Ver en Google Maps</a>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ── MODAL ── -->
+<div class="modal-bg" id="modal-bg">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="modal-title">Actualizar datos de facturación</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body">
+      <div class="fgroup"><label>Nombre del colegio</label><input value="Colegio Americano Saltillo, A.C."></div>
+      <div class="frow2"><div class="fgroup" style="margin:0"><label>RFC</label><input value="CAS850101XXX"></div><div class="fgroup" style="margin:0"><label>CLABE bancaria</label><input placeholder="018…"></div></div>
+      <div class="fgroup" style="margin-top:14px"><label>Correo para facturas</label><input type="email" value="administracion@colegioamericano.edu.mx"></div>
+    </div>
+    <div class="modal-foot">
+      <button class="mbtn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="mbtn-prim" onclick="closeModal();showToast('Datos de facturación actualizados ✓')">Guardar cambios</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* ═══ FAMILIAS DATA ═══ */
+const FAMS=[
+  {mama:'Claudia Martínez',nino:'Emilio Martínez',grado:'2° Primaria',plan:'completo',status:'activo',desde:'Ene 2025',monto:'$2,800'},
+  {mama:'Fernanda Reyes',nino:'Isabella Reyes',grado:'1° Primaria',plan:'premium',status:'activo',desde:'Ene 2025',monto:'$3,400'},
+  {mama:'Patricia González',nino:'Mateo González',grado:'4° Primaria',plan:'completo',status:'activo',desde:'Feb 2025',monto:'$2,800'},
+  {mama:'Alejandra López',nino:'Sofía López',grado:'Kinder',plan:'basico',status:'activo',desde:'Ene 2025',monto:'$1,600'},
+  {mama:'Valeria Morales',nino:'Santiago Morales',grado:'3° Primaria',plan:'completo',status:'activo',desde:'Mar 2025',monto:'$2,800'},
+  {mama:'Carolina Jiménez',nino:'Camila Jiménez',grado:'5° Primaria',plan:'basico',status:'activo',desde:'Feb 2025',monto:'$1,600'},
+  {mama:'Sofía Ramírez',nino:'Diego Ramírez',grado:'4° Primaria',plan:'premium',status:'activo',desde:'Ene 2025',monto:'$3,400'},
+  {mama:'Ana Laura Torres',nino:'Valeria Torres',grado:'2° Primaria',plan:'completo',status:'pausado',desde:'Feb 2025',monto:'—'},
+  {mama:'Miriam Castillo',nino:'Rodrigo Castillo',grado:'1° Primaria',plan:'basico',status:'activo',desde:'Mar 2025',monto:'$1,600'},
+  {mama:'Daniela Herrera',nino:'Paulina Herrera',grado:'3° Primaria',plan:'completo',status:'activo',desde:'Ene 2025',monto:'$2,800'},
+];
+const PLAN_LABEL={completo:'Plan Completo',basico:'Plan Básico',premium:'Plan Premium'};
+const PLAN_CLASS={completo:'pill-o',basico:'pill-off',premium:'pill-y'};
+
+function renderFams(list){
+  document.getElementById('fam-list').innerHTML=list.map(f=>`
+    <div class="fam-row">
+      <div><div class="fam-name">${f.mama}</div><div class="fam-sub">👦🏻 ${f.nino} · ${f.grado}</div></div>
+      <div><span class="pill ${PLAN_CLASS[f.plan]}">${PLAN_LABEL[f.plan]}</span></div>
+      <div><span class="pill ${f.status==='activo'?'pill-ok':'pill-off'}">${f.status==='activo'?'Activa':'Pausada'}</span></div>
+      <div style="font-size:12px;color:var(--mid)">${f.desde}</div>
+      <div style="font-weight:700;color:${f.status==='activo'?'var(--dark)':'var(--light)'}">${f.monto}</div>
+      <div><button class="fam-action" onclick="showToast('Perfil de ${f.mama}')">Ver →</button></div>
+    </div>`).join('');
+}
+renderFams(FAMS);
+
+function filterFams(q){renderFams(q?FAMS.filter(f=>f.mama.toLowerCase().includes(q.toLowerCase())||f.nino.toLowerCase().includes(q.toLowerCase())):FAMS);}
+function filterFamsPlan(p){renderFams(p?FAMS.filter(f=>f.plan===p):FAMS);}
+
+/* ═══ VIEWS ═══ */
+function showV(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-'+id).classList.add('active');
+  document.querySelectorAll('.snav').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(id==='resumen') renderResBars();
+  if(id==='reportes') renderRepBars();
+}
+
+/* ═══ CHARTS ═══ */
+function renderResBars(){
+  const data=[{l:'S1',v:5},{l:'S2',v:4.5},{l:'S3',v:5},{l:'S4',v:3.8},{l:'S5',v:5},{l:'S6',v:4.6},{l:'S7',v:4.8},{l:'S8',v:4.2},{l:'S9',v:4.9}];
+  document.getElementById('res-bars').innerHTML=data.map(d=>`<div class="cbar-wrap"><div class="cbar ${d.v>=4.8?'high':''}" style="height:${(d.v/5)*100}%"></div><div class="cbar-lbl">${d.l}</div></div>`).join('');
+}
+function renderRepBars(){
+  const data=[{l:'S1',v:100},{l:'S2',v:90},{l:'S3',v:100},{l:'S4',v:76},{l:'S5',v:100},{l:'S6',v:92},{l:'S7',v:96},{l:'S8',v:84},{l:'S9',v:98}];
+  document.getElementById('rep-bars').innerHTML=data.map(d=>`<div class="cbar-wrap"><div class="cbar ${d.v>=96?'high':''}" style="height:${d.v}%"></div><div class="cbar-lbl">${d.l}</div></div>`).join('');
+}
+renderResBars();
+
+/* ═══ ALTA FAMILIAS ═══ */
+let pending=[];
+function addFamily(){
+  const mama=document.getElementById('add-mama').value.trim();
+  const email=document.getElementById('add-email').value.trim();
+  const nino=document.getElementById('add-nino').value.trim();
+  if(!mama||!email||!nino){showToast('Nombre de mamá, correo y nombre del niño son obligatorios');return;}
+  pending.push({mama,email,nino,grado:document.getElementById('add-grado').value,plan:document.getElementById('add-plan').value,nut:document.getElementById('add-nut').value});
+  ['add-mama','add-email','add-tel','add-nino','add-edad','add-alergias'].forEach(id=>document.getElementById(id).value='');
+  renderPending();
+  showToast(`${mama} agregada. Confirma cuando termines.`);
+}
+function renderPending(){
+  const card=document.getElementById('pending-card');
+  if(!pending.length){card.style.display='none';return;}
+  card.style.display='block';
+  document.getElementById('pending-count').textContent=`(${pending.length})`;
+  document.getElementById('pending-list').innerHTML=pending.map((f,i)=>`
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(196,122,0,.2);font-size:13px">
+      <div><strong>${f.mama}</strong> — 👦🏻 ${f.nino} · ${f.grado}<div style="font-size:11px;color:var(--warn);margin-top:2px">${f.email} · ${PLAN_LABEL[f.plan]||f.plan}</div></div>
+      <button onclick="pending.splice(${i},1);renderPending()" style="border:none;background:none;color:var(--danger);cursor:pointer;font-size:20px;line-height:1">×</button>
+    </div>`).join('');
+}
+function confirmAll(){
+  showToast(`✓ ${pending.length} familia${pending.length>1?'s':''} registrada${pending.length>1?'s':''}. Recibirán WhatsApp de bienvenida.`);
+  pending=[];renderPending();
+}
+
+/* ═══ CSV ═══ */
+function switchTab(t,btn){
+  document.querySelectorAll('#tab-manual,#tab-csv').forEach(el=>el.style.display='none');
+  document.getElementById('tab-'+t).style.display='block';
+  document.querySelectorAll('#tab-manual-btn,#tab-csv-btn').forEach(b=>{b.style.background='transparent';b.style.color='var(--mid)';b.style.borderColor='rgba(0,0,0,.1)';});
+  btn.style.background='var(--dark)';btn.style.color='#fff';btn.style.borderColor='var(--dark)';
+}
+function handleDrop(e){e.preventDefault();document.getElementById('drop-area').style.borderColor='';handleCSV(e.dataTransfer.files[0]);}
+function handleCSV(file){
+  if(!file||!file.name.endsWith('.csv')){showToast('Solo archivos .csv');return;}
+  const r=new FileReader();
+  r.onload=function(e){
+    const lines=e.target.result.split('\n').filter(Boolean);
+    const rows=lines.slice(1,5).map(l=>l.split(','));
+    document.getElementById('csv-ph').style.display='none';
+    document.getElementById('csv-prev').style.display='block';
+    document.getElementById('csv-prev').innerHTML=`
+      <div style="margin-top:16px;background:var(--okl);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--ok);font-weight:600;margin-bottom:12px">✓ ${lines.length-1} familias detectadas en el archivo</div>
+      <table style="width:100%;border-collapse:collapse;font-size:12px">
+        <tr style="background:var(--cream)"><th style="padding:8px 12px;text-align:left;font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em">Mamá</th><th style="padding:8px 12px;text-align:left;font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em">Correo</th><th style="padding:8px 12px;text-align:left;font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em">Plan</th></tr>
+        ${rows.map(r=>`<tr style="border-bottom:1px solid rgba(0,0,0,.05)"><td style="padding:8px 12px">${r[0]||'—'}</td><td style="padding:8px 12px">${r[1]||'—'}</td><td style="padding:8px 12px">${r[4]||'—'}</td></tr>`).join('')}
+      </table>
+      <button class="btno" style="margin-top:14px" onclick="showToast('✓ ${lines.length-1} familias importadas. Recibirán bienvenida por WhatsApp.')">Importar ${lines.length-1} familias →</button>`;
+  };
+  r.readAsText(file);
+}
+function downloadTemplate(){
+  const csv='nombre_mama,email,telefono,nombre_nino,grado,plan\nClaudia Martínez,claudia@gmail.com,8441234567,Emilio,2° Primaria,completo';
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);a.download='plantilla_kifud.csv';a.click();
+}
+
+/* ═══ MODAL ═══ */
+function openModal(){document.getElementById('modal-bg').style.display='flex';}
+function closeModal(){document.getElementById('modal-bg').style.display='none';}
+document.getElementById('modal-bg').addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
+
+/* ═══ TOAST ═══ */
+function 

@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kifud — Portal de mamá</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#F4721B;--od:#C2490A;--ol:#FEF0E6;--om:#F9A06B;
+  --y:#F7C948;--yl:#FFFBEA;
+  --c:#E8503A;
+  --off:#FFFDF9;--dark:#1C1612;--mid:#6B5E54;--light:#B8A99F;
+  --cream:#FBF6EF;--white:#FFFFFF;
+  --danger:#E24B4A;--dgl:#FCEBEB;
+  --ok:#16A34A;--okl:#DCFCE7;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off);color:var(--dark);overflow-x:hidden}
+
+/* ── LAYOUT ── */
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--dark);padding:24px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.slogo{font-family:'Playfair Display',serif;font-size:20px;color:#fff;margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.08);text-decoration:none;display:block;letter-spacing:-.02em}
+.slogo span{color:var(--o)}
+.slogo em{font-style:italic;color:var(--om)}
+.snav{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;font-size:13px;color:rgba(255,255,255,.45);cursor:pointer;text-decoration:none;border:none;background:transparent;width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.15s}
+.snav:hover{background:rgba(255,255,255,.07);color:rgba(255,255,255,.85)}
+.snav.active{background:var(--od);color:#fff}
+.snav svg{width:15px;height:15px;flex-shrink:0;opacity:.7}
+.snav.active svg{opacity:1}
+.sdivider{height:1px;background:rgba(255,255,255,.07);margin:8px 0}
+.sp{flex:1}
+.uinfo{padding:12px 14px;background:rgba(255,255,255,.06);border-radius:10px;margin-top:8px}
+.uavatar{width:34px;height:34px;border-radius:50%;background:var(--ol);border:2px solid var(--o);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--od);margin-bottom:8px}
+.uname{font-size:13px;font-weight:600;color:#fff}
+.uplan{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px}
+.snav-child{font-size:12px;padding-left:38px}
+
+/* ── MAIN ── */
+.main{padding:28px 32px;background:var(--off);overflow-y:auto}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}
+.pt{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);line-height:1.1}
+.pt em{color:var(--o);font-style:italic}
+.ps{font-size:13px;color:var(--mid);margin-top:5px;font-weight:300}
+.btno{background:var(--o);color:#fff;border:none;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s;text-decoration:none;display:inline-block}
+.btno:hover{background:var(--od)}
+.btnd{background:var(--dark);color:#fff;border:none;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s}
+
+/* ── METRICS ── */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.metric{background:#fff;border-radius:14px;padding:18px;border:1px solid rgba(0,0,0,.06)}
+.ml{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:700}
+.mv{font-size:24px;font-weight:700;color:var(--dark)}
+.ms{font-size:12px;color:var(--mid);margin-top:4px;font-weight:300}
+.mb{display:inline-block;font-size:11px;color:var(--od);background:var(--ol);padding:2px 9px;border-radius:100px;margin-top:6px;font-weight:600}
+
+/* ── WEEK CARD ── */
+.wcard{background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.06);margin-bottom:20px}
+.wh{display:flex;justify-content:space-between;align-items:center;padding:18px 22px;border-bottom:1px solid rgba(0,0,0,.06)}
+.wt{font-size:15px;font-weight:700;color:var(--dark)}
+.wdl{font-size:12px;color:var(--danger);background:var(--dgl);padding:3px 12px;border-radius:100px;font-weight:600}
+.wok{font-size:12px;color:var(--ok);background:var(--okl);padding:3px 12px;border-radius:100px;font-weight:600}
+
+/* ── DAY SELECTORS ── */
+.dgrid{padding:14px 22px;display:flex;flex-direction:column;gap:8px}
+.drow{display:grid;grid-template-columns:100px 1fr 1fr 100px;gap:12px;align-items:center;padding:12px 16px;border-radius:12px;background:var(--cream)}
+.drow.ok{background:var(--ol);border:1px solid rgba(244,114,27,.2)}
+.dn{font-size:13px;font-weight:700}
+.dd{font-size:11px;color:var(--light);font-weight:400}
+.opt{padding:8px 12px;border-radius:8px;font-size:12px;cursor:pointer;border:1.5px solid transparent;background:transparent;color:var(--mid);text-align:left;width:100%;font-family:'Plus Jakarta Sans',sans-serif;transition:.12s;display:flex;align-items:center;gap:6px}
+.opt:hover{border-color:var(--om);background:#fff}
+.opt.sel{background:#fff;border-color:var(--o);color:var(--od);font-weight:600}
+.opt-emoji{font-size:14px;flex-shrink:0}
+.sok{display:inline-flex;align-items:center;gap:5px;font-size:12px;color:var(--ok);font-weight:600}
+.spend{font-size:12px;color:var(--light)}
+
+/* ── TABS ── */
+.wtabs{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.wtab{padding:8px 18px;border-radius:100px;font-size:13px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:transparent;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.12s}
+.wtab:hover{border-color:var(--o);color:var(--o)}
+.wtab.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.wtab.nxt{border-color:var(--o);color:var(--od)}
+.wbadge{display:inline-flex;font-size:11px;color:var(--light);background:var(--cream);padding:4px 12px;border-radius:100px;margin-bottom:14px;font-weight:500}
+.wbadge.cur{color:var(--od);background:var(--ol)}
+.wbadge.upc{color:#7A5000;background:var(--yl)}
+
+/* ── DAY PILLS ── */
+.dpills{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.dp{padding:8px 16px;border-radius:100px;font-size:13px;cursor:pointer;border:1.5px solid rgba(0,0,0,.08);background:#fff;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.12s}
+.dp:hover{border-color:var(--o);color:var(--o)}
+.dp.active{background:var(--o);color:#fff;border-color:var(--o)}
+.dp.done{background:var(--ol);color:var(--od);border-color:var(--om)}
+
+/* ── DISH CARD ── */
+.dcard{background:#fff;border-radius:20px;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.dvis{height:200px;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;position:relative}
+.demoji{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:100px;opacity:.15;user-select:none}
+.ddaybadge{font-size:11px;color:var(--od);background:rgba(255,255,255,.7);padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:6px;position:relative;font-weight:600}
+.dtitle{font-family:'Playfair Display',serif;font-size:22px;color:var(--dark);position:relative;line-height:1.2}
+.dbody{padding:22px}
+.gibadge{display:inline-flex;align-items:center;gap:5px;font-size:12px;padding:4px 12px;border-radius:100px;font-weight:600;margin-bottom:14px}
+.gilow{background:#EAF3DE;color:#27500A}
+.gimid{background:var(--yl);color:#7A5000}
+.gidot{width:7px;height:7px;border-radius:50%}
+.dsecs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.dsec{background:var(--cream);border-radius:12px;padding:14px}
+.dstitle{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:9px;font-weight:700}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.itag{font-size:11px;color:var(--od);background:var(--ol);padding:2px 9px;border-radius:100px;font-weight:500}
+.vtag{font-size:11px;color:#534AB7;background:#EEEDFE;padding:2px 9px;border-radius:100px;font-weight:500}
+.nrow{display:grid;grid-template-columns:repeat(5,1fr);gap:5px}
+.nc{text-align:center;background:#fff;border-radius:8px;padding:7px 3px}
+.ncv{font-size:14px;font-weight:700;color:var(--dark)}
+.ncl{font-size:9px;color:var(--light);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.ben{display:flex;gap:7px;font-size:12px;color:var(--mid);padding:4px 0;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.55}
+.ben:last-child{border-bottom:none}
+.bdot{width:5px;height:5px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:5px}
+
+/* ── 2-col grid ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px}
+.card{background:#fff;border-radius:16px;padding:20px 22px;border:1px solid rgba(0,0,0,.06)}
+.ct{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;color:var(--dark)}
+.cl{font-size:12px;color:var(--o);cursor:pointer;font-weight:600}
+.hr{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px}
+.hr:last-child{border-bottom:none}
+.hd{color:var(--mid);font-weight:300}
+.hpill{font-size:11px;padding:3px 10px;border-radius:100px;font-weight:600}
+.hrec{background:var(--okl);color:var(--ok)}
+.hnorec{background:var(--dgl);color:var(--danger)}
+.hplan{background:var(--cream);color:var(--mid)}
+.nr{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.nr:last-child{border-bottom:none}
+.ndot{width:7px;height:7px;border-radius:50%;background:var(--om);flex-shrink:0;margin-top:5px}
+.ndy{font-size:11px;color:var(--light);width:55px;flex-shrink:0;font-weight:600}
+
+/* ── HISTORIAL ── */
+.hist-filters{display:flex;gap:8px;margin-bottom:22px;flex-wrap:wrap}
+.hfil{padding:7px 18px;border-radius:100px;font-size:13px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:transparent;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.12s}
+.hfil:hover{border-color:var(--o);color:var(--o)}
+.hfil.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.hist-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px}
+.htable{background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.06);overflow:hidden}
+.hthead{display:grid;grid-template-columns:100px 1fr 90px 90px 80px;gap:12px;padding:12px 20px;font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(0,0,0,.06);font-weight:700}
+.hweek-sep{padding:7px 20px;font-size:10px;font-weight:700;color:var(--light);background:var(--cream);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(0,0,0,.04)}
+.hchart-wrap{background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.06);padding:20px 22px;margin-bottom:18px}
+.hchart-title{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;color:var(--dark)}
+.hbars{display:flex;align-items:flex-end;gap:6px;height:80px}
+.hbar-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.hbar{width:100%;border-radius:4px 4px 0 0;transition:height .4s;background:var(--om)}
+.hbar.full{background:var(--o)}
+.hbar-lbl{font-size:9px;color:var(--light);font-weight:600}
+
+/* ── PERFIL ── */
+.perfil-wrap{display:grid;grid-template-columns:280px 1fr;gap:18px;align-items:start}
+.pcard-user{background:#fff;border-radius:16px;border:1px solid rgba(0,0,0,.06);overflow:hidden;position:sticky;top:20px}
+.pcu-top{background:var(--dark);padding:28px 22px;text-align:center}
+.pcu-av{width:64px;height:64px;border-radius:50%;background:var(--ol);border:3px solid var(--o);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:var(--od);margin:0 auto 12px;font-weight:600}
+.pcu-name{font-size:16px;font-weight:700;color:#fff}
+.pcu-since{font-size:11px;color:rgba(255,255,255,.35);margin-top:4px}
+.pcu-plan{display:inline-block;margin-top:10px;background:var(--o);color:#fff;font-size:11px;font-weight:700;padding:4px 14px;border-radius:100px;letter-spacing:.04em}
+.pcu-body{padding:18px}
+.pcu-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px}
+.pcu-row:last-child{border-bottom:none}
+.pcu-lbl{color:var(--mid);font-weight:300}
+.pcu-val{font-weight:600;color:var(--dark);text-align:right}
+.pcu-edit{display:block;width:100%;margin-top:16px;padding:10px;border-radius:10px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-size:13px;font-weight:600;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);transition:.12s}
+.pcu-edit:hover{border-color:var(--o);color:var(--o)}
+.pform-section{background:#fff;border-radius:16px;padding:22px;border:1px solid rgba(0,0,0,.06);margin-bottom:16px}
+.pform-title{font-size:14px;font-weight:700;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid rgba(0,0,0,.06);color:var(--dark)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.frow.single{grid-template-columns:1fr}
+label{display:block;font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px;font-weight:700}
+input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid rgba(0,0,0,.1);border-radius:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;background:#fff;color:var(--dark);transition:.12s;outline:none}
+input:focus,select:focus,textarea:focus{border-color:var(--o)}
+textarea{resize:vertical;min-height:80px}
+.fsave{background:var(--o);color:#fff;border:none;padding:11px 28px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s}
+.fsave:hover{background:var(--od)}
+
+/* ── NIÑO CARD ── */
+.nino-card{background:var(--cream);border-radius:14px;padding:18px;border:1px solid rgba(0,0,0,.05);margin-bottom:12px}
+.nino-top{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.nino-av{width:42px;height:42px;border-radius:50%;background:var(--ol);border:2px solid var(--om);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.nino-name{font-size:15px;font-weight:700;color:var(--dark)}
+.nino-info{font-size:12px;color:var(--mid);margin-top:2px;font-weight:300}
+.nino-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.nino-tag{font-size:11px;padding:3px 10px;border-radius:100px;background:var(--ol);color:var(--od);font-weight:600}
+.nino-tag.alerta{background:var(--dgl);color:var(--danger)}
+
+/* ── MODAL BASE ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;position:relative}
+.modal-head{padding:22px 24px;border-bottom:1px solid rgba(0,0,0,.07);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark);font-weight:600}
+.modal-close{width:28px;height:28px;border-radius:50%;background:var(--cream);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--mid)}
+.modal-body{padding:24px}
+.modal-footer{padding:16px 24px;border-top:1px solid rgba(0,0,0,.07);display:flex;gap:10px;justify-content:flex-end}
+.mbtn-ghost{padding:10px 22px;border-radius:100px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--mid)}
+.mbtn-ghost:hover{border-color:var(--o);color:var(--o)}
+.mbtn-prim{padding:10px 22px;border-radius:100px;background:var(--o);border:none;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff;transition:.15s}
+.mbtn-prim:hover{background:var(--od)}
+.mbtn-danger{padding:10px 22px;border-radius:100px;background:var(--dgl);border:none;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:var(--danger)}
+
+/* ── SUSCRIPCIÓN MODAL ── */
+.sus-opts{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.sus-opt{padding:14px 16px;border-radius:12px;border:1.5px solid rgba(0,0,0,.08);cursor:pointer;transition:.12s;display:flex;justify-content:space-between;align-items:center}
+.sus-opt:hover{border-color:var(--o)}
+.sus-opt-lbl{font-size:14px;font-weight:600;color:var(--dark)}
+.sus-opt-sub{font-size:12px;color:var(--mid);margin-top:2px;font-weight:300}
+.sus-opt-ico{font-size:20px}
+.plan-cards{display:flex;flex-direction:column;gap:10px}
+.plan-c{padding:16px;border-radius:14px;border:1.5px solid rgba(0,0,0,.08);cursor:pointer;transition:.12s}
+.plan-c:hover{border-color:var(--o)}
+.plan-c.active{border-color:var(--o);background:var(--ol)}
+.plan-c-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+.plan-c-name{font-size:14px;font-weight:700}
+.plan-c-price{font-family:'Playfair Display',serif;font-size:18px;color:var(--o);font-weight:600}
+.plan-c-desc{font-size:12px;color:var(--mid);font-weight:300}
+.pause-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.pause-opt{padding:12px 14px;border-radius:10px;border:1.5px solid rgba(0,0,0,.08);cursor:pointer;font-size:13px;font-weight:500;transition:.12s}
+.pause-opt:hover{border-color:var(--o);color:var(--od)}
+.pause-opt.sel{border-color:var(--o);background:var(--ol);color:var(--od)}
+
+/* ── REVIEW MODAL ── */
+.stars{display:flex;gap:8px;justify-content:center;margin:20px 0 8px}
+.star{font-size:32px;cursor:pointer;opacity:.3;transition:.12s;user-select:none}
+.star.lit{opacity:1}
+.star-label{text-align:center;font-size:13px;color:var(--mid);margin-bottom:16px;font-weight:500;min-height:20px}
+.rv-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.rv-tag{padding:6px 14px;border-radius:100px;border:1.5px solid rgba(0,0,0,.08);font-size:12px;cursor:pointer;transition:.12s;font-weight:500}
+.rv-tag:hover,.rv-tag.sel{border-color:var(--o);background:var(--ol);color:var(--od)}
+.rv-area{width:100%;border:1.5px solid rgba(0,0,0,.1);border-radius:10px;padding:10px 14px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;resize:vertical;min-height:70px;outline:none}
+.rv-area:focus{border-color:var(--o)}
+
+/* ── CONFIRM MODAL ── */
+.confirm-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px}
+.confirm-row:last-child{border-bottom:none;font-weight:700;padding-top:14px}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;white-space:nowrap;font-weight:500}
+
+/* ── VIEWS ── */
+.view{display:none}
+.view.active{display:block}
+
+/* ── VIEWS HIDDEN ── */
+[id^="sus-"]{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <a href="index.html" class="slogo">Ki<em>fud</em><span>·</span></a>
+
+  <button class="snav active" onclick="showV('inicio',this)">
+    <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+    Inicio
+  </button>
+  <button class="snav" onclick="showV('menu',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="12" height="10" rx="2"/><path d="M5 7h6M5 10h4"/></svg>
+    Menú semanal
+  </button>
+  <button class="snav" onclick="showV('historial',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6"/><path d="M8 5v3.5l2.5 1.5"/></svg>
+    Historial
+  </button>
+
+  <div class="sdivider"></div>
+
+  <button class="snav" onclick="showV('nino',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+    Mi hijo
+  </button>
+  <button class="snav" onclick="showV('perfil',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+    Mi perfil
+  </button>
+  <button class="snav" onclick="openSus()">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="12" height="9" rx="1.5"/><path d="M5 4V3a1 1 0 0 1 2 0v1M9 4V3a1 1 0 0 1 2 0v1"/></svg>
+    Mi suscripción
+  </button>
+
+  <div class="sp"></div>
+  <div class="sdivider"></div>
+
+  <div class="uinfo">
+    <div class="uavatar">PG</div>
+    <div class="uname">Paola García</div>
+    <div class="uplan">Plan Completo · Nutrióloga Ana</div>
+  </div>
+</aside>
+
+<!-- ── MAIN CONTENT ── -->
+<main class="main">
+
+  <!-- ═══════════ INICIO ═══════════ -->
+  <div class="view active" id="v-inicio">
+    <div class="ph">
+      <div>
+        <div class="pt">Hola, <em>Paola 👋</em></div>
+        <div class="ps">Esta semana faltan 2 platillos por elegir. ¡Hazlo antes del domingo!</div>
+      </div>
+      <button class="btno" onclick="showV('menu',document.querySelector('.snav:nth-child(3)'))">Elegir menú →</button>
+    </div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="ml">Loncheras recogidas</div>
+        <div class="mv">34</div>
+        <div class="ms">Este ciclo escolar</div>
+        <div class="mb">+3 esta semana</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Semanas activas</div>
+        <div class="mv">9</div>
+        <div class="ms">De 10 disponibles</div>
+        <div class="mb">90% asistencia</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Mi nutrióloga</div>
+        <div class="mv" style="font-size:17px;margin-top:4px">Ana L. Vázquez</div>
+        <div class="ms">Especialista infantil</div>
+        <div class="mb">⭐ 5.0</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Próxima recogida</div>
+        <div class="mv" style="font-size:17px;margin-top:4px">Mañana 7:30</div>
+        <div class="ms">Escápate Café</div>
+        <div class="mb">Pollo al limón 🍋</div>
+      </div>
+    </div>
+
+    <!-- Menú esta semana (resumen) -->
+    <div class="wcard">
+      <div class="wh">
+        <div class="wt">Menú de Emilio — Semana actual</div>
+        <div class="wdl">⚠ 2 sin elegir · Cierra domingo</div>
+      </div>
+      <div class="dgrid">
+        <div class="drow ok">
+          <div><div class="dn">Lunes</div><div class="dd">7 Abr</div></div>
+          <div class="opt sel"><span class="opt-emoji">🥕</span>Pollo al limón + quinoa</div>
+          <div></div>
+          <div class="sok">✓ Confirmado</div>
+        </div>
+        <div class="drow ok">
+          <div><div class="dn">Martes</div><div class="dd">8 Abr</div></div>
+          <div class="opt sel"><span class="opt-emoji">🍝</span>Pasta integral con atún</div>
+          <div></div>
+          <div class="sok">✓ Confirmado</div>
+        </div>
+        <div class="drow ok">
+          <div><div class="dn">Miércoles</div><div class="dd">9 Abr</div></div>
+          <div class="opt sel"><span class="opt-emoji">🥑</span>Bowl de leguminosas</div>
+          <div></div>
+          <div class="sok">✓ Confirmado</div>
+        </div>
+        <div class="drow">
+          <div><div class="dn">Jueves</div><div class="dd">10 Abr</div></div>
+          <div class="opt" onclick="this.classList.add('sel');this.closest('.drow').classList.add('ok');this.nextElementSibling.style.display='none';this.closest('.drow').querySelector('.spend').innerHTML='<span class=\'sok\'>✓ Elegido</span>';showToast('¡Listo! Jueves confirmado 🎉')"><span class="opt-emoji">🍗</span>Pollo a la mostaza</div>
+          <div class="opt" onclick="this.classList.add('sel');this.closest('.drow').classList.add('ok');this.previousElementSibling.style.display='none';this.closest('.drow').querySelector('.spend').innerHTML='<span class=\'sok\'>✓ Elegido</span>';showToast('¡Listo! Jueves confirmado 🎉')"><span class="opt-emoji">🥦</span>Bowl de brócoli y res</div>
+          <div class="spend">Pendiente</div>
+        </div>
+        <div class="drow">
+          <div><div class="dn">Viernes</div><div class="dd">11 Abr</div></div>
+          <div class="opt" onclick="this.classList.add('sel');this.closest('.drow').classList.add('ok');this.nextElementSibling.style.display='none';this.closest('.drow').querySelector('.spend').innerHTML='<span class=\'sok\'>✓ Elegido</span>';showToast('¡Perfecto! Menú completo ✅')"><span class="opt-emoji">🌮</span>Taquitos de frijol y queso</div>
+          <div class="opt" onclick="this.classList.add('sel');this.closest('.drow').classList.add('ok');this.previousElementSibling.style.display='none';this.closest('.drow').querySelector('.spend').innerHTML='<span class=\'sok\'>✓ Elegido</span>';showToast('¡Perfecto! Menú completo ✅')"><span class="opt-emoji">🫘</span>Lentejas con verduras</div>
+          <div class="spend">Pendiente</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2-col quick cards -->
+    <div class="g2">
+      <div class="card">
+        <div class="ct">Últimas loncheras <span class="cl" onclick="showV('historial',document.querySelector('.snav:nth-child(4)'))">Ver todo →</span></div>
+        <div class="hr"><span class="hd">Vie 4 Abr · Taquitos de frijol</span><span class="hpill hrec">Recogida</span></div>
+        <div class="hr"><span class="hd">Jue 3 Abr · Pollo a la mostaza</span><span class="hpill hrec">Recogida</span></div>
+        <div class="hr"><span class="hd">Mié 2 Abr · Bowl leguminosas</span><span class="hpill hrec">Recogida</span></div>
+        <div class="hr"><span class="hd">Mar 1 Abr · Pasta con atún</span><span class="hpill hrec">Recogida</span></div>
+        <div class="hr"><span class="hd">Lun 31 Mar · Pollo al limón</span><span class="hpill hrec">Recogida</span></div>
+      </div>
+      <div class="card">
+        <div class="ct">Notas de Ana (nutrióloga)</div>
+        <div class="nr"><div class="ndot"></div><div class="ndy">Hoy</div><div style="font-size:13px;color:var(--mid);font-weight:300">El menú de esta semana es rico en hierro. Perfecto para la etapa de crecimiento de Emilio 🌱</div></div>
+        <div class="nr"><div class="ndot" style="background:var(--light)"></div><div class="ndy">Lun</div><div style="font-size:13px;color:var(--mid);font-weight:300">Recuerda incluir una fruta en la mochila para complementar la lonchera.</div></div>
+        <div class="nr"><div class="ndot" style="background:var(--light)"></div><div class="ndy">Sem pas.</div><div style="font-size:13px;color:var(--mid);font-weight:300">¡Emilio recogió todas sus loncheras! Excelente semana 🎉</div></div>
+      </div>
+    </div>
+
+    <!-- Escápate café -->
+    <div style="background:var(--dark);border-radius:16px;padding:20px 24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px;font-weight:700">Punto de recogida</div>
+        <div style="font-family:'Playfair Display',serif;font-size:20px;color:#fff">Escápate <em style="color:var(--om)">Café</em></div>
+        <div style="font-size:13px;color:rgba(255,255,255,.45);margin-top:4px;font-weight:300">Lista a las 7:30 am · Lunes a viernes durante el ciclo escolar</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <a href="#" style="background:var(--o);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:700;text-decoration:none">📍 Ver ubicación</a>
+        <a href="#" style="background:rgba(255,255,255,.08);color:#fff;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;text-decoration:none">WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MENÚ SEMANAL ═══════════ -->
+  <div class="view" id="v-menu">
+    <div class="ph">
+      <div>
+        <div class="pt">Menú <em>semanal</em></div>
+        <div class="ps">Elige los platillos de Emilio para cada semana</div>
+      </div>
+      <button class="btno" onclick="openConfirm()">Confirmar y pagar →</button>
+    </div>
+
+    <div class="wtabs">
+      <button class="wtab active" onclick="setWeek('cur',this)">Esta semana</button>
+      <button class="wtab nxt" onclick="setWeek('nxt',this)">Próxima semana</button>
+      <button class="wtab" onclick="setWeek('p1',this)">Semana pasada</button>
+    </div>
+    <div class="wbadge cur" id="week-badge">7 – 11 de Abril · En curso</div>
+
+    <div class="dpills" id="day-pills">
+      <button class="dp active" onclick="renderDish(0,this)">Lun ✓</button>
+      <button class="dp done" onclick="renderDish(1,this)">Mar ✓</button>
+      <button class="dp done" onclick="renderDish(2,this)">Mié ✓</button>
+      <button class="dp" onclick="renderDish(3,this)">Jue</button>
+      <button class="dp" onclick="renderDish(4,this)">Vie</button>
+    </div>
+
+    <div id="dish-area"></div>
+  </div>
+
+  <!-- ═══════════ HISTORIAL ═══════════ -->
+  <div class="view" id="v-historial">
+    <div class="ph">
+      <div>
+        <div class="pt"><em>Historial</em> de loncheras</div>
+        <div class="ps">Registro completo de los platillos de Emilio</div>
+      </div>
+    </div>
+
+    <div class="hchart-wrap">
+      <div class="hchart-title"><span>Loncheras recogidas por semana</span><span style="font-size:12px;color:var(--mid);font-weight:400">Ciclo Ene–Jun 2025</span></div>
+      <div class="hbars" id="hbars"></div>
+    </div>
+
+    <div class="hist-stats">
+      <div class="metric"><div class="ml">Total recogidas</div><div class="mv">34</div><div class="ms">De 45 posibles</div><div class="mb">75.5%</div></div>
+      <div class="metric"><div class="ml">Semanas completas</div><div class="mv">6</div><div class="ms">De 9 semanas</div></div>
+      <div class="metric"><div class="ml">Platillo favorito</div><div class="mv" style="font-size:14px;margin-top:4px">Pollo al limón</div><div class="ms">Elegido 4 veces</div></div>
+      <div class="metric"><div class="ml">Sin recoger</div><div class="mv">11</div><div class="ms">Loncheras perdidas</div></div>
+    </div>
+
+    <div class="hist-filters">
+      <button class="hfil active" onclick="setHist('all',this)">Todas</button>
+      <button class="hfil" onclick="setHist('rec',this)">Recogidas</button>
+      <button class="hfil" onclick="setHist('norec',this)">No recogidas</button>
+    </div>
+
+    <div class="htable">
+      <div class="hthead">
+        <div>Fecha</div><div>Platillo</div><div>Estado</div><div>Plan</div><div>Calificar</div>
+      </div>
+      <div id="hist-body"></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MI HIJO ═══════════ -->
+  <div class="view" id="v-nino">
+    <div class="ph">
+      <div>
+        <div class="pt">Mi <em>hijo</em></div>
+        <div class="ps">Información de Emilio que guía cada menú de Ana</div>
+      </div>
+      <button class="btno" onclick="showToast('Cambios guardados ✓')">Guardar cambios</button>
+    </div>
+
+    <div class="perfil-wrap">
+      <div>
+        <div class="nino-card">
+          <div class="nino-top">
+            <div class="nino-av">👦🏻</div>
+            <div>
+              <div class="nino-name">Emilio García</div>
+              <div class="nino-info">8 años · 2° de Primaria · Colegio Americano</div>
+            </div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px">
+            <div><span style="color:var(--light);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;display:block;margin-bottom:4px">Peso</span><strong>27 kg</strong></div>
+            <div><span style="color:var(--light);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;display:block;margin-bottom:4px">Estatura</span><strong>128 cm</strong></div>
+            <div><span style="color:var(--light);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;display:block;margin-bottom:4px">Actividad</span><strong>Fútbol 3×/sem</strong></div>
+            <div><span style="color:var(--light);font-size:11px;text-transform:uppercase;letter-spacing:.06em;font-weight:700;display:block;margin-bottom:4px">Meta nutricional</span><strong>Crecimiento</strong></div>
+          </div>
+          <div class="nino-tags">
+            <span class="nino-tag">Sin alergias registradas</span>
+            <span class="nino-tag alerta">No le gusta el chile</span>
+            <span class="nino-tag">Prefiere pollo y pasta</span>
+            <span class="nino-tag">Sin restricciones religiosas</span>
+          </div>
+        </div>
+        <div style="background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.06);padding:18px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:14px;color:var(--dark)">Nota de Ana Lucía (nutrióloga)</div>
+          <div style="font-size:13px;color:var(--mid);line-height:1.7;font-weight:300">Emilio tiene una excelente tasa de aceptación de platillos nuevos. Su actividad física de fútbol requiere un aporte extra de carbohidratos complejos y proteína. Trabajamos con menús coloridos para estimular su curiosidad por comer bien. 🌟</div>
+        </div>
+      </div>
+
+      <div>
+        <div class="pform-section">
+          <div class="pform-title">Datos del niño</div>
+          <div class="frow">
+            <div><label>Nombre completo</label><input type="text" value="Emilio García Pérez"></div>
+            <div><label>Fecha de nacimiento</label><input type="date" value="2016-09-15"></div>
+          </div>
+          <div class="frow">
+            <div><label>Peso (kg)</label><input type="number" value="27" min="10" max="80"></div>
+            <div><label>Estatura (cm)</label><input type="number" value="128" min="80" max="200"></div>
+          </div>
+          <div class="frow">
+            <div><label>Colegio</label><input type="text" value="Colegio Americano Saltillo"></div>
+            <div><label>Grado</label><select><option>2° Primaria</option><option>1° Primaria</option><option>3° Primaria</option><option>Kinder</option></select></div>
+          </div>
+          <div class="frow single">
+            <div><label>Actividad física</label><select><option>Fútbol 3 veces por semana</option><option>Sin actividad extra</option><option>Natación</option><option>Danza/ballet</option><option>Múltiples deportes</option></select></div>
+          </div>
+        </div>
+
+        <div class="pform-section">
+          <div class="pform-title">Preferencias y restricciones alimenticias</div>
+          <div class="frow single">
+            <div><label>Alergias o intolerancias</label><input type="text" placeholder="Ej: nueces, lactosa, gluten…" value="Ninguna conocida"></div>
+          </div>
+          <div class="frow single">
+            <div><label>Alimentos que no le gustan</label><input type="text" value="Alimentos picantes, chile"></div>
+          </div>
+          <div class="frow single">
+            <div><label>Alimentos favoritos</label><input type="text" value="Pollo, pasta, aguacate, frutas"></div>
+          </div>
+          <div class="frow single">
+            <div><label>Restricciones religiosas o culturales</label><input type="text" placeholder="Ej: sin cerdo, kosher, halal…" value="Ninguna"></div>
+          </div>
+          <div class="frow single">
+            <div><label>Meta nutricional principal</label><select><option>Crecimiento y desarrollo</option><option>Mantener peso saludable</option><option>Apoyo para actividad física</option><option>Mejorar digestión</option><option>Aumentar energía</option></select></div>
+          </div>
+          <div class="frow single">
+            <div><label>Notas adicionales para la nutrióloga</label><textarea>Emilio es muy activo. Los días que tiene fútbol (lunes, miércoles y viernes) necesita una lonchera con más energía.</textarea></div>
+          </div>
+          <button class="fsave" onclick="showToast('Perfil de Emilio actualizado ✓')">Guardar cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ MI PERFIL ═══════════ -->
+  <div class="view" id="v-perfil">
+    <div class="ph">
+      <div>
+        <div class="pt">Mi <em>perfil</em></div>
+        <div class="ps">Datos de tu cuenta y preferencias</div>
+      </div>
+    </div>
+    <div class="perfil-wrap">
+      <div class="pcard-user">
+        <div class="pcu-top">
+          <div class="pcu-av">PG</div>
+          <div class="pcu-name">Paola García</div>
+          <div class="pcu-since">Mamá de Emilio · Desde Enero 2025</div>
+          <div class="pcu-plan">Plan Completo</div>
+        </div>
+        <div class="pcu-body">
+          <div class="pcu-row"><span class="pcu-lbl">Nutrióloga</span><span class="pcu-val">Ana L. Vázquez</span></div>
+          <div class="pcu-row"><span class="pcu-lbl">Punto de recogida</span><span class="pcu-val">Escápate Café</span></div>
+          <div class="pcu-row"><span class="pcu-lbl">Ciclo activo</span><span class="pcu-val">Ene – Jun 2025</span></div>
+          <div class="pcu-row"><span class="pcu-lbl">Siguiente cobro</span><span class="pcu-val">$2,800 · 1 May</span></div>
+          <button class="pcu-edit" onclick="openSus()">Gestionar suscripción</button>
+        </div>
+      </div>
+      <div>
+        <div class="pform-section">
+          <div class="pform-title">Datos personales</div>
+          <div class="frow">
+            <div><label>Nombre</label><input type="text" value="Paola"></div>
+            <div><label>Apellidos</label><input type="text" value="García Pérez"></div>
+          </div>
+          <div class="frow">
+            <div><label>Teléfono (WhatsApp)</label><input type="tel" value="+52 844 000 0000"></div>
+            <div><label>Correo electrónico</label><input type="email" value="paola@gmail.com"></div>
+          </div>
+          <button class="fsave" onclick="showToast('Datos actualizados ✓')">Guardar</button>
+        </div>
+        <div class="pform-section">
+          <div class="pform-title">Notificaciones</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <label style="display:flex;justify-content:space-between;align-items:center;text-transform:none;letter-spacing:0;font-size:13px;color:var(--dark);font-weight:500"><span>Recordatorio de menú (domingo 6pm)</span><input type="checkbox" checked style="width:auto;accent-color:var(--o)"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;text-transform:none;letter-spacing:0;font-size:13px;color:var(--dark);font-weight:500"><span>Confirmación de lonchera lista (7am)</span><input type="checkbox" checked style="width:auto;accent-color:var(--o)"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;text-transform:none;letter-spacing:0;font-size:13px;color:var(--dark);font-weight:500"><span>Notas y mensajes de la nutrióloga</span><input type="checkbox" checked style="width:auto;accent-color:var(--o)"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;text-transform:none;letter-spacing:0;font-size:13px;color:var(--dark);font-weight:500"><span>Resumen nutricional mensual</span><input type="checkbox" style="width:auto;accent-color:var(--o)"></label>
+          </div>
+          <button class="fsave" style="margin-top:16px" onclick="showToast('Preferencias guardadas ✓')">Guardar preferencias</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ═══════════ MODAL — SUSCRIPCIÓN ═══════════ -->
+<div class="modal-bg" id="sus-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="sus-modal-title">Mi suscripción</div>
+      <button class="modal-close" onclick="closeSus()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- main -->
+      <div id="sus-main">
+        <div style="background:var(--cream);border-radius:14px;padding:16px 18px;margin-bottom:20px">
+          <div style="font-size:11px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;font-weight:700">Plan activo</div>
+          <div style="font-family:'Playfair Display',serif;font-size:20px;color:var(--dark)">Plan <em style="color:var(--o)">Completo</em></div>
+          <div style="font-size:13px;color:var(--mid);margin-top:4px;font-weight:300">5 loncheras por semana · $2,800 MXN/mes</div>
+          <div style="font-size:12px;color:var(--ok);margin-top:6px;font-weight:600">✓ Activo · Siguiente cobro: 1 de mayo</div>
+        </div>
+        <div class="sus-opts">
+          <div class="sus-opt" onclick="susSub('plan')">
+            <div><div class="sus-opt-lbl">Cambiar plan</div><div class="sus-opt-sub">Ver opciones de Básico, Completo o Premium</div></div>
+            <div class="sus-opt-ico">📋</div>
+          </div>
+          <div class="sus-opt" onclick="susSub('nut')">
+            <div><div class="sus-opt-lbl">Cambiar nutrióloga</div><div class="sus-opt-sub">Actualmente: Ana Lucía Vázquez</div></div>
+            <div class="sus-opt-ico">👩‍⚕️</div>
+          </div>
+          <div class="sus-opt" onclick="susSub('punto')">
+            <div><div class="sus-opt-lbl">Cambiar punto de recogida</div><div class="sus-opt-sub">Actualmente: Escápate Café</div></div>
+            <div class="sus-opt-ico">📍</div>
+          </div>
+          <div class="sus-opt" onclick="susSub('pause')" style="border-color:rgba(244,114,27,.3)">
+            <div><div class="sus-opt-lbl">Pausar suscripción</div><div class="sus-opt-sub">Sin cobros mientras está pausada</div></div>
+            <div class="sus-opt-ico">⏸</div>
+          </div>
+          <div class="sus-opt" onclick="susSub('cancel')" style="border-color:rgba(226,75,74,.2)">
+            <div><div class="sus-opt-lbl" style="color:var(--danger)">Cancelar suscripción</div><div class="sus-opt-sub">El servicio continúa hasta fin del ciclo</div></div>
+            <div class="sus-opt-ico">✕</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- plan -->
+      <div id="sus-plan">
+        <button onclick="susSub('main')" style="font-size:13px;color:var(--mid);background:none;border:none;cursor:pointer;margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif">← Volver</button>
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">Elige tu nuevo plan</div>
+        <div class="plan-cards">
+          <div class="plan-c" onclick="selPlan(this)">
+            <div class="plan-c-head"><span class="plan-c-name">Plan Básico</span><span class="plan-c-price">$1,600<span style="font-size:12px;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400">/mes</span></span></div>
+            <div class="plan-c-desc">3 loncheras por semana · Lunes, Miércoles y Viernes</div>
+          </div>
+          <div class="plan-c active" onclick="selPlan(this)">
+            <div class="plan-c-head"><span class="plan-c-name">Plan Completo ⭐</span><span class="plan-c-price">$2,800<span style="font-size:12px;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400">/mes</span></span></div>
+            <div class="plan-c-desc">5 loncheras por semana · Lunes a viernes · Plan actual</div>
+          </div>
+          <div class="plan-c" onclick="selPlan(this)">
+            <div class="plan-c-head"><span class="plan-c-name">Plan Premium</span><span class="plan-c-price">$3,400<span style="font-size:12px;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:400">/mes</span></span></div>
+            <div class="plan-c-desc">5 loncheras + snack de media tarde + consulta mensual con la nutrióloga</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- pause -->
+      <div id="sus-pause">
+        <button onclick="susSub('main')" style="font-size:13px;color:var(--mid);background:none;border:none;cursor:pointer;margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif">← Volver</button>
+        <div style="font-size:14px;font-weight:700;margin-bottom:6px">¿Cuánto tiempo quieres pausar?</div>
+        <div style="font-size:13px;color:var(--mid);margin-bottom:16px;font-weight:300">Sin cobros durante la pausa. Puedes reactivar cuando quieras.</div>
+        <div class="pause-opts">
+          <div class="pause-opt" onclick="document.querySelectorAll('.pause-opt').forEach(p=>p.classList.remove('sel'));this.classList.add('sel')">1 semana</div>
+          <div class="pause-opt" onclick="document.querySelectorAll('.pause-opt').forEach(p=>p.classList.remove('sel'));this.classList.add('sel')">2 semanas</div>
+          <div class="pause-opt" onclick="document.querySelectorAll('.pause-opt').forEach(p=>p.classList.remove('sel'));this.classList.add('sel')">Semana de vacaciones (personalizada)</div>
+          <div class="pause-opt" onclick="document.querySelectorAll('.pause-opt').forEach(p=>p.classList.remove('sel'));this.classList.add('sel')">Fin del ciclo escolar</div>
+        </div>
+      </div>
+
+      <!-- cancel -->
+      <div id="sus-cancel">
+        <button onclick="susSub('main')" style="font-size:13px;color:var(--mid);background:none;border:none;cursor:pointer;margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif">← Volver</button>
+        <div style="background:var(--dgl);border-radius:12px;padding:16px 18px;margin-bottom:16px">
+          <div style="font-size:14px;font-weight:700;color:var(--danger);margin-bottom:6px">¿Segura que quieres cancelar?</div>
+          <div style="font-size:13px;color:var(--mid);font-weight:300">El servicio continúa hasta el 30 de junio (fin del ciclo). No se realizarán más cobros.</div>
+        </div>
+        <div class="frow single"><div><label>¿Por qué cancelas? (opcional)</label><select><option value="">Seleccionar motivo…</option><option>Cambio de colegio</option><option>Razones económicas</option><option>Mi hijo ya no quiere</option><option>Voy a preparar yo la lonchera</option><option>Otro</option></select></div></div>
+      </div>
+
+      <!-- nutrióloga -->
+      <div id="sus-nut">
+        <button onclick="susSub('main')" style="font-size:13px;color:var(--mid);background:none;border:none;cursor:pointer;margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif">← Volver</button>
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">Cambiar nutrióloga</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="sus-opt active-nut" onclick="selNut(this,'AV','Ana Lucía')" style="border-color:var(--o);background:var(--ol)">
+            <div>
+              <div class="sus-opt-lbl">Ana Lucía Vázquez <span style="font-size:11px;color:var(--od);background:var(--ol);padding:2px 8px;border-radius:100px;font-weight:700">Actual</span></div>
+              <div class="sus-opt-sub">Esp. infantil · 6 años exp. · ⭐ 5.0 · 22 lugares</div>
+            </div>
+            <div style="width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid var(--o);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--od)">AV</div>
+          </div>
+          <div class="sus-opt" onclick="selNut(this,'LR','Laura Rincón')">
+            <div>
+              <div class="sus-opt-lbl">Laura Rincón</div>
+              <div class="sus-opt-sub">Hábitos infantiles · 9 años exp. · ⭐ 4.9 · Lista de espera</div>
+            </div>
+            <div style="width:36px;height:36px;border-radius:50%;background:var(--yl);border:2px solid var(--y);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:#7A5000">LR</div>
+          </div>
+        </div>
+        <button id="nut-confirm-btn" style="margin-top:16px;width:100%;padding:12px;border-radius:100px;background:var(--o);color:#fff;border:none;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;opacity:.4" disabled onclick="confirmSusChange('nut')">Selecciona una nutrióloga</button>
+      </div>
+
+      <!-- punto de recogida -->
+      <div id="sus-punto">
+        <button onclick="susSub('main')" style="font-size:13px;color:var(--mid);background:none;border:none;cursor:pointer;margin-bottom:16px;font-family:'Plus Jakarta Sans',sans-serif">← Volver</button>
+        <div style="font-size:14px;font-weight:700;margin-bottom:14px">Punto de recogida</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="sus-opt sel" id="loc-1" onclick="selLoc(1)" style="border-color:var(--o);background:var(--ol)">
+            <div>
+              <div class="sus-opt-lbl">Escápate Café <span style="font-size:11px;color:var(--od);background:var(--ol);padding:2px 8px;border-radius:100px;font-weight:700">Actual</span></div>
+              <div class="sus-opt-sub">Disponible desde 7:30 am · Col. República</div>
+            </div>
+            <div class="sus-opt-ico">☕</div>
+          </div>
+          <div class="sus-opt" id="loc-2" onclick="selLoc(2)">
+            <div>
+              <div class="sus-opt-lbl">Colegio Americano</div>
+              <div class="sus-opt-sub">Entrega en portería · 7:45 am (próximamente)</div>
+            </div>
+            <div class="sus-opt-ico">🏫</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer" id="sus-footer">
+      <button class="mbtn-ghost" onclick="closeSus()">Cancelar</button>
+      <button class="mbtn-prim" id="sus-confirm-btn" onclick="handleSusConfirm()">Confirmar cambio</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL — CONFIRMAR MENÚ ═══════════ -->
+<div class="modal-bg" id="confirm-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">Confirmar menú y pago</div>
+      <button class="modal-close" onclick="closeConfirm()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:13px;color:var(--mid);margin-bottom:16px;font-weight:300">Revisa el menú de Emilio antes de confirmar. Se cargará a tu método de pago registrado.</div>
+      <div id="confirm-rows"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="mbtn-ghost" onclick="closeConfirm()">Editar menú</button>
+      <button class="mbtn-prim" onclick="closeConfirm();showToast('¡Menú confirmado! Te notificamos el domingo 🎉')">Confirmar y pagar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ MODAL — CALIFICAR ═══════════ -->
+<div class="modal-bg" id="review-modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">¿Cómo estuvo <span id="rv-name">el platillo</span>? <span id="rv-emoji">🍽</span></div>
+      <button class="modal-close" onclick="closeReview()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="font-size:13px;color:var(--mid);text-align:center;margin-bottom:4px;font-weight:300">¿Le gustó a Emilio?</div>
+      <div class="stars">
+        <span class="star" onclick="setStar(1)">★</span>
+        <span class="star" onclick="setStar(2)">★</span>
+        <span class="star" onclick="setStar(3)">★</span>
+        <span class="star" onclick="setStar(4)">★</span>
+        <span class="star" onclick="setStar(5)">★</span>
+      </div>
+      <div class="star-label" id="star-label">Toca para calificar</div>
+      <div class="rv-tags" id="rv-tags" style="display:none">
+        <span class="rv-tag" onclick="this.classList.toggle('sel')">¡Le encantó!</span>
+        <span class="rv-tag" onclick="this.classList.toggle('sel')">Se lo comió todo</span>
+        <span class="rv-tag" onclick="this.classList.toggle('sel')">Porciones perfectas</span>
+        <span class="rv-tag" onclick="this.classList.toggle('sel')">Le faltó variedad</span>
+        <span class="rv-tag" onclick="this.classList.toggle('sel')">No le gustó mucho</span>
+        <span class="rv-tag" onclick="this.classList.toggle('sel')">Muy buena presentación</span>
+      </div>
+      <textarea class="rv-area" placeholder="Comentario opcional para la nutrióloga…"></textarea>
+    </div>
+    <div class="modal-footer">
+      <button class="mbtn-ghost" onclick="closeReview()">Cancelar</button>
+      <button class="mbtn-prim" id="rv-submit" onclick="submitReview()" disabled style="opacity:.4">Enviar reseña</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast"></div>
+
+<script>
+/* ═══ MENÚ DATA ═══ */
+const MENU=[
+  {day:'Lunes',emoji:'🥕',color:'#FEF0E6',name:'Pollo al limón con quinoa y verduras',done:true,
+   gi:'Bajo–Moderado (44–50)',gil:true,
+   ingredients:['Pechuga de pollo','Quinoa','Calabacita','Zanahoria','Pimiento','Limón','Aceite de oliva'],
+   nutrition:{kcal:420,prot:32,fat:12,carb:38,fiber:5},
+   vitamins:['Vitamina B6','Potasio','Hierro','Vitamina C','Zinc'],
+   benefits:['Proteína magra para el crecimiento de Emilio','Energía sostenida para sus horas de clase','Fibra que mejora su digestión']},
+  {day:'Martes',emoji:'🍝',color:'#FFFBEA',name:'Pasta integral con atún y jitomate',done:true,
+   gi:'Moderado (48–52)',gil:true,
+   ingredients:['Pasta integral','Atún al natural','Jitomate cherry','Aceite de oliva','Albahaca','Limón'],
+   nutrition:{kcal:400,prot:28,fat:10,carb:46,fiber:6},
+   vitamins:['Omega-3','Vitamina D','Vitamina B12','Folato','Vitamina C'],
+   benefits:['Omega-3 del atún apoya el desarrollo cerebral','Energía duradera para la tarde de actividades','Antioxidantes del jitomate fresco']},
+  {day:'Miércoles',emoji:'🥑',color:'#FFF4ED',name:'Bowl de leguminosas con aguacate',done:true,
+   gi:'Bajo (42–47)',gil:true,
+   ingredients:['Frijoles negros','Arroz integral','Aguacate','Zanahoria','Cilantro','Limón'],
+   nutrition:{kcal:410,prot:18,fat:14,carb:44,fiber:10},
+   vitamins:['Hierro vegetal','Folato','Vitamina K','Vitamina E','Magnesio'],
+   benefits:['Alta fibra para saciedad y digestión sana','Grasas saludables del aguacate para el cerebro','Proteína vegetal completa']},
+  {day:'Jueves',emoji:'🍗',color:'#FEEFEE',name:'Pollo a la mostaza con puré y brócoli',done:false,
+   gi:'Moderado (50–55)',gil:false,
+   ingredients:['Muslo de pollo','Papa','Brócoli','Mostaza Dijon','Ajo','Aceite de oliva'],
+   nutrition:{kcal:440,prot:34,fat:13,carb:40,fiber:5},
+   vitamins:['Vitamina C','Vitamina K','Folato','Potasio','Calcio'],
+   benefits:['Brócoli aporta calcio para los huesos de Emilio','Pollo como proteína completa','Calcio apoya el crecimiento óseo']},
+  {day:'Viernes',emoji:'🌮',color:'#FFF9E6',name:'Taquitos de frijol y queso con nopal',done:false,
+   gi:'Bajo–Moderado (45–50)',gil:true,
+   ingredients:['Tortillas de maíz','Frijoles','Queso Oaxaca','Nopal','Jitomate','Cebolla','Limón'],
+   nutrition:{kcal:380,prot:16,fat:11,carb:50,fiber:8},
+   vitamins:['Calcio','Hierro','Vitamina C','Vitamina B12','Fibra prebiótica'],
+   benefits:['Cocina mexicana nutritiva y familiar','Nopal — prebiótico para la microbiota','Calcio del queso para huesos fuertes']},
+];
+
+/* ═══ HISTORIAL DATA ═══ */
+const HIST=[
+  {week:'Semana 9 · 31 Mar – 4 Abr',date:'Vie 4 Abr',dish:'Taquitos de frijol y queso',status:'rec'},
+  {week:'Semana 9 · 31 Mar – 4 Abr',date:'Jue 3 Abr',dish:'Pollo a la mostaza',status:'rec'},
+  {week:'Semana 9 · 31 Mar – 4 Abr',date:'Mié 2 Abr',dish:'Bowl de leguminosas',status:'rec'},
+  {week:'Semana 9 · 31 Mar – 4 Abr',date:'Mar 1 Abr',dish:'Pasta integral con atún',status:'rec'},
+  {week:'Semana 9 · 31 Mar – 4 Abr',date:'Lun 31 Mar',dish:'Pollo al limón + quinoa',status:'rec'},
+  {week:'Semana 8 · 24–28 Mar',date:'Vie 28 Mar',dish:'Bowl de lentejas',status:'norec'},
+  {week:'Semana 8 · 24–28 Mar',date:'Jue 27 Mar',dish:'Sopa de pasta y verduras',status:'rec'},
+  {week:'Semana 8 · 24–28 Mar',date:'Mié 26 Mar',dish:'Pollo al horno con arroz',status:'rec'},
+  {week:'Semana 8 · 24–28 Mar',date:'Mar 25 Mar',dish:'Pasta con atún',status:'norec'},
+  {week:'Semana 8 · 24–28 Mar',date:'Lun 24 Mar',dish:'Bowl de quinoa',status:'rec'},
+  {week:'Semana 7 · 17–21 Mar',date:'Vie 21 Mar',dish:'Taquitos de pollo',status:'rec'},
+  {week:'Semana 7 · 17–21 Mar',date:'Jue 20 Mar',dish:'Pasta con brócoli',status:'rec'},
+  {week:'Semana 7 · 17–21 Mar',date:'Mié 19 Mar',dish:'Pollo al limón',status:'norec'},
+  {week:'Semana 7 · 17–21 Mar',date:'Mar 18 Mar',dish:'Bowl de leguminosas',status:'rec'},
+  {week:'Semana 7 · 17–21 Mar',date:'Lun 17 Mar',dish:'Salmón con quinoa',status:'rec'},
+];
+
+let histFilter='all';
+let currentStar=0;
+let currentSusView='main';
+
+/* ═══ VIEWS ═══ */
+function showV(name,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-'+name).classList.add('active');
+  document.querySelectorAll('.snav').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(name==='menu') renderDish(0,document.querySelector('#day-pills .dp'));
+  if(name==='historial'){renderHistBody();renderBars();}
+}
+
+/* ═══ DISH RENDERER ═══ */
+function renderDish(i,btn){
+  document.querySelectorAll('.dp').forEach(p=>p.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const d=MENU[i];
+  document.getElementById('dish-area').innerHTML=`
+    <div class="dcard">
+      <div class="dvis" style="background:${d.color}">
+        <div class="demoji">${d.emoji}</div>
+        <div class="ddaybadge">${d.day}</div>
+        <div class="dtitle">${d.name}</div>
+      </div>
+      <div class="dbody">
+        <div class="gibadge ${d.gil?'gilow':'gimid'}"><div class="gidot" style="background:${d.gil?'#27500A':'#7A5000'}"></div>Índice glucémico ${d.gi}</div>
+        <div class="dsecs">
+          <div class="dsec">
+            <div class="dstitle">Ingredientes</div>
+            <div class="tags">${d.ingredients.map(x=>`<span class="itag">${x}</span>`).join('')}</div>
+          </div>
+          <div class="dsec">
+            <div class="dstitle">Información nutricional</div>
+            <div class="nrow">
+              <div class="nc"><div class="ncv">${d.nutrition.kcal}</div><div class="ncl">kcal</div></div>
+              <div class="nc"><div class="ncv">${d.nutrition.prot}g</div><div class="ncl">prot.</div></div>
+              <div class="nc"><div class="ncv">${d.nutrition.fat}g</div><div class="ncl">grasas</div></div>
+              <div class="nc"><div class="ncv">${d.nutrition.carb}g</div><div class="ncl">carbos</div></div>
+              <div class="nc"><div class="ncv">${d.nutrition.fiber}g</div><div class="ncl">fibra</div></div>
+            </div>
+            <div class="tags" style="margin-top:10px">${d.vitamins.map(x=>`<span class="vtag">${x}</span>`).join('')}</div>
+          </div>
+          <div class="dsec">
+            <div class="dstitle">Beneficios para Emilio</div>
+            ${d.benefits.map(b=>`<div class="ben"><div class="bdot"></div>${b}</div>`).join('')}
+          </div>
+        </div>
+        ${!d.done?`<div style="margin-top:16px;display:flex;gap:10px">
+          <button class="btno" style="font-size:13px;padding:10px 20px" onclick="this.closest('.dcard').style.opacity='.5';showToast('${d.day} confirmado ✓')">✓ Confirmar este platillo</button>
+          <button style="background:var(--cream);border:none;padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;cursor:pointer;font-family:\'Plus Jakarta Sans\',sans-serif" onclick="showToast(\'Opción alternativa próximamente\')">Ver alternativa</button>
+        </div>`:'<div style="margin-top:14px;font-size:13px;color:var(--ok);font-weight:600">✓ Platillo confirmado para este día</div>'}
+      </div>
+    </div>`;
+}
+
+/* ═══ WEEK SWITCHER ═══ */
+function setWeek(w,btn){
+  document.querySelectorAll('.wtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const badge=document.getElementById('week-badge');
+  const pills=document.getElementById('day-pills');
+  if(w==='cur'){badge.className='wbadge cur';badge.textContent='7 – 11 de Abril · En curso';pills.innerHTML='<button class="dp active" onclick="renderDish(0,this)">Lun ✓</button><button class="dp done" onclick="renderDish(1,this)">Mar ✓</button><button class="dp done" onclick="renderDish(2,this)">Mié ✓</button><button class="dp" onclick="renderDish(3,this)">Jue</button><button class="dp" onclick="renderDish(4,this)">Vie</button>';}
+  else if(w==='nxt'){badge.className='wbadge upc';badge.textContent='14 – 18 de Abril · Próxima semana';pills.innerHTML='<button class="dp" onclick="renderDish(0,this)">Lun</button><button class="dp" onclick="renderDish(1,this)">Mar</button><button class="dp" onclick="renderDish(2,this)">Mié</button><button class="dp" onclick="renderDish(3,this)">Jue</button><button class="dp" onclick="renderDish(4,this)">Vie</button>';}
+  else{badge.className='wbadge';badge.textContent='31 Mar – 4 Abr · Semana pasada';pills.innerHTML='<button class="dp done" onclick="renderDish(0,this)">Lun ✓</button><button class="dp done" onclick="renderDish(1,this)">Mar ✓</button><button class="dp done" onclick="renderDish(2,this)">Mié ✓</button><button class="dp done" onclick="renderDish(3,this)">Jue ✓</button><button class="dp done" onclick="renderDish(4,this)">Vie ✓</button>';}
+  renderDish(0,document.querySelector('#day-pills .dp'));
+}
+
+/* ═══ HISTORIAL ═══ */
+function setHist(f,btn){histFilter=f;document.querySelectorAll('.hfil').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderHistBody();}
+function renderHistBody(){
+  const filtered=histFilter==='all'?HIST:HIST.filter(r=>r.status===histFilter);
+  let html='';let lastWeek='';
+  filtered.forEach(r=>{
+    if(r.week!==lastWeek){html+=`<div class="hweek-sep">${r.week}</div>`;lastWeek=r.week;}
+    html+=`<div style="display:grid;grid-template-columns:100px 1fr 90px 80px;gap:12px;padding:13px 20px;border-bottom:1px solid rgba(0,0,0,.04);font-size:13px;align-items:center">
+      <div style="color:var(--mid);font-weight:400">${r.date}</div>
+      <div style="font-weight:600">${r.dish}</div>
+      <div><span class="hpill ${r.status==='rec'?'hrec':'hnorec'}">${r.status==='rec'?'Recogida':'No recogida'}</span></div>
+      <div>${r.status==='rec'?`<button onclick="openReview('${r.dish}','')" style="font-size:11px;color:var(--o);border:1.5px solid rgba(244,114,27,.3);background:transparent;padding:4px 10px;border-radius:100px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600">⭐ Calificar</button>`:'<span style="font-size:11px;color:var(--light)">—</span>'}</div>
+    </div>`;
+  });
+  document.getElementById('hist-body').innerHTML=html||'<div style="padding:32px;text-align:center;color:var(--light);font-size:13px">Sin registros</div>';
+}
+function renderBars(){
+  const data=[
+    {lbl:'Sem 1',v:5,max:5},{lbl:'Sem 2',v:4,max:5},{lbl:'Sem 3',v:5,max:5},
+    {lbl:'Sem 4',v:3,max:5},{lbl:'Sem 5',v:5,max:5},{lbl:'Sem 6',v:4,max:5},
+    {lbl:'Sem 7',v:4,max:5},{lbl:'Sem 8',v:3,max:5},{lbl:'Sem 9',v:5,max:5},
+  ];
+  document.getElementById('hbars').innerHTML=data.map(d=>`
+    <div class="hbar-wrap">
+      <div class="hbar ${d.v===d.max?'full':''}" style="height:${(d.v/d.max)*100}%"></div>
+      <div class="hbar-lbl">${d.lbl}</div>
+    </div>`).join('');
+}
+
+/* ═══ MODALES ═══ */
+function openSus(){document.getElementById('sus-modal').style.display='flex';susSub('main');}
+function closeSus(){document.getElementById('sus-modal').style.display='none';}
+function susSub(view){
+  ['main','plan','pause','cancel','nut','punto'].forEach(v=>{const el=document.getElementById('sus-'+v);if(el)el.style.display='none';});
+  const t=document.getElementById('sus-'+view);if(t)t.style.display='block';
+  currentSusView=view;
+  const footer=document.getElementById('sus-footer');
+  const btn=document.getElementById('sus-confirm-btn');
+  if(view==='main'){footer.style.display='none';}
+  else if(view==='cancel'){footer.style.display='flex';btn.className='mbtn-danger';btn.textContent='Sí, cancelar suscripción';}
+  else if(view==='pause'){footer.style.display='flex';btn.className='mbtn-prim';btn.textContent='Pausar suscripción';}
+  else if(view==='punto'){footer.style.display='flex';btn.className='mbtn-prim';btn.textContent='Guardar punto de recogida';}
+  else{footer.style.display='flex';btn.className='mbtn-prim';btn.textContent='Confirmar cambio';}
+}
+function handleSusConfirm(){
+  const msgs={plan:'¡Plan actualizado! Aplica desde el próximo mes.',pause:'Suscripción pausada ⏸ Sin cobros hasta que la reactives.',cancel:'Suscripción cancelada. El servicio continúa hasta el 30 de junio.',punto:'Punto de recogida actualizado ✓'};
+  closeSus();showToast(msgs[currentSusView]||'Cambio guardado ✓');
+}
+function selPlan(el){el.closest('.plan-cards').querySelectorAll('.plan-c').forEach(c=>c.classList.remove('active'));el.classList.add('active');}
+function selNut(el,initials,name){
+  document.querySelectorAll('#sus-nut .sus-opt').forEach(e=>{e.style.borderColor='rgba(0,0,0,.08)';e.style.background='#fff';});
+  el.style.borderColor='var(--o)';el.style.background='var(--ol)';
+  const btn=document.getElementById('nut-confirm-btn');btn.disabled=false;btn.style.opacity='1';btn.textContent=`Cambiar a ${name}`;
+}
+function selLoc(n){for(let i=1;i<=2;i++){const el=document.getElementById('loc-'+i);if(el)el.classList.toggle('sel',i===n);}}
+
+function openConfirm(){
+  const rows=MENU.map(d=>`<div class="confirm-row"><span style="color:var(--mid)">${d.day}</span><span style="${d.done?'font-weight:600':'color:var(--light)'}">${d.done?d.name:'Pendiente'}</span></div>`).join('');
+  document.getElementById('confirm-rows').innerHTML=rows+`<div class="confirm-row"><span>Total a cobrar</span><span style="color:var(--o);font-family:'Playfair Display',serif;font-size:18px">$700 MXN</span></div>`;
+  document.getElementById('confirm-modal').style.display='flex';
+}
+function closeConfirm(){document.getElementById('confirm-modal').style.display='none';}
+
+let currentStar2=0;
+function openReview(name,emoji){
+  if(name)document.getElementById('rv-name').textContent=name;
+  if(emoji)document.getElementById('rv-emoji').textContent=emoji;
+  currentStar2=0;
+  document.querySelectorAll('.star').forEach(s=>s.classList.remove('lit'));
+  document.getElementById('star-label').textContent='Toca para calificar';
+  document.getElementById('rv-tags').style.display='none';
+  const sub=document.getElementById('rv-submit');sub.disabled=true;sub.style.opacity='.4';
+  document.getElementById('review-modal').style.display='flex';
+}
+function closeReview(){document.getElementById('review-modal').style.display='none';}
+function setStar(n){
+  currentStar2=n;
+  const labels=['','No le gustó','Regular','Estuvo bien','¡Le gustó!','¡Le encantó! 🌟'];
+  document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<n));
+  document.getElementById('star-label').textContent=labels[n];
+  document.getElementById('rv-tags').style.display='flex';
+  const sub=document.getElementById('rv-submit');sub.disabled=false;sub.style.opacity='1';
+}
+function submitReview(){closeReview();showToast('¡Gracias! Tu reseña fue enviada a Ana Lucía ✓');}
+
+/* ═══ TOAST ═══ */
+function showToast(msg){
+  let t=document.getElementById('toast');
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._to);t._to=setTimeout(()=>t.style.opacity='0',3200);
+}
+
+/* ═══ CLOSE MODALS ON BG CLICK ═══ */
+['sus-modal','confirm-modal','review-modal'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
+});
+
+/* ═══ INIT ═══ */
+renderDish(0,null);
+</script>
+</body>
+</html>

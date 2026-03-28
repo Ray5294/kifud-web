@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kifud — Para Pediatras</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#F4721B;--od:#C2490A;--ol:#FEF0E6;--om:#F9A06B;
+  --ink:#17120E;--ink2:#3D322B;--mid:#7A6A60;--light:#C4B4A9;
+  --off:#FDFAF6;--cream:#F5EFE6;--white:#FFFFFF;
+  --rule:rgba(0,0,0,.08);
+  --y:#F7C948;--yl:#FFFBEA;
+  --ok:#15803D;--okl:#DCFCE7;
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--off);color:var(--ink);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 56px;background:var(--off);border-bottom:1px solid var(--rule);position:sticky;top:0;z-index:100}
+.logo{font-family:'Cormorant Garamond',serif;font-size:24px;color:var(--ink);text-decoration:none;font-weight:600;letter-spacing:-.02em}
+.logo span{color:var(--o)}
+.logo em{font-style:italic;color:var(--od)}
+.navlinks{display:flex;gap:30px;align-items:center}
+.navlinks a{font-size:13px;color:var(--mid);text-decoration:none;font-weight:500;letter-spacing:.01em}
+.navlinks a:hover{color:var(--ink)}
+.nav-cta{background:var(--ink);color:#fff;padding:9px 22px;border-radius:4px;font-size:13px;font-weight:600;text-decoration:none;letter-spacing:.03em;transition:.2s}
+.nav-cta:hover{background:var(--od)}
+
+/* ── HERO ── */
+.hero{display:grid;grid-template-columns:1fr 420px;min-height:88vh;padding:0 56px;align-items:center;gap:60px;position:relative}
+.hero::after{content:'';position:absolute;top:0;right:0;width:420px;height:100%;background:var(--cream);z-index:0}
+.hleft{position:relative;z-index:1;padding:72px 0}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.16em;color:var(--o);text-transform:uppercase;margin-bottom:24px}
+.hero-eyebrow::before{content:'';width:32px;height:1.5px;background:var(--o)}
+h1{font-family:'Cormorant Garamond',serif;font-size:64px;line-height:1.04;color:var(--ink);letter-spacing:-.03em;margin-bottom:28px;font-weight:500}
+h1 em{font-style:italic;color:var(--o)}
+.hero-sub{font-size:16px;color:var(--mid);line-height:1.8;max-width:480px;margin-bottom:44px;font-weight:300}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.btn-prim{background:var(--o);color:#fff;padding:14px 32px;border-radius:4px;font-size:14px;font-weight:600;text-decoration:none;display:inline-block;letter-spacing:.02em;transition:.2s}
+.btn-prim:hover{background:var(--od)}
+.btn-sec{color:var(--ink);padding:14px 20px;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--rule);transition:.2s}
+.btn-sec:hover{border-color:var(--o);color:var(--o)}
+.hero-note{font-size:12px;color:var(--light);margin-top:18px;letter-spacing:.02em}
+.hright{position:relative;z-index:1;padding:72px 20px 72px 40px}
+
+/* stats card */
+.stat-card{background:#fff;border-radius:2px;border:1px solid var(--rule);padding:32px;box-shadow:0 24px 60px rgba(0,0,0,.08)}
+.sc-header{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--light);margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid var(--rule)}
+.sc-stat{padding:16px 0;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.sc-stat:last-child{border-bottom:none}
+.sc-label{font-size:13px;color:var(--mid);font-weight:300;max-width:160px;line-height:1.4}
+.sc-value{font-family:'Cormorant Garamond',serif;font-size:28px;color:var(--ink);font-weight:600;text-align:right;flex-shrink:0}
+.sc-value em{font-size:14px;font-style:normal;color:var(--o);font-family:'DM Sans',sans-serif;font-weight:700;display:block;text-align:right}
+.sc-footer{margin-top:20px;padding:14px 16px;background:var(--ol);border-radius:2px}
+.sc-footer-txt{font-size:12px;color:var(--od);font-weight:500;line-height:1.5}
+
+/* ── SECTION BASE ── */
+section{padding:96px 56px}
+.seye{font-size:10px;font-weight:600;letter-spacing:.16em;color:var(--o);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.seye::before{content:'';width:24px;height:1.5px;background:var(--o)}
+h2{font-family:'Cormorant Garamond',serif;font-size:46px;line-height:1.06;letter-spacing:-.02em;font-weight:500}
+h2 em{font-style:italic;color:var(--o)}
+.section-sub{font-size:15px;color:var(--mid);line-height:1.8;max-width:560px;font-weight:300;margin-top:14px}
+
+/* ── PROPUESTA ── */
+.propuesta{background:#fff}
+.prop-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.prop-left{}
+.prop-right{padding-top:8px}
+.prop-items{display:flex;flex-direction:column;gap:0;margin-top:40px}
+.prop-item{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.prop-item:last-child{border-bottom:none}
+.prop-num{font-family:'Cormorant Garamond',serif;font-size:36px;color:var(--ol);font-style:italic;font-weight:600;line-height:1;margin-top:2px}
+.prop-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.prop-desc{font-size:13px;color:var(--mid);line-height:1.7;font-weight:300}
+.prop-tag{display:inline-block;margin-top:8px;font-size:11px;color:var(--od);background:var(--ol);padding:3px 10px;border-radius:2px;font-weight:600;letter-spacing:.04em}
+
+/* clinical box */
+.clinical-box{background:var(--cream);border-radius:2px;padding:28px;border-left:3px solid var(--o);margin-top:32px}
+.cb-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--o);margin-bottom:14px}
+.cb-item{display:flex;gap:10px;font-size:13px;color:var(--ink2);padding:6px 0;border-bottom:1px solid rgba(0,0,0,.06);line-height:1.55}
+.cb-item:last-child{border-bottom:none}
+.cb-dot{width:5px;height:5px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:7px}
+
+/* ── ESTÁNDARES ── */
+.estandares{background:var(--cream)}
+.est-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin-top:48px;border:1px solid var(--rule)}
+.est-cell{background:var(--off);padding:28px 24px}
+.est-icon{font-size:28px;margin-bottom:14px}
+.est-title{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:8px}
+.est-desc{font-size:13px;color:var(--mid);line-height:1.65;font-weight:300}
+.est-ref{display:inline-block;margin-top:10px;font-size:11px;color:var(--od);background:var(--ol);padding:2px 9px;border-radius:2px;font-weight:600;font-style:italic}
+
+/* ── MENU MUESTRA ── */
+.menu-show{background:var(--ink)}
+.menu-show .seye{color:var(--om)}
+.menu-show .seye::before{background:var(--om)}
+.menu-show h2{color:#fff}
+.menu-show .section-sub{color:rgba(255,255,255,.45)}
+.menu-inner{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;align-items:start}
+.menu-tabs{display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap}
+.mtab{padding:8px 18px;border-radius:2px;font-size:12px;cursor:pointer;border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.4);font-family:'DM Sans',sans-serif;font-weight:500;transition:.12s;letter-spacing:.04em}
+.mtab:hover{border-color:rgba(255,255,255,.3);color:rgba(255,255,255,.8)}
+.mtab.active{background:var(--o);color:#fff;border-color:var(--o)}
+.dish-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:2px;overflow:hidden}
+.dish-vis{padding:28px;position:relative;min-height:160px;display:flex;flex-direction:column;justify-content:flex-end}
+.dish-emoji{position:absolute;top:16px;right:20px;font-size:64px;opacity:.2;user-select:none}
+.dish-day{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--om);margin-bottom:8px}
+.dish-name{font-family:'Cormorant Garamond',serif;font-size:24px;color:#fff;line-height:1.2;font-weight:500}
+.dish-body{padding:20px 24px;background:rgba(255,255,255,.03);border-top:1px solid rgba(255,255,255,.06)}
+.dish-gi{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 12px;border-radius:2px;font-weight:600;margin-bottom:14px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.7)}
+.dish-gi-dot{width:6px;height:6px;border-radius:50%}
+.dish-macros{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:14px}
+.macro{text-align:center;background:rgba(255,255,255,.05);border-radius:2px;padding:8px 4px}
+.macro-v{font-size:14px;font-weight:700;color:#fff}
+.macro-l{font-size:9px;color:rgba(255,255,255,.35);margin-top:2px;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+.dish-tags{display:flex;flex-wrap:wrap;gap:5px}
+.dish-tag{font-size:11px;color:var(--om);background:rgba(244,114,27,.15);padding:2px 8px;border-radius:2px;font-weight:500}
+
+/* nutricion por grupo */
+.nut-groups{display:flex;flex-direction:column;gap:16px}
+.ng{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:2px;padding:18px 20px}
+.ng-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ng-title{font-size:13px;font-weight:700;color:#fff}
+.ng-badge{font-size:11px;color:var(--om);font-weight:600}
+.ng-bar{height:5px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;margin-bottom:8px}
+.ng-fill{height:100%;border-radius:2px;background:var(--o)}
+.ng-desc{font-size:12px;color:rgba(255,255,255,.4);line-height:1.5;font-weight:300}
+
+/* ── ALIANZA ── */
+.alianza{background:#fff}
+.alianza-inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.ali-steps{display:flex;flex-direction:column;gap:0;margin-top:40px}
+.ali-step{display:grid;grid-template-columns:40px 1fr;gap:20px;padding:22px 0;border-bottom:1px solid var(--rule)}
+.ali-step:last-child{border-bottom:none}
+.ali-num{width:32px;height:32px;border-radius:2px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px;letter-spacing:.04em}
+.ali-title{font-size:15px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.ali-desc{font-size:13px;color:var(--mid);line-height:1.7;font-weight:300}
+
+/* formulario de alianza */
+.ali-form{background:var(--cream);border-radius:2px;padding:32px;border:1px solid var(--rule)}
+.af-title{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--ink);margin-bottom:6px;font-weight:500}
+.af-sub{font-size:13px;color:var(--mid);margin-bottom:24px;font-weight:300;line-height:1.6}
+.fgroup{margin-bottom:14px}
+label{display:block;font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--light);margin-bottom:6px}
+input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid rgba(0,0,0,.1);border-radius:2px;font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);background:#fff;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--o)}
+textarea{resize:vertical;min-height:80px}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.af-submit{width:100%;padding:13px;background:var(--o);color:#fff;border:none;border-radius:2px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;letter-spacing:.04em;transition:.2s;margin-top:6px}
+.af-submit:hover{background:var(--od)}
+.af-note{font-size:11px;color:var(--light);text-align:center;margin-top:12px;line-height:1.5}
+
+/* ── TESTIMONIOS ── */
+.testi-sec{background:var(--cream)}
+.testi-sec h2{color:var(--ink)}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);margin-top:48px;border:1px solid var(--rule)}
+.testi-cell{background:var(--off);padding:32px 28px}
+.testi-quote{font-family:'Cormorant Garamond',serif;font-size:40px;color:var(--o);line-height:1;margin-bottom:14px;font-style:italic}
+.testi-txt{font-size:14px;color:var(--ink2);line-height:1.8;margin-bottom:20px;font-weight:300}
+.testi-auth{font-size:13px;font-weight:700;color:var(--ink)}
+.testi-role{font-size:12px;color:var(--mid);margin-top:3px;font-weight:300}
+.testi-stars{color:var(--y);font-size:12px;letter-spacing:2px;margin-bottom:12px}
+
+/* ── CTA ── */
+.cta-sec{background:var(--ink);padding:100px 56px;text-align:center}
+.cta-eye{font-size:10px;font-weight:600;letter-spacing:.16em;color:var(--om);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;justify-content:center}
+.cta-eye::before,.cta-eye::after{content:'';width:24px;height:1.5px;background:var(--om)}
+.cta-h{font-family:'Cormorant Garamond',serif;font-size:56px;color:#fff;line-height:1.06;letter-spacing:-.02em;margin-bottom:18px;font-weight:500}
+.cta-h em{font-style:italic;color:var(--om)}
+.cta-sub{font-size:16px;color:rgba(255,255,255,.45);max-width:520px;margin:0 auto 44px;line-height:1.8;font-weight:300}
+.cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-light{background:#fff;color:var(--ink);padding:14px 32px;border-radius:4px;font-size:14px;font-weight:700;text-decoration:none;display:inline-block;transition:.2s}
+.btn-light:hover{background:var(--ol);color:var(--od)}
+.btn-ghost-light{color:rgba(255,255,255,.6);padding:14px 24px;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;display:inline-block;border:1.5px solid rgba(255,255,255,.15);transition:.2s}
+.btn-ghost-light:hover{border-color:rgba(255,255,255,.4);color:#fff}
+
+/* ── FOOTER ── */
+footer{padding:36px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;background:var(--ink);border-top:1px solid rgba(255,255,255,.06)}
+.flogo{font-family:'Cormorant Garamond',serif;font-size:20px;color:rgba(255,255,255,.3);font-weight:500}
+.flogo span{color:var(--o)}
+.flinks{display:flex;gap:24px}
+.flinks a{font-size:12px;color:rgba(255,255,255,.25);text-decoration:none;transition:.2s}
+.flinks a:hover{color:rgba(255,255,255,.6)}
+.ftxt{font-size:12px;color:rgba(255,255,255,.18)}
+
+/* ── ANIMS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.hleft{animation:fadeUp .7s ease both}
+.hright{animation:fadeUp .7s ease .15s both}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 24px;border-radius:4px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;white-space:nowrap;font-weight:500}
+
+@media(max-width:960px){
+  .hero,.prop-inner,.menu-inner,.alianza-inner{grid-template-columns:1fr}
+  .hero::after{display:none}
+  .hright{padding:0 0 60px}
+  nav,.hero,.propuesta,section,.cta-sec,footer{padding-left:24px;padding-right:24px}
+  .est-grid,.testi-grid{grid-template-columns:1fr}
+  h1{font-size:44px}
+  .cta-h{font-size:40px}
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <a href="index.html" class="logo">Ki<em>fud</em><span>·</span></a>
+  <div class="navlinks">
+    <a href="index.html">Inicio</a>
+    <a href="mama.html">Para mamás</a>
+    <a href="colegios.html">Colegios</a>
+    <a href="#alianza" class="nav-cta">Ser aliado →</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" style="padding-top:0;padding-bottom:0">
+  <div class="hleft">
+    <div class="hero-eyebrow">Dirigido a pediatras · Saltillo</div>
+    <h1>Su paciente<br>también come<br><em>en el recreo.</em></h1>
+    <p class="hero-sub">Kifud es un programa de loncheras saludables diseñadas por nutriólogas certificadas para niños en edad escolar. Como pediatra, usted puede recomendarlo con confianza clínica respaldada.</p>
+    <div class="hero-actions">
+      <a href="#alianza" class="btn-prim">Quiero ser aliado Kifud</a>
+      <a href="#propuesta" class="btn-sec">Ver estándares nutricionales →</a>
+    </div>
+    <p class="hero-note">Sin costo para el pediatra · Sin obligaciones comerciales</p>
+  </div>
+  <div class="hright">
+    <div class="stat-card">
+      <div class="sc-header">Cifras del ciclo Ene–Jun 2025</div>
+      <div class="sc-stat">
+        <div class="sc-label">Niños en el programa este ciclo</div>
+        <div class="sc-value">148<em>activos</em></div>
+      </div>
+      <div class="sc-stat">
+        <div class="sc-label">Loncheras entregadas sin conservadores</div>
+        <div class="sc-value">3,420<em>este ciclo</em></div>
+      </div>
+      <div class="sc-stat">
+        <div class="sc-label">Índice glucémico promedio por platillo</div>
+        <div class="sc-value">47<em>bajo–moderado</em></div>
+      </div>
+      <div class="sc-stat">
+        <div class="sc-label">Proteína promedio por lonchera</div>
+        <div class="sc-value">28g<em>por servicio</em></div>
+      </div>
+      <div class="sc-stat">
+        <div class="sc-label">Satisfacción reportada por mamás</div>
+        <div class="sc-value">4.9<em>de 5.0 · 148 reseñas</em></div>
+      </div>
+      <div class="sc-footer">
+        <div class="sc-footer-txt">📋 Disponible: ficha técnica nutricional completa para aliados pediátricos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROPUESTA ── -->
+<section class="propuesta" id="propuesta">
+  <div class="prop-inner">
+    <div class="prop-left">
+      <div class="seye">Por qué importa</div>
+      <h2>Nutrición escolar:<br>el eslabón que<br><em>falta en consulta.</em></h2>
+      <p class="section-sub">Usted trata las consecuencias: obesidad infantil, anemia, déficit de atención, bajo rendimiento. Kifud actúa en el origen: la lonchera de cada día, diseñada con criterio clínico.</p>
+      <div class="clinical-box">
+        <div class="cb-label">Contexto clínico en México</div>
+        <div class="cb-item"><div class="cb-dot"></div>1 de cada 3 niños en México tiene sobrepeso u obesidad (ENSANUT 2022)</div>
+        <div class="cb-item"><div class="cb-dot"></div>El 65% de la energía diaria de niños escolares proviene de ultraprocesados</div>
+        <div class="cb-item"><div class="cb-dot"></div>La deficiencia de hierro afecta al 26% de niños entre 5 y 11 años</div>
+        <div class="cb-item"><div class="cb-dot"></div>La lonchera representa 30–40% de la ingesta calórica diaria del niño escolar</div>
+      </div>
+    </div>
+    <div class="prop-right">
+      <div class="prop-items">
+        <div class="prop-item">
+          <div class="prop-num">01</div>
+          <div>
+            <div class="prop-title">Diseño nutricional con criterio pediátrico</div>
+            <div class="prop-desc">Cada menú es diseñado por nutriólogas con especialidad en población pediátrica. Los platillos cubren requerimientos de proteína, hierro, calcio y ácidos grasos esenciales por etapa escolar.</div>
+            <span class="prop-tag">Respaldo científico</span>
+          </div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-num">02</div>
+          <div>
+            <div class="prop-title">Sin ultraprocesados ni conservadores artificiales</div>
+            <div class="prop-desc">Ingredientes frescos, preparados a diario. Sin colorantes artificiales, sin sodio excesivo, sin azúcar añadida. Preparación supervisada con estándares de inocuidad alimentaria.</div>
+            <span class="prop-tag">Ingredientes limpios</span>
+          </div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-num">03</div>
+          <div>
+            <div class="prop-title">Índice glucémico controlado en todos los platillos</div>
+            <div class="prop-desc">Menús diseñados para mantener energía estable y favorecer la concentración durante el horario escolar. IG promedio bajo-moderado (42–55) en todos los platillos del ciclo.</div>
+            <span class="prop-tag">Control glucémico</span>
+          </div>
+        </div>
+        <div class="prop-item">
+          <div class="prop-num">04</div>
+          <div>
+            <div class="prop-title">Perfil de micronutrientes visible por platillo</div>
+            <div class="prop-desc">Cada lonchera incluye ficha con vitaminas, minerales, macronutrientes y beneficios específicos. La mamá puede compartirla con usted en consulta como parte del registro alimenticio del niño.</div>
+            <span class="prop-tag">Trazabilidad total</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ESTÁNDARES ── -->
+<section class="estandares">
+  <div style="max-width:600px">
+    <div class="seye">Estándares del programa</div>
+    <h2>Lo que cada<br>lonchera <em>garantiza.</em></h2>
+    <p class="section-sub">Criterios que aplicamos en cada platillo del ciclo. No son aspiraciones — son requisitos de diseño.</p>
+  </div>
+  <div class="est-grid">
+    <div class="est-cell">
+      <div class="est-icon">🥩</div>
+      <div class="est-title">Proteína completa por servicio</div>
+      <div class="est-desc">Mínimo 18g de proteína por lonchera, priorizando fuentes de alto valor biológico: pollo, pescado, leguminosas combinadas. Esencial para el crecimiento muscular y óseo en etapa escolar.</div>
+      <span class="est-ref">≥ 18g proteína · cada platillo</span>
+    </div>
+    <div class="est-cell">
+      <div class="est-icon">🌾</div>
+      <div class="est-title">Carbohidratos complejos y fibra</div>
+      <div class="est-desc">Uso prioritario de granos integrales, leguminosas y verduras sobre harinas refinadas. Fibra mínima de 5g por servicio para favorecer microbiota y regulación glucémica.</div>
+      <span class="est-ref">≥ 5g fibra · IG ≤ 55</span>
+    </div>
+    <div class="est-cell">
+      <div class="est-icon">🐟</div>
+      <div class="est-title">Ácidos grasos esenciales</div>
+      <div class="est-desc">Presencia semanal de omega-3 (atún, salmón, chía) para favorecer desarrollo neurológico y perfil inflamatorio. Grasas saturadas limitadas al 8% de la energía total.</div>
+      <span class="est-ref">Omega-3 presente ≥ 2×/semana</span>
+    </div>
+    <div class="est-cell">
+      <div class="est-icon">🫐</div>
+      <div class="est-title">Micronutrientes prioritarios</div>
+      <div class="est-desc">Diseño activo para cubrir hierro (prevención de anemia), calcio (crecimiento óseo), zinc (inmunidad) y vitaminas del complejo B. Especial atención a niños con déficit reportado.</div>
+      <span class="est-ref">Fe · Ca · Zn · Vit. B en cada semana</span>
+    </div>
+    <div class="est-cell">
+      <div class="est-icon">🚫</div>
+      <div class="est-title">Lista de ingredientes prohibidos</div>
+      <div class="est-desc">Sin colorantes artificiales, conservadores sintéticos, edulcorantes, sodio >600mg/porción ni azúcar añadida >5g. Cumplimiento del etiquetado NOM-051 para alimentos escolares.</div>
+      <span class="est-ref">Cumplimiento NOM-051 · sin aditivos</span>
+    </div>
+    <div class="est-cell">
+      <div class="est-icon">📋</div>
+      <div class="est-title">Registro de alergias por niño</div>
+      <div class="est-desc">Cada niño tiene un perfil de restricciones alimenticias que la nutrióloga consulta al diseñar su menú. Las alergias se actualizan por ciclo y ante cualquier cambio reportado por los padres.</div>
+      <span class="est-ref">Perfil individual · actualizado por ciclo</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── MENÚ MUESTRA ── -->
+<section class="menu-show" style="padding-bottom:80px">
+  <div class="seye">Ejemplo de menú</div>
+  <h2 style="color:#fff">Una semana típica<br><em style="color:var(--om)">del programa.</em></h2>
+  <p class="section-sub">Menús rotatorios diseñados por la nutrióloga pediátrica. Ingredientes frescos, preparación diaria, sin repetición en la semana.</p>
+
+  <div class="menu-inner">
+    <div>
+      <div class="menu-tabs">
+        <button class="mtab active" onclick="showDish(0,this)">Lunes</button>
+        <button class="mtab" onclick="showDish(1,this)">Martes</button>
+        <button class="mtab" onclick="showDish(2,this)">Miércoles</button>
+        <button class="mtab" onclick="showDish(3,this)">Jueves</button>
+        <button class="mtab" onclick="showDish(4,this)">Viernes</button>
+      </div>
+      <div id="dish-area"></div>
+    </div>
+
+    <div class="nut-groups">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:4px">Cobertura nutricional semanal</div>
+      <div class="ng">
+        <div class="ng-head"><span class="ng-title">Proteína completa</span><span class="ng-badge">5/5 días</span></div>
+        <div class="ng-bar"><div class="ng-fill" style="width:100%"></div></div>
+        <div class="ng-desc">Fuentes de proteína de alto valor biológico en todos los platillos del ciclo semanal</div>
+      </div>
+      <div class="ng">
+        <div class="ng-head"><span class="ng-title">Hierro biodisponible</span><span class="ng-badge">4/5 días</span></div>
+        <div class="ng-bar"><div class="ng-fill" style="width:80%"></div></div>
+        <div class="ng-desc">Hierro hemo y no hemo con potenciadores de absorción (Vitamina C) en la mayoría de platillos</div>
+      </div>
+      <div class="ng">
+        <div class="ng-head"><span class="ng-title">Omega-3 / Ácidos grasos esenciales</span><span class="ng-badge">2/5 días</span></div>
+        <div class="ng-bar"><div class="ng-fill" style="width:40%;background:var(--y)"></div></div>
+        <div class="ng-desc">Atún y aguacate como fuentes de ácidos grasos para desarrollo neurológico</div>
+      </div>
+      <div class="ng">
+        <div class="ng-head"><span class="ng-title">Calcio para crecimiento óseo</span><span class="ng-badge">3/5 días</span></div>
+        <div class="ng-bar"><div class="ng-fill" style="width:60%"></div></div>
+        <div class="ng-desc">Lácteos, leguminosas y vegetales de hoja verde como fuentes de calcio en el menú semanal</div>
+      </div>
+      <div class="ng">
+        <div class="ng-head"><span class="ng-title">Fibra prebiótica</span><span class="ng-badge">5/5 días</span></div>
+        <div class="ng-bar"><div class="ng-fill" style="width:100%"></div></div>
+        <div class="ng-desc">Leguminosas, vegetales y granos integrales garantizan fibra en todos los platillos del ciclo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ALIANZA ── -->
+<section class="alianza" id="alianza">
+  <div class="alianza-inner">
+    <div>
+      <div class="seye">Programa de aliados</div>
+      <h2>Su recomendación<br>vale más que<br><em>cualquier anuncio.</em></h2>
+      <p class="section-sub">No pedimos que nos promocione. Le pedimos que, cuando tenga un paciente con loncheras deficientes, pueda señalar una alternativa confiable en Saltillo.</p>
+      <div class="ali-steps">
+        <div class="ali-step">
+          <div class="ali-num">01</div>
+          <div>
+            <div class="ali-title">Registro como aliado</div>
+            <div class="ali-desc">Llena el formulario con sus datos. Le enviamos la ficha técnica completa del programa, el perfil nutricional de los platillos y una tarjeta digital para compartir con pacientes.</div>
+          </div>
+        </div>
+        <div class="ali-step">
+          <div class="ali-num">02</div>
+          <div>
+            <div class="ali-title">Recibe materiales clínicos</div>
+            <div class="ali-desc">Le hacemos llegar la ficha nutricional por platillo, el listado de alérgenos controlados y el protocolo de atención a niños con restricciones alimenticias específicas.</div>
+          </div>
+        </div>
+        <div class="ali-step">
+          <div class="ali-num">03</div>
+          <div>
+            <div class="ali-title">Recomiende con confianza</div>
+            <div class="ali-desc">Cuando en consulta identifique un niño con hábitos alimenticios deficientes, comparta Kifud como opción concreta. Su paciente recibe una primera semana sin costo.</div>
+          </div>
+        </div>
+        <div class="ali-step">
+          <div class="ali-num">04</div>
+          <div>
+            <div class="ali-title">Seguimiento y comunicación</div>
+            <div class="ali-desc">Si lo desea, puede recibir reportes nutricionales mensuales del paciente referido para integrarlos a su historial clínico. Coordinación directa con la nutrióloga del programa.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ali-form">
+      <div class="af-title">Registro de aliado pediátrico</div>
+      <div class="af-sub">Sin costo ni obligaciones comerciales. Solo queremos que tenga la información necesaria para recomendarnos con certeza clínica.</div>
+      <div class="frow2">
+        <div class="fgroup" style="margin:0"><label>Nombre</label><input placeholder="Dr. / Dra." id="f-nombre"></div>
+        <div class="fgroup" style="margin:0"><label>Apellidos</label><input id="f-apellido"></div>
+      </div>
+      <div class="fgroup"><label>Especialidad</label>
+        <select id="f-esp">
+          <option>Pediatría general</option>
+          <option>Pediatría con subespecialidad en nutrición</option>
+          <option>Endocrinología pediátrica</option>
+          <option>Gastroenterología pediátrica</option>
+          <option>Medicina familiar</option>
+          <option>Otra</option>
+        </select>
+      </div>
+      <div class="frow2">
+        <div class="fgroup" style="margin:0"><label>Consultorio / Hospital</label><input id="f-consultorio" placeholder="Nombre del consultorio"></div>
+        <div class="fgroup" style="margin:0"><label>Colonia / Zona</label><input id="f-zona" placeholder="Ej: Zona Centro"></div>
+      </div>
+      <div class="frow2">
+        <div class="fgroup" style="margin:0"><label>Teléfono / WhatsApp</label><input id="f-tel" placeholder="+52 844…"></div>
+        <div class="fgroup" style="margin:0"><label>Correo profesional</label><input id="f-email" type="email" placeholder="doctor@correo.com"></div>
+      </div>
+      <div class="fgroup"><label>¿Qué materiales le interesan?</label>
+        <select id="f-mat">
+          <option>Ficha técnica nutricional completa</option>
+          <option>Solo tarjeta de referencia para pacientes</option>
+          <option>Todo lo anterior + menús de ejemplo</option>
+          <option>Reunión informativa con la nutrióloga</option>
+        </select>
+      </div>
+      <div class="fgroup"><label>Comentario opcional</label><textarea id="f-nota" placeholder="¿Algún tipo de paciente o condición específica que atiende con frecuencia?"></textarea></div>
+      <button class="af-submit" onclick="submitForm()">Registrarme como aliado Kifud →</button>
+      <div class="af-note">Recibirá respuesta en menos de 24 horas por parte de la coordinación Kifud.<br>Un servicio de Nutrilú · Saltillo, Coahuila.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIOS ── -->
+<section class="testi-sec" style="padding-top:88px;padding-bottom:88px">
+  <div class="seye">Lo que dicen otros pediatras</div>
+  <h2>Aliados que ya<br><em>recomiendan Kifud.</em></h2>
+  <div class="testi-grid">
+    <div class="testi-cell">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <div class="testi-txt">Cuando reviso la ficha nutricional de Kifud, veo exactamente lo que le pido a las mamás en consulta: proteína real, sin conservadores, con fibra y micronutrientes en orden. No tengo reparos en recomendarlo.</div>
+      <div class="testi-auth">Dra. Mónica Salinas</div>
+      <div class="testi-role">Pediatra · Consulta privada · Col. República</div>
+    </div>
+    <div class="testi-cell">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <div class="testi-txt">Tengo pacientes con historial de déficit de hierro. Desde que algunos de ellos entran al programa, el seguimiento es mucho más fácil porque la mamá tiene registro de lo que come el niño cada día. Eso es invaluable.</div>
+      <div class="testi-auth">Dr. Alejandro Vega</div>
+      <div class="testi-role">Pediatra · IMSS + consulta privada · Saltillo</div>
+    </div>
+    <div class="testi-cell">
+      <div class="testi-stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <div class="testi-txt">La nutrióloga del programa me contactó directamente cuando uno de mis pacientes referidos tenía una restricción que me preocupaba. Eso es coordinación clínica de verdad. Muy buena experiencia.</div>
+      <div class="testi-auth">Dra. Claudia Ibarra</div>
+      <div class="testi-role">Endocrinología pediátrica · Hospital Ángeles Saltillo</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-sec">
+  <div class="cta-eye">Sin costo · Sin compromisos</div>
+  <h2 class="cta-h">Un aliado más<br>para sus <em>pacientes.</em></h2>
+  <p class="cta-sub">Regístrese hoy y reciba la ficha técnica completa del programa. En menos de 24 horas un miembro del equipo Kifud se pone en contacto con usted.</p>
+  <div class="cta-actions">
+    <a href="#alianza" class="btn-light">Registrarme como aliado</a>
+    <a href="/cdn-cgi/l/email-protection#cfbfaaaba6aebbbdaebc8fa4a6a9baabe1a2b7" class="btn-ghost-light">Escribir directamente →</a>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="flogo">Ki<span>fud</span></div>
+  <div class="flinks">
+    <a href="#">Términos y condiciones</a>
+    <a href="#">Aviso de privacidad</a>
+    <a href="#">Contacto</a>
+  </div>
+  <div class="ftxt">Un servicio de Nutrilú · Saltillo, Coahuila · 2026</div>
+</footer>
+
+<div id="toast"></div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const MENU=[
+  {day:'Lunes',emoji:'🥕',color:'rgba(244,114,27,.12)',name:'Pollo al limón con quinoa y verduras de temporada',
+   gi:'Bajo–Moderado (44–50)',gil:true,
+   macros:[{v:'420',l:'kcal'},{v:'32g',l:'prot'},{v:'12g',l:'grasa'},{v:'38g',l:'carbos'},{v:'5g',l:'fibra'}],
+   tags:['Alto en proteína','Bajo IG','Sin gluten','Hierro + Zinc']},
+  {day:'Martes',emoji:'🍝',color:'rgba(247,201,72,.12)',name:'Pasta integral con atún al natural y jitomate fresco',
+   gi:'Moderado (48–52)',gil:true,
+   macros:[{v:'400',l:'kcal'},{v:'28g',l:'prot'},{v:'10g',l:'grasa'},{v:'46g',l:'carbos'},{v:'6g',l:'fibra'}],
+   tags:['Omega-3','Vitamina D','Integral','Antioxidantes']},
+  {day:'Miércoles',emoji:'🥑',color:'rgba(249,160,107,.1)',name:'Bowl de leguminosas con aguacate y arroz integral',
+   gi:'Bajo (42–47)',gil:true,
+   macros:[{v:'410',l:'kcal'},{v:'18g',l:'prot'},{v:'14g',l:'grasa'},{v:'44g',l:'carbos'},{v:'10g',l:'fibra'}],
+   tags:['Alta fibra','Grasa saludable','Proteína vegetal','Prebiótico']},
+  {day:'Jueves',emoji:'🍗',color:'rgba(244,114,27,.08)',name:'Pollo a la mostaza con puré de papa y brócoli',
+   gi:'Moderado (50–55)',gil:false,
+   macros:[{v:'440',l:'kcal'},{v:'34g',l:'prot'},{v:'13g',l:'grasa'},{v:'40g',l:'carbos'},{v:'5g',l:'fibra'}],
+   tags:['Calcio','Vitamina K','Vitamina C','Alta proteína']},
+  {day:'Viernes',emoji:'🌮',color:'rgba(247,201,72,.1)',name:'Taquitos de frijol y queso con ensalada de nopal',
+   gi:'Bajo–Moderado (45–50)',gil:true,
+   macros:[{v:'380',l:'kcal'},{v:'16g',l:'prot'},{v:'11g',l:'grasa'},{v:'50g',l:'carbos'},{v:'8g',l:'fibra'}],
+   tags:['Calcio','Hierro vegetal','Probióticos','Cocina tradicional']},
+];
+
+function showDish(i,btn){
+  document.querySelectorAll('.mtab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  const d=MENU[i];
+  document.getElementById('dish-area').innerHTML=`
+    <div class="dish-card">
+      <div class="dish-vis" style="background:${d.color}">
+        <div class="dish-emoji">${d.emoji}</div>
+        <div class="dish-day">${d.day}</div>
+        <div class="dish-name">${d.name}</div>
+      </div>
+      <div class="dish-body">
+        <div class="dish-gi">
+          <div class="dish-gi-dot" style="background:${d.gil?'#4ADE80':'#FCD34D'}"></div>
+          Índice glucémico ${d.gi}
+        </div>
+        <div class="dish-macros">
+          ${d.macros.map(m=>`<div class="macro"><div class="macro-v">${m.v}</div><div class="macro-l">${m.l}</div></div>`).join('')}
+        </div>
+        <div class="dish-tags">
+          ${d.tags.map(t=>`<span class="dish-tag">${t}</span>`).join('')}
+        </div>
+      </div>
+    </div>`;
+}
+showDish(0,document.querySelector('.mtab.active'));
+
+function submitForm(){
+  const nombre=document.getElementById('f-nombre').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  if(!nombre||!email){showToast('Nombre y correo son obligatorios');return;}
+  showToast(`✓ Registro recibido, Dr./Dra. ${nombre}. Le contactamos en 24 hrs.`);
+  ['f-nombre','f-apellido','f-consultorio','f-zona','f-tel','f-email','f-nota'].forEach(id=>document.getElementById(id).value='');
+}
+
+function showToast(msg){
+  const t=document.getElementById(

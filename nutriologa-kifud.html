@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kifud — Portal Nutrióloga</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --o:#F4721B;--od:#C2490A;--ol:#FEF0E6;--om:#F9A06B;
+  --y:#F7C948;--yl:#FFFBEA;
+  --off:#FFFDF9;--dark:#1C1612;--mid:#6B5E54;--light:#B8A99F;
+  --cream:#FBF6EF;--white:#fff;
+  --danger:#E24B4A;--dgl:#FCEBEB;
+  --ok:#15803D;--okl:#DCFCE7;
+  --warn:#C47A00;--warnl:#FFFBEA;
+  --sidebar:#1C1612;
+}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--off);color:var(--dark);overflow-x:hidden}
+.app{display:grid;grid-template-columns:236px 1fr;min-height:100vh}
+
+/* ── SIDEBAR ── */
+.sidebar{background:var(--od);padding:24px 16px;display:flex;flex-direction:column;gap:4px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.slogo{font-family:'Playfair Display',serif;font-size:20px;color:#fff;text-decoration:none;display:block;letter-spacing:-.02em;margin-bottom:4px}
+.slogo span{color:var(--y)}
+.slogo em{font-style:italic;color:rgba(255,255,255,.7)}
+.srole{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.12em;font-weight:700;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.12)}
+.snav{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;font-size:13px;color:rgba(255,255,255,.45);cursor:pointer;text-decoration:none;border:none;background:transparent;width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.15s;text-align:left}
+.snav:hover{background:rgba(255,255,255,.1);color:rgba(255,255,255,.9)}
+.snav.active{background:rgba(255,255,255,.18);color:#fff}
+.snav svg{width:15px;height:15px;flex-shrink:0;opacity:.6}
+.snav.active svg{opacity:1}
+.sdivider{height:1px;background:rgba(255,255,255,.1);margin:6px 0}
+.sp{flex:1}
+.earn-box{background:rgba(255,255,255,.1);border-radius:10px;padding:14px 16px;margin-top:8px}
+.el{font-size:10px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.1em;font-weight:700;margin-bottom:5px}
+.ev{font-size:22px;font-weight:700;color:#fff;font-family:'Playfair Display',serif}
+.es{font-size:11px;color:rgba(255,255,255,.35);margin-top:3px;font-weight:300}
+
+/* ── MAIN ── */
+.main{padding:28px 30px;overflow-y:auto}
+.view{display:none}
+.view.active{display:block}
+.ph{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;gap:12px;flex-wrap:wrap}
+.pt{font-family:'Playfair Display',serif;font-size:26px;color:var(--dark);line-height:1.1}
+.pt em{color:var(--o);font-style:italic}
+.ps{font-size:13px;color:var(--mid);margin-top:5px;font-weight:300}
+
+/* ── BUTTONS ── */
+.btno{background:var(--o);color:#fff;border:none;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s}
+.btno:hover{background:var(--od)}
+.btnd{background:var(--dark);color:#fff;border:none;padding:10px 22px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif}
+.btn-sm{font-size:12px;padding:6px 14px;border-radius:100px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:transparent;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;transition:.12s}
+.btn-sm:hover{border-color:var(--o);color:var(--o)}
+.btn-sm-o{font-size:12px;padding:6px 14px;border-radius:100px;cursor:pointer;border:none;background:var(--o);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700}
+
+/* ── METRICS ── */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.metric{background:#fff;border-radius:12px;padding:16px;border:1px solid rgba(0,0,0,.06)}
+.ml{font-size:10px;color:var(--light);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px;font-weight:700}
+.mv{font-size:22px;font-weight:700;color:var(--dark)}
+.ms{font-size:11px;color:var(--mid);margin-top:3px;font-weight:300}
+.mb{display:inline-block;margin-top:5px;font-size:11px;padding:2px 9px;border-radius:100px;font-weight:600}
+.mb-o{background:var(--ol);color:var(--od)}
+.mb-ok{background:var(--okl);color:var(--ok)}
+.mb-y{background:var(--yl);color:var(--warn)}
+
+/* ── ALERT ── */
+.alert{display:flex;align-items:flex-start;gap:10px;border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:18px;font-weight:400}
+.alert-warn{background:var(--yl);border:1px solid rgba(196,122,0,.2);color:var(--warn)}
+.alert-ok{background:var(--okl);border:1px solid rgba(21,128,61,.2);color:var(--ok)}
+.alert-o{background:var(--ol);border:1px solid rgba(244,114,27,.2);color:var(--od)}
+
+/* ── CARDS ── */
+.card{background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.06);margin-bottom:18px}
+.card-h{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid rgba(0,0,0,.06)}
+.card-t{font-size:14px;font-weight:700;color:var(--dark)}
+.card-act{display:flex;gap:8px;align-items:center}
+.inner{padding:18px 20px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
+
+/* ── WEEK SUMMARY ── */
+.daysec{padding:12px 20px;border-bottom:1px solid rgba(0,0,0,.04)}
+.daysec:last-child{border-bottom:none}
+.dsh{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.dsd{font-size:13px;font-weight:700}
+.dst{font-size:12px;color:var(--mid);font-weight:300}
+.dsdishes{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.dc{display:flex;justify-content:space-between;align-items:center;background:var(--cream);padding:8px 12px;border-radius:8px;font-size:12px}
+.dcn{font-size:11px;font-weight:700;color:var(--od);background:var(--ol);padding:2px 8px;border-radius:100px}
+
+/* ── NIÑAS LIST ── */
+.ninas-row{display:grid;grid-template-columns:1fr 100px 110px 90px 80px 70px;gap:10px;align-items:center;padding:12px 20px;font-size:13px;border-bottom:1px solid rgba(0,0,0,.04)}
+.ninas-row:last-child{border-bottom:none}
+.ninas-row:hover{background:var(--cream)}
+.ninas-head{font-size:10px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.08em;border-bottom:1px solid rgba(0,0,0,.06)}
+.nn{font-weight:700}
+.ns{font-size:11px;color:var(--mid);margin-top:2px;font-weight:300}
+.pill{display:inline-block;font-size:11px;padding:2px 9px;border-radius:100px;font-weight:600}
+.pill-ok{background:var(--okl);color:var(--ok)}
+.pill-off{background:var(--cream);color:var(--light)}
+.pill-o{background:var(--ol);color:var(--od)}
+.pill-y{background:var(--yl);color:var(--warn)}
+.pill-r{background:var(--dgl);color:var(--danger)}
+.nact{font-size:11px;color:var(--o);cursor:pointer;border:none;background:none;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif}
+
+/* ── MENU BUILDER ── */
+.wknav{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+.wkb{padding:7px 16px;border-radius:100px;font-size:12px;cursor:pointer;border:1.5px solid rgba(0,0,0,.1);background:#fff;color:var(--mid);font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;transition:.12s}
+.wkb:hover{border-color:var(--o);color:var(--o)}
+.wkb.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.wkb.nxt{border-color:var(--o);color:var(--od)}
+.builder{display:grid;grid-template-columns:1fr 300px;gap:16px}
+.dayscol{display:flex;flex-direction:column;gap:10px}
+.dayslot{background:#fff;border-radius:12px;padding:14px;border:1px solid rgba(0,0,0,.06)}
+.dslh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.dsld{font-size:13px;font-weight:700}
+.dslt{font-size:11px;color:var(--light);font-weight:400}
+.drow2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.adish{background:var(--ol);border:1px solid rgba(244,114,27,.2);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:flex-start}
+.adn{font-size:12px;font-weight:700;color:var(--od)}
+.adm{font-size:11px;color:var(--o);margin-top:3px;font-weight:400}
+.adrm{width:18px;height:18px;border-radius:50%;background:rgba(0,0,0,.06);border:none;cursor:pointer;flex-shrink:0;font-size:13px;color:var(--mid);line-height:1}
+.eslot{border:1.5px dashed rgba(0,0,0,.1);border-radius:8px;padding:10px 12px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--light);font-size:12px;background:transparent;width:100%;font-family:'Plus Jakarta Sans',sans-serif;font-weight:500;transition:.12s}
+.eslot:hover{border-color:var(--o);color:var(--o);background:var(--ol)}
+.dpanel{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.06);overflow:hidden;position:sticky;top:20px}
+.dph{padding:14px 16px;border-bottom:1px solid rgba(0,0,0,.06);display:flex;justify-content:space-between;align-items:center}
+.dpt{font-size:13px;font-weight:700}
+.dpsearch{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.06)}
+.dpsearch input{width:100%;border:1.5px solid rgba(0,0,0,.1);border-radius:8px;padding:8px 10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:.12s}
+.dpsearch input:focus{border-color:var(--o)}
+.dplist{padding:8px;max-height:420px;overflow-y:auto;display:flex;flex-direction:column;gap:5px}
+.ditem{padding:10px 12px;border-radius:8px;border:1.5px solid rgba(0,0,0,.06);cursor:pointer;background:#fff;transition:.12s}
+.ditem:hover{border-color:var(--o);background:var(--ol)}
+.dinm{font-size:13px;font-weight:700;margin-bottom:3px}
+.dimac{display:flex;gap:6px;font-size:11px;color:var(--mid)}
+.dimm{padding:1px 6px;background:var(--cream);border-radius:4px;font-weight:500}
+.ditg{display:flex;gap:4px;margin-top:5px;flex-wrap:wrap}
+.dta{font-size:10px;color:var(--od);background:var(--ol);padding:1px 7px;border-radius:100px;font-weight:600}
+
+/* ── PLATILLOS GRID ── */
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.dc2{background:#fff;border-radius:12px;border:1px solid rgba(0,0,0,.06);overflow:hidden;transition:.15s;cursor:pointer}
+.dc2:hover{box-shadow:0 6px 24px rgba(0,0,0,.1);border-color:var(--om)}
+.dc2img{height:80px;display:flex;align-items:center;justify-content:center;font-size:40px}
+.dc2body{padding:14px}
+.dc2n{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:5px;line-height:1.3}
+.dc2m{display:flex;gap:6px;margin-bottom:6px}
+.dc2mm{font-size:11px;color:var(--mid);background:var(--cream);padding:2px 7px;border-radius:4px;font-weight:500}
+.dc2t{display:flex;flex-wrap:wrap;gap:4px}
+.dc2ta{font-size:10px;color:var(--od);background:var(--ol);padding:1px 7px;border-radius:100px;font-weight:600}
+
+/* ── PERFIL ── */
+.perfil-wrap{display:grid;grid-template-columns:300px 1fr;gap:18px;align-items:start}
+.pcard{background:#fff;border-radius:14px;border:1px solid rgba(0,0,0,.06);overflow:hidden;position:sticky;top:20px}
+.pcard-top{background:var(--od);padding:24px;text-align:center}
+.pav{width:64px;height:64px;border-radius:50%;background:var(--ol);border:3px solid var(--y);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:22px;color:var(--od);margin:0 auto 12px;font-weight:600}
+.pname{font-size:16px;font-weight:700;color:#fff}
+.psub{font-size:11px;color:rgba(255,255,255,.45);margin-top:4px;font-weight:300}
+.prating{margin-top:10px;font-size:13px;color:#fff}
+.pcard-body{padding:16px}
+.prow{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.05);font-size:13px}
+.prow:last-child{border-bottom:none}
+.plbl{color:var(--mid);font-weight:300}
+.pval{font-weight:700;color:var(--dark)}
+.pform-sec{background:#fff;border-radius:14px;padding:20px;border:1px solid rgba(0,0,0,.06);margin-bottom:14px}
+.pform-t{font-size:14px;font-weight:700;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(0,0,0,.06);color:var(--dark)}
+.frow2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+label{display:block;font-size:10px;font-weight:700;color:var(--light);text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+input,select,textarea{width:100%;padding:10px 14px;border:1.5px solid rgba(0,0,0,.1);border-radius:10px;font-size:13px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--dark);background:#fff;outline:none;transition:.15s}
+input:focus,select:focus,textarea:focus{border-color:var(--o)}
+textarea{resize:vertical;min-height:80px}
+.fsave{background:var(--o);color:#fff;border:none;padding:10px 26px;border-radius:100px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:.15s}
+.fsave:hover{background:var(--od)}
+
+/* ── RESEÑAS ── */
+.rev-row{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+.rev-row:last-child{border-bottom:none}
+.rev-av{width:36px;height:36px;border-radius:50%;background:var(--ol);border:2px solid var(--om);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--od);flex-shrink:0}
+.rev-name{font-size:13px;font-weight:700}
+.rev-meta{font-size:11px;color:var(--mid);margin-top:2px;font-weight:300}
+.rev-stars{color:var(--y);font-size:12px;letter-spacing:1px;margin-bottom:4px}
+.rev-txt{font-size:13px;color:var(--mid);line-height:1.6;font-weight:300}
+
+/* ── MODAL ── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(3px)}
+.modal{background:#fff;border-radius:20px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto}
+.modal-head{padding:20px 22px;border-bottom:1px solid rgba(0,0,0,.07);display:flex;justify-content:space-between;align-items:center}
+.modal-title{font-family:'Playfair Display',serif;font-size:18px;color:var(--dark);font-weight:600}
+.modal-close{width:28px;height:28px;border-radius:50%;background:var(--cream);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--mid)}
+.modal-body{padding:22px}
+.modal-foot{padding:14px 22px;border-top:1px solid rgba(0,0,0,.07);display:flex;gap:10px;justify-content:flex-end}
+.mbtn-ghost{padding:9px 20px;border-radius:100px;border:1.5px solid rgba(0,0,0,.1);background:transparent;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:600;color:var(--mid)}
+.mbtn-prim{padding:9px 22px;border-radius:100px;background:var(--o);border:none;font-size:13px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;color:#fff}
+
+/* ── FOTO UPLOAD ── */
+.photo-drop{border:1.5px dashed rgba(0,0,0,.12);border-radius:10px;padding:24px;text-align:center;cursor:pointer;background:var(--cream);transition:.2s}
+.photo-drop:hover{border-color:var(--o);background:var(--ol)}
+.photo-preview{display:none;align-items:center;gap:12px;padding:10px 12px;background:var(--ol);border-radius:8px;margin-top:10px}
+.photo-preview img{width:48px;height:48px;border-radius:6px;object-fit:cover}
+
+/* ── DISH DETAIL MODAL ── */
+.det-macro-row{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:14px 0}
+.det-macro{text-align:center;background:var(--cream);border-radius:8px;padding:8px 4px}
+.det-mv{font-size:14px;font-weight:700}
+.det-ml{font-size:9px;color:var(--light);margin-top:2px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.det-ben{display:flex;gap:8px;font-size:13px;color:var(--mid);padding:5px 0;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.55}
+.det-ben:last-child{border-bottom:none}
+.det-dot{width:5px;height:5px;border-radius:50%;background:var(--o);flex-shrink:0;margin-top:7px}
+.itag{font-size:11px;color:var(--od);background:var(--ol);padding:2px 9px;border-radius:100px;display:inline-block;margin:2px;font-weight:500}
+.vtag{font-size:11px;color:#534AB7;background:#EEEDFE;padding:2px 9px;border-radius:100px;display:inline-block;margin:2px;font-weight:500}
+
+/* ── TOAST ── */
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;white-space:nowrap;font-weight:500}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ── SIDEBAR ── -->
+<aside class="sidebar">
+  <a href="index.html" class="slogo">Ki<em>fud</em><span>·</span></a>
+  <div class="srole">Portal Nutrióloga</div>
+
+  <button class="snav active" onclick="showV('inicio',this)">
+    <svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+    Resumen
+  </button>
+  <button class="snav" onclick="showV('ninos',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5" r="2.5"/><path d="M1 13c0-2.8 2.2-5 5-5"/><circle cx="12" cy="7" r="2"/><path d="M9 15c0-2.2 1.3-4 3-4s3 1.8 3 4"/></svg>
+    Mis niños
+  </button>
+  <button class="snav" onclick="showV('menu',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M5 8h6M5 11h4M5 5h3"/></svg>
+    Constructor de menú
+  </button>
+  <button class="snav" onclick="showV('platillos',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="9" r="5"/><path d="M8 4V2M5 2h6"/></svg>
+    Mis platillos
+  </button>
+  <div class="sdivider"></div>
+  <button class="snav" onclick="showV('resenas',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 3h12v8H9l-3 3V11H2z"/></svg>
+    Reseñas
+  </button>
+  <button class="snav" onclick="showV('perfil',this)">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="5" r="3"/><path d="M2 14c0-2.8 2.2-5 6-5s6 2.2 6 5"/></svg>
+    Mi perfil
+  </button>
+
+  <div class="sp"></div>
+  <div class="sdivider"></div>
+  <div class="earn-box">
+    <div class="el">Ingresos este mes</div>
+    <div class="ev">$14,200</div>
+    <div class="es">52 niños · 260 loncheras</div>
+  </div>
+</aside>
+
+<!-- ── MAIN ── -->
+<main class="main">
+
+  <!-- ════════ INICIO ════════ -->
+  <div class="view active" id="v-inicio">
+    <div class="ph">
+      <div>
+        <div class="pt">Buenos días, <em>Ana Lucía 👋</em></div>
+        <div class="ps">Semana del 7 al 11 de Abril · 52 niños activos</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-sm" onclick="showV('menu',document.querySelectorAll('.snav')[3])">Constructor de menú →</button>
+        <button class="btno" onclick="openModal()">+ Nuevo platillo</button>
+      </div>
+    </div>
+
+    <div class="alert alert-warn">⚠ 8 mamás aún no confirman menú para esta semana. Cierre: domingo a las 6pm.</div>
+
+    <div class="metrics">
+      <div class="metric">
+        <div class="ml">Niños a mi cargo</div>
+        <div class="mv">52</div>
+        <div class="ms">Colegio Americano</div>
+        <div class="mb mb-ok">+3 este mes</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Loncheras esta semana</div>
+        <div class="mv">236</div>
+        <div class="ms">De 260 confirmadas</div>
+        <div class="mb mb-y">8 pendientes</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Calificación promedio</div>
+        <div class="mv">5.0</div>
+        <div class="ms">73 reseñas · este ciclo</div>
+        <div class="mb mb-o">⭐ Excelente</div>
+      </div>
+      <div class="metric">
+        <div class="ml">Ingresos este mes</div>
+        <div class="mv">$14,200</div>
+        <div class="ms">52 niños activos</div>
+        <div class="mb mb-ok">+12% vs febrero</div>
+      </div>
+    </div>
+
+    <!-- Semana en curso -->
+    <div class="card">
+      <div class="card-h"><div class="card-t">Menú confirmado — Semana 7–11 de Abril</div><span style="font-size:12px;color:var(--ok);font-weight:600">✓ Publicado</span></div>
+      <div class="daysec">
+        <div class="dsh"><div class="dsd">🥕 Lunes</div><div class="dst">52 confirmaciones</div></div>
+        <div class="dsdishes"><div class="dc">Pollo al limón con quinoa<div class="dcn">Opción A</div></div><div class="dc" style="background:var(--cream);color:var(--light)">—</div></div>
+      </div>
+      <div class="daysec">
+        <div class="dsh"><div class="dsd">🍝 Martes</div><div class="dst">48 confirmaciones</div></div>
+        <div class="dsdishes"><div class="dc">Pasta integral con atún<div class="dcn">Opción A</div></div><div class="dc">Bowl de verduras<div class="dcn">Opción B</div></div></div>
+      </div>
+      <div class="daysec">
+        <div class="dsh"><div class="dsd">🥑 Miércoles</div><div class="dst">51 confirmaciones</div></div>
+        <div class="dsdishes"><div class="dc">Bowl de leguminosas<div class="dcn">Opción A</div></div><div class="dc">Arroz con pollo ligero<div class="dcn">Opción B</div></div></div>
+      </div>
+      <div class="daysec">
+        <div class="dsh"><div class="dsd">🍗 Jueves</div><div class="dst" style="color:var(--warn)">44 confirmadas · 8 pendientes</div></div>
+        <div class="dsdishes"><div class="dc">Pollo a la mostaza<div class="dcn">Opción A</div></div><div class="dc">Puré + brócoli<div class="dcn">Opción B</div></div></div>
+      </div>
+      <div class="daysec">
+        <div class="dsh"><div class="dsd">🌮 Viernes</div><div class="dst" style="color:var(--warn)">41 confirmadas · 8 pendientes</div></div>
+        <div class="dsdishes"><div class="dc">Taquitos de frijol<div class="dcn">Opción A</div></div><div class="dc">Lentejas con verduras<div class="dcn">Opción B</div></div></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <!-- Alertas de alergias -->
+      <div class="card" style="margin-bottom:0">
+        <div class="card-h"><div class="card-t">⚠ Alertas de alergias esta semana</div></div>
+        <div class="inner" style="display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05)"><span><strong>Valentina Cruz</strong> · 1° Prim.</span><span class="pill pill-r">Sin gluten</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05)"><span><strong>Diego Morales</strong> · 3° Prim.</span><span class="pill pill-r">Sin lácteos</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05)"><span><strong>Sofía Ramírez</strong> · 2° Prim.</span><span class="pill pill-y">Sin picante</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:8px 0"><span><strong>Emilio García</strong> · 2° Prim.</span><span class="pill pill-y">Sin picante</span></div>
+        </div>
+      </div>
+      <!-- Notas recientes -->
+      <div class="card" style="margin-bottom:0">
+        <div class="card-h"><div class="card-t">Mensajes de mamás</div><span class="btn-sm" style="cursor:default">4 nuevos</span></div>
+        <div class="inner" style="display:flex;flex-direction:column;gap:10px">
+          <div style="font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05)"><strong style="color:var(--dark)">Claudia M.</strong><div style="color:var(--mid);margin-top:4px;font-weight:300">Emilio está en dieta baja en azúcar por indicación del pediatra. ¿Podemos ajustar?</div><div style="font-size:11px;color:var(--light);margin-top:4px">Hoy · 9:14am</div></div>
+          <div style="font-size:13px;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.05)"><strong style="color:var(--dark)">Fernanda R.</strong><div style="color:var(--mid);margin-top:4px;font-weight:300">¡Gracias! Isabella llegó muy emocionada con la lonchera del martes. Le encantó.</div><div style="font-size:11px;color:var(--light);margin-top:4px">Ayer · 4:32pm</div></div>
+          <div style="font-size:13px;padding:8px 0"><strong style="color:var(--dark)">Patricia G.</strong><div style="color:var(--mid);margin-top:4px;font-weight:300">Mateo ya come el brócoli. ¡Milagro! Gracias por la paciencia en el menú.</div><div style="font-size:11px;color:var(--light);margin-top:4px">Mar 8 · 6:01pm</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ MIS NIÑOS ════════ -->
+  <div class="view" id="v-ninos">
+    <div class="ph">
+      <div><div class="pt"><em>Mis niños</em></div><div class="ps">52 niños activos este ciclo · Colegio Americano</div></div>
+      <div style="display:flex;gap:8px">
+        <input type="text" placeholder="Buscar niño o mamá…" oninput="filterNinos(this.value)" style="width:220px;padding:9px 14px;border-radius:100px;border:1.5px solid rgba(0,0,0,.1);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;outline:none">
+        <select onchange="filterNinosPlan(this.value)" style="width:160px;border-radius:100px;padding:9px 14px;border:1.5px solid rgba(0,0,0,.1);font-family:'Plus Jakarta Sans',sans-serif;font-size:13px;outline:none">
+          <option value="">Todos los planes</option>
+          <option value="completo">Plan Completo</option>
+          <option value="basico">Plan Básico</option>
+          <option value="premium">Plan Premium</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ninas-row ninas-head">
+        <div>Niño / Mamá</div><div>Plan</div><div>Alergias</div><div>Grado</div><div>Estado</div><div>Acción</div>
+      </div>
+      <div id="ninos-list"></div>
+    </div>
+  </div>
+
+  <!-- ════════ CONSTRUCTOR DE MENÚ ════════ -->
+  <div class="view" id="v-menu">
+    <div class="ph">
+      <div><div class="pt">Constructor de <em>menú</em></div><div class="ps">Diseña el menú semanal para tus niños</div></div>
+      <button class="btno" onclick="publishMenu()">✓ Publicar menú →</button>
+    </div>
+
+    <div class="wknav">
+      <button class="wkb active" onclick="setWeek('cur',this)">Semana actual</button>
+      <button class="wkb nxt" onclick="setWeek('nxt',this)">Próxima semana</button>
+    </div>
+
+    <div class="builder">
+      <div class="dayscol" id="builder-days"></div>
+      <div class="dpanel">
+        <div class="dph"><span class="dpt">Banco de platillos</span><button class="btn-sm-o" onclick="openModal()">+ Nuevo</button></div>
+        <div class="dpsearch"><input placeholder="Buscar platillo…" oninput="filterList(this.value)"></div>
+        <div class="dplist" id="dplist"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ MIS PLATILLOS ════════ -->
+  <div class="view" id="v-platillos">
+    <div class="ph">
+      <div><div class="pt">Mis <em>platillos</em></div><div class="ps">Tu banco de recetas para los menús semanales</div></div>
+      <button class="btno" onclick="openModal()">+ Nuevo platillo</button>
+    </div>
+    <div class="dgrid" id="dgrid"></div>
+  </div>
+
+  <!-- ════════ RESEÑAS ════════ -->
+  <div class="view" id="v-resenas">
+    <div class="ph">
+      <div><div class="pt"><em>Reseñas</em></div><div class="ps">Lo que las mamás dicen de tus menús</div></div>
+    </div>
+    <div class="metrics" style="grid-template-columns:repeat(3,1fr)">
+      <div class="metric"><div class="ml">Calificación promedio</div><div class="mv">5.0</div><div class="ms">Ciclo Ene–Jun 2025</div><div class="mb mb-o">73 reseñas</div></div>
+      <div class="metric"><div class="ml">⭐⭐⭐⭐⭐ (5 estrellas)</div><div class="mv">68</div><div class="ms">93% de las reseñas</div><div class="mb mb-ok">Excelente</div></div>
+      <div class="metric"><div class="ml">Platillo mejor calificado</div><div class="mv" style="font-size:16px;margin-top:4px">Pollo al limón</div><div class="ms">4.9 promedio · 18 reseñas</div></div>
+    </div>
+    <div class="card">
+      <div class="card-h"><div class="card-t">Reseñas recientes</div></div>
+      <div class="inner" id="reviews-list"></div>
+    </div>
+  </div>
+
+  <!-- ════════ MI PERFIL ════════ -->
+  <div class="view" id="v-perfil">
+    <div class="ph">
+      <div><div class="pt">Mi <em>perfil</em></div><div class="ps">Información que ven las mamás al elegirte</div></div>
+    </div>
+    <div class="perfil-wrap">
+      <div class="pcard">
+        <div class="pcard-top">
+          <div class="pav">AV</div>
+          <div class="pname">Ana Lucía Vázquez</div>
+          <div class="psub">Lic. Nutrición · UANL · Especialista infantil</div>
+          <div class="prating">⭐ 5.0 · 73 reseñas</div>
+        </div>
+        <div class="pcard-body">
+          <div class="prow"><span class="plbl">Experiencia</span><span class="pval">6 años</span></div>
+          <div class="prow"><span class="plbl">Niños a cargo</span><span class="pval">52 activos</span></div>
+          <div class="prow"><span class="plbl">Cupo disponible</span><span class="pval">22 lugares</span></div>
+          <div class="prow"><span class="plbl">Colegio</span><span class="pval">Americano</span></div>
+          <div class="prow"><span class="plbl">Ciclo activo</span><span class="pval">Ene–Jun 2025</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="pform-sec">
+          <div class="pform-t">Datos profesionales</div>
+          <div class="frow2">
+            <div><label>Nombre</label><input value="Ana Lucía"></div>
+            <div><label>Apellidos</label><input value="Vázquez Torres"></div>
+          </div>
+          <div class="frow2">
+            <div><label>Universidad</label><input value="UANL"></div>
+            <div><label>Años de experiencia</label><input type="number" value="6"></div>
+          </div>
+          <div><label>Biografía profesional (visible para mamás)</label><textarea>Especialista en nutrición pediátrica con enfoque en desarrollo cognitivo. Diseño menús que los niños aman y las mamás aprueban: coloridos, variados y con los nutrientes exactos para cada etapa escolar.</textarea></div>
+          <div style="margin-top:14px"><label>Especialidades (separadas por coma)</label><input value="Nutrición infantil, Desarrollo cognitivo, Sin ultraprocesados"></div>
+          <div style="margin-top:14px"><label>Métodos de preparación</label><input value="Al vapor, Horneado, Proteína vegetal, Prep. diaria"></div>
+          <button class="fsave" style="margin-top:14px" onclick="showToast('Perfil actualizado ✓')">Guardar cambios</button>
+        </div>
+        <div class="pform-sec">
+          <div class="pform-t">Cupo y disponibilidad</div>
+          <div class="frow2">
+            <div><label>Cupo máximo</label><input type="number" value="74"></div>
+            <div><label>Lugares disponibles</label><input type="number" value="22"></div>
+          </div>
+          <div><label>Estado de disponibilidad</label>
+            <select><option>Abierta — aceptando nuevos niños</option><option>Lista de espera</option><option>Cupo lleno</option></select>
+          </div>
+          <button class="fsave" style="margin-top:14px" onclick="showToast('Disponibilidad actualizada ✓')">Guardar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<!-- ── MODAL — NUEVO PLATILLO ── -->
+<div class="modal-bg" id="modal-nuevo">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title">Nuevo platillo</div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div style="margin-bottom:14px"><label>Nombre del platillo</label><input id="d-nombre" placeholder="Ej: Pollo al limón con quinoa"></div>
+      <div class="frow2" style="margin-bottom:14px">
+        <div><label>Emoji representativo</label><input id="d-emoji" placeholder="🥕" maxlength="4" style="font-size:22px;text-align:center"></div>
+        <div><label>Color de fondo</label><input id="d-color" type="color" value="#FEF0E6" style="height:42px;padding:4px"></div>
+      </div>
+      <div style="margin-bottom:14px"><label>Ingredientes (separados por coma)</label><input id="d-ing" placeholder="Pollo, Quinoa, Calabacita…"></div>
+      <div class="frow2" style="margin-bottom:14px">
+        <div><label>Calorías (kcal)</label><input id="d-cal" type="number" placeholder="420"></div>
+        <div><label>Proteína (g)</label><input id="d-prot" type="number" placeholder="32"></div>
+      </div>
+      <div class="frow2" style="margin-bottom:14px">
+        <div><label>Carbohidratos (g)</label><input id="d-carb" type="number" placeholder="38"></div>
+        <div><label>Fibra (g)</label><input id="d-fiber" type="number" placeholder="5"></div>
+      </div>
+      <div style="margin-bottom:14px"><label>Índice glucémico</label>
+        <select id="d-gi"><option value="bajo">Bajo (≤ 45)</option><option value="bajo-mod" selected>Bajo–Moderado (46–54)</option><option value="moderado">Moderado (55–65)</option></select>
+      </div>
+      <div style="margin-bottom:14px"><label>Tags / etiquetas (separadas por coma)</label><input id="d-tags" placeholder="Alto en proteína, Sin gluten…"></div>
+      <div style="margin-bottom:14px"><label>Beneficios para la salud (uno por línea)</label><textarea id="d-ben" placeholder="Proteína magra ideal para crecimiento&#10;Bajo IG para energía sostenida"></textarea></div>
+      <div style="margin-bottom:4px"><label>Foto del platillo (opcional)</label></div>
+      <div class="photo-drop" id="photo-drop" ondragover="event.preventDefault()" ondrop="handleDrop(event)" onclick="document.getElementById('photo-input').click()">
+        <div id="photo-placeholder"><div style="font-size:28px;margin-bottom:8px">📷</div><div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px">Arrastra tu foto aquí</div><div style="font-size:12px;color:var(--mid);font-weight:300">o toca para seleccionar · JPG, PNG o WEBP · máx. 5 MB</div></div>
+        <div class="photo-preview" id="photo-preview"><img id="photo-img" src="" alt=""><div><div id="photo-name" style="font-size:12px;font-weight:700;color:var(--od)"></div><button onclick="event.stopPropagation();clearPhoto()" style="font-size:11px;color:var(--danger);background:none;border:none;cursor:pointer;margin-top:4px;font-family:'Plus Jakarta Sans',sans-serif">Quitar foto</button></div></div>
+        <input type="file" id="photo-input" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handlePhotoFile(this.files[0])">
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="mbtn-ghost" onclick="closeModal()">Cancelar</button>
+      <button class="mbtn-prim" onclick="saveD()">Guardar platillo</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── MODAL — DETALLE PLATILLO ── -->
+<div class="modal-bg" id="modal-det">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="det-title">Pollo al limón</div>
+      <button class="modal-close" onclick="closeDet()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="det-emoji" style="width:100%;height:80px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:52px;margin-bottom:14px"></div>
+      <div style="font-family:'Playfair Display',serif;font-size:20px;font-weight:600;margin-bottom:10px" id="det-name"></div>
+      <div id="det-gi" style="display:inline-block;font-size:12px;background:var(--ol);color:var(--od);padding:4px 12px;border-radius:100px;font-weight:600;margin-bottom:14px"></div>
+      <div class="det-macro-row" id="det-macros"></div>
+      <div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:8px">Ingredientes</div><div id="det-ingredients"></div></div>
+      <div style="margin-bottom:12px"><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:8px">Vitaminas y minerales</div><div id="det-vitamins"></div></div>
+      <div><div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--light);margin-bottom:8px">Beneficios para la salud</div><div id="det-benefits"></div></div>
+    </div>
+    <div class="modal-foot">
+      <button class="mbtn-ghost" onclick="closeDet()">Cerrar</button>
+      <button class="mbtn-prim" id="det-add-btn" style="display:none">+ Asignar al menú</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+/* ════ DATOS ════ */
+const DB_FULL=[
+  {name:'Pollo al limón con quinoa',emoji:'🥕',color:'#FEF0E6',cal:420,prot:32,fat:12,carb:38,fiber:5,
+   gi:'Bajo–Moderado (44–50)',
+   ingredients:['Pechuga de pollo','Quinoa','Calabacita','Zanahoria','Pimiento','Limón','Aceite de oliva'],
+   vitamins:['Vitamina B6','Potasio','Hierro','Vitamina C','Zinc','Niacina'],
+   benefits:['Proteína magra ideal para el crecimiento muscular','Energía sostenida para horas de clase','Fibra que mejora la digestión infantil'],
+   tags:['Alto en proteína','Bajo IG','Sin gluten']},
+  {name:'Pasta integral con atún',emoji:'🍝',color:'#FFFBEA',cal:400,prot:28,fat:10,carb:46,fiber:6,
+   gi:'Moderado (48–52)',
+   ingredients:['Pasta integral','Atún al natural','Jitomate cherry','Aceite de oliva','Albahaca','Limón'],
+   vitamins:['Omega-3','Vitamina D','Vitamina B12','Folato','Vitamina C'],
+   benefits:['Omega-3 apoya el desarrollo cerebral','Energía duradera para la tarde','Antioxidantes del jitomate fresco'],
+   tags:['Omega-3','Integral','Antiinflamatorio']},
+  {name:'Bowl de leguminosas y aguacate',emoji:'🥑',color:'#FFF4ED',cal:410,prot:18,fat:14,carb:44,fiber:10,
+   gi:'Bajo (42–47)',
+   ingredients:['Frijoles negros','Arroz integral','Aguacate','Zanahoria','Cilantro','Limón'],
+   vitamins:['Hierro vegetal','Folato','Vitamina K','Vitamina E','Magnesio'],
+   benefits:['Alta fibra para saciedad y digestión sana','Grasas saludables del aguacate','Proteína vegetal completa'],
+   tags:['Alta fibra','Vegetal','Sin lácteos']},
+  {name:'Pollo a la mostaza con brócoli',emoji:'🍗',color:'#FEEFEE',cal:440,prot:34,fat:13,carb:40,fiber:5,
+   gi:'Moderado (50–55)',
+   ingredients:['Muslo de pollo','Papa','Brócoli','Mostaza Dijon','Ajo','Aceite de oliva'],
+   vitamins:['Vitamina C','Vitamina K','Folato','Potasio','Calcio'],
+   benefits:['Brócoli aporta calcio para el crecimiento óseo','Pollo como proteína completa','Vitamina C para el sistema inmune'],
+   tags:['Calcio','Vitamina K','Alta proteína']},
+  {name:'Taquitos de frijol y queso',emoji:'🌮',color:'#FFF9E6',cal:380,prot:16,fat:11,carb:50,fiber:8,
+   gi:'Bajo–Moderado (45–50)',
+   ingredients:['Tortillas de maíz','Frijoles','Queso Oaxaca','Nopal','Jitomate','Cebolla','Limón'],
+   vitamins:['Calcio','Hierro','Vitamina C','Vitamina B12','Fibra prebiótica'],
+   benefits:['Cocina mexicana nutritiva y familiar','Nopal como prebiótico natural','Calcio del queso para huesos fuertes'],
+   tags:['Calcio','Tradicional','Prebiótico']},
+  {name:'Salmón glaseado con quinoa',emoji:'🐟',color:'#EEF6FE',cal:510,prot:36,fat:22,carb:32,fiber:4,
+   gi:'Bajo (40–44)',
+   ingredients:['Salmón','Quinoa','Espinaca','Limón','Miel','Aceite de oliva'],
+   vitamins:['Omega-3','Vitamina D','Vitamina B12','Selenio','Magnesio'],
+   benefits:['Omega-3 antiinflamatorio natural','Apoya la salud cardiovascular','Perfil proteico completo de alto valor biológico'],
+   tags:['Omega-3','Alto en proteína','Sin gluten']},
+];
+
+const NINOS=[
+  {nino:'Emilio García',mama:'Claudia Martínez',grado:'2° Primaria',plan:'completo',alergia:'Sin picante',status:'activo'},
+  {nino:'Isabella Reyes',mama:'Fernanda Reyes',grado:'1° Primaria',plan:'premium',alergia:'—',status:'activo'},
+  {nino:'Mateo González',mama:'Patricia González',grado:'4° Primaria',plan:'completo',alergia:'—',status:'activo'},
+  {nino:'Sofía López',mama:'Alejandra López',grado:'Kinder',plan:'basico',alergia:'Sin picante',status:'activo'},
+  {nino:'Santiago Morales',mama:'Valeria Morales',grado:'3° Primaria',plan:'completo',alergia:'Sin gluten',status:'activo'},
+  {nino:'Camila Jiménez',mama:'Carolina Jiménez',grado:'5° Primaria',plan:'basico',alergia:'—',status:'activo'},
+  {nino:'Diego Ramírez',mama:'Sofía Ramírez',grado:'4° Primaria',plan:'premium',alergia:'Sin lácteos',status:'activo'},
+  {nino:'Valeria Torres',mama:'Ana Laura Torres',grado:'2° Primaria',plan:'completo',alergia:'—',status:'pausado'},
+  {nino:'Rodrigo Castillo',mama:'Miriam Castillo',grado:'1° Primaria',plan:'basico',alergia:'—',status:'activo'},
+  {nino:'Paulina Herrera',mama:'Daniela Herrera',grado:'3° Primaria',plan:'completo',alergia:'—',status:'activo'},
+];
+const PLAN_LABEL={completo:'Completo',basico:'Básico',premium:'Premium'};
+const PLAN_CLASS={completo:'pill-o',basico:'pill-off',premium:'pill-y'};
+
+const DAYS=['Lunes','Martes','Miércoles','Jueves','Viernes'];
+let weekMenu=[[null,null],[null,null],[null,null],[null,null],[null,null]];
+let activeSlot=null;
+let currentPhoto=null;
+
+/* ════ VIEWS ════ */
+function showV(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.getElementById('v-'+id).classList.add('active');
+  document.querySelectorAll('.snav').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  if(id==='menu'){renderBuilder();renderDPList();}
+  if(id==='platillos') renderGrid();
+  if(id==='resenas') renderReviews();
+  if(id==='ninos') renderNinos(NINOS);
+}
+
+/* ════ NIÑOS ════ */
+function renderNinos(list){
+  document.getElementById('ninos-list').innerHTML=list.map(n=>`
+    <div class="ninas-row">
+      <div><div class="nn">${n.nino}</div><div class="ns">👩 ${n.mama}</div></div>
+      <div><span class="pill ${PLAN_CLASS[n.plan]}">${PLAN_LABEL[n.plan]}</span></div>
+      <div><span class="pill ${n.alergia!=='—'?'pill-r':'pill-off'}">${n.alergia}</span></div>
+      <div style="font-size:12px;color:var(--mid)">${n.grado}</div>
+      <div><span class="pill ${n.status==='activo'?'pill-ok':'pill-off'}">${n.status==='activo'?'Activo':'Pausado'}</span></div>
+      <div><button class="nact" onclick="showToast('Perfil de ${n.nino}')">Ver →</button></div>
+    </div>`).join('');
+}
+function filterNinos(q){renderNinos(q?NINOS.filter(n=>n.nino.toLowerCase().includes(q.toLowerCase())||n.mama.toLowerCase().includes(q.toLowerCase())):NINOS);}
+function filterNinosPlan(p){renderNinos(p?NINOS.filter(n=>n.plan===p):NINOS);}
+
+/* ════ BUILDER ════ */
+function renderBuilder(){
+  document.getElementById('builder-days').innerHTML=DAYS.map((day,di)=>`
+    <div class="dayslot">
+      <div class="dslh">
+        <div class="dsld">${day}</div>
+        <div class="dslt">${weekMenu[di].filter(Boolean).length}/2 opciones</div>
+      </div>
+      <div class="drow2">
+        ${[0,1].map(si=>{
+          const idx=weekMenu[di][si];
+          if(idx!==null && idx!==undefined){
+            const d=DB_FULL[idx];
+            return `<div class="adish">
+              <div><div class="adn">${d.emoji} ${d.name}</div><div class="adm">${d.cal} kcal · ${d.prot}g prot</div></div>
+              <button class="adrm" onclick="removeDish(${di},${si})">×</button>
+            </div>`;
+          }
+          return `<button class="eslot" onclick="setSlot(${di},${si})">+ Opción ${si+1}</button>`;
+        }).join('')}
+      </div>
+    </div>`).join('');
+}
+function setSlot(di,si){activeSlot={di,si};renderDPList();}
+function assignDish(idx){
+  if(!activeSlot) return;
+  weekMenu[activeSlot.di][activeSlot.si]=idx;
+  activeSlot=null;
+  renderBuilder();renderDPList();
+  showToast(`${DB_FULL[idx].emoji} ${DB_FULL[idx].name} asignado ✓`);
+}
+function removeDish(di,si){weekMenu[di][si]=null;renderBuilder();renderDPList();}
+function setWeek(w,btn){
+  document.querySelectorAll('.wkb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(w==='nxt') showToast('Editando menú: semana 14–18 de Abril');
+}
+function publishMenu(){
+  const filled=weekMenu.flat().filter(v=>v!==null).length;
+  if(filled<5){showToast('Asigna al menos una opción por día antes de publicar');return;}
+  showToast('¡Menú publicado! Las mamás ya pueden elegir ✓');
+}
+
+/* ════ PANEL DE PLATILLOS ════ */
+function renderDPList(filter=''){
+  const f=DB_FULL.map((d,i)=>({...d,i})).filter(d=>d.name.toLowerCase().includes(filter.toLowerCase()));
+  document.getElementById('dplist').innerHTML=f.map(d=>{
+    const inUse=weekMenu.flat().includes(d.i);
+    return `<div class="ditem" onclick="assignDish(${d.i})">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div class="dinm">${d.emoji} ${d.name}</div>
+        ${inUse?'<span style="font-size:10px;color:var(--o);background:var(--ol);padding:2px 7px;border-radius:100px;flex-shrink:0;margin-left:6px;font-weight:700">En menú</span>':''}
+      </div>
+      <div class="dimac"><span class="dimm">${d.cal} kcal</span><span class="dimm">${d.prot}g prot</span></div>
+      <div class="ditg">${d.tags.map(t=>`<span class="dta">${t}</span>`).join('')}</div>
+      <div style="margin-top:5px;font-size:11px;color:var(--mid)">Toca para asignar · <span style="color:var(--o);font-weight:600;cursor:pointer" onclick="event.stopPropagation();openDet(${d.i})">ver detalle →</span></div>
+    </div>`;
+  }).join('');
+}
+function filterList(v){renderDPList(v);}
+
+/* ════ GRID DE PLATILLOS ════ */
+function renderGrid(){
+  document.getElementById('dgrid').innerHTML=DB_FULL.map((d,i)=>`
+    <div class="dc2" onclick="openDet(${i})">
+      <div class="dc2img" style="background:${d.color}">${d.emoji}</div>
+      <div class="dc2body">
+        <div class="dc2n">${d.name}</div>
+        <div class="dc2m"><span class="dc2mm">${d.cal} kcal</span><span class="dc2mm">${d.prot}g prot</span></div>
+        <div class="dc2t">${d.tags.map(t=>`<span class="dc2ta">${t}</span>`).join('')}</div>
+        <div style="margin-top:8px;font-size:11px;color:var(--o);font-weight:600">Ver detalle →</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ════ DETALLE PLATILLO ════ */
+function openDet(idx){
+  const d=DB_FULL[idx];
+  document.getElementById('det-title').textContent=d.name;
+  const emojiEl=document.getElementById('det-emoji');
+  emojiEl.textContent=d.emoji;emojiEl.style.background=d.color;
+  document.getElementById('det-name').textContent=d.name;
+  document.getElementById('det-gi').textContent=`Índice glucémico ${d.gi}`;
+  document.getElementById('det-macros').innerHTML=
+    [{v:d.cal,l:'kcal'},{v:d.prot+'g',l:'proteína'},{v:d.fat+'g',l:'grasas'},{v:d.carb+'g',l:'carbos'},{v:d.fiber+'g',l:'fibra'}]
+    .map(m=>`<div class="det-macro"><div class="det-mv">${m.v}</div><div class="det-ml">${m.l}</div></div>`).join('');
+  document.getElementById('det-ingredients').innerHTML=d.ingredients.map(i=>`<span class="itag">${i}</span>`).join('');
+  document.getElementById('det-vitamins').innerHTML=d.vitamins.map(v=>`<span class="vtag">${v}</span>`).join('');
+  document.getElementById('det-benefits').innerHTML=d.benefits.map(b=>`<div class="det-ben"><div class="det-dot"></div>${b}</div>`).join('');
+  const addBtn=document.getElementById('det-add-btn');
+  if(activeSlot){addBtn.style.display='inline-block';addBtn.textContent=`+ Asignar a ${DAYS[activeSlot.di]} · Opción ${activeSlot.si+1}`;addBtn.onclick=()=>{assignDish(idx);closeDet();};}
+  else{addBtn.style.display='none';}
+  document.getElementById('modal-det').style.display='flex';
+}
+function closeDet(){document.getElementById('modal-det').style.display='none';}
+
+/* ════ RESEÑAS ════ */
+const REVIEWS=[
+  {mama:'Claudia M.',nino:'Emilio',stars:5,tag:'¡Le encantó!',txt:'El pollo al limón fue un hit. Mi hijo llegó a casa preguntando cuándo volvía a tener esa lonchera. Gracias Ana Lucía.',dish:'Pollo al limón · Lunes 7 Abr'},
+  {mama:'Fernanda R.',nino:'Isabella',stars:5,tag:'Se lo comió todo',txt:'Isabella es muy selectiva con la comida y se acabó todo. Eso dice más que cualquier comentario que yo pueda hacer.',dish:'Pasta integral con atún · Martes 8 Abr'},
+  {mama:'Patricia G.',nino:'Mateo',stars:5,tag:'¡Le encantó!',txt:'Mateo ya come el brócoli gracias a como lo preparan. Nunca creí que lo vería comer verduras sin drama. ¡Gracias!',dish:'Pollo a la mostaza + brócoli · Jueves 3 Abr'},
+  {mama:'Sofía R.',nino:'Diego',stars:5,tag:'Porciones perfectas',txt:'Las porciones son perfectas para niños de primaria. No mucho, no poco. Y Diego ya sabe identificar qué come cada día.',dish:'Bowl de leguminosas · Mié 2 Abr'},
+  {mama:'Alejandra L.',nino:'Sofía',stars:4,tag:'Buena variedad',txt:'El menú de esta semana estuvo muy variado. La única observación es que Sofía prefiere menos cebolla cruda. Pero en general, todo excelente.',dish:'Taquitos de frijol · Vie 28 Mar'},
+];
+function renderReviews(){
+  document.getElementById('reviews-list').innerHTML=REVIEWS.map(r=>`
+    <div class="rev-row">
+      <div class="rev-av">${r.mama.split(' ')[0][0]}${r.mama.split(' ')[1]?.[0]||''}</div>
+      <div style="flex:1">
+        <div class="rev-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div>
+        <div class="rev-name">${r.mama} <span style="font-size:11px;color:var(--mid);font-weight:400">— sobre ${r.nino}</span></div>
+        <div class="rev-meta">${r.dish}</div>
+        <div style="display:inline-block;margin:6px 0;font-size:11px;color:var(--od);background:var(--ol);padding:2px 9px;border-radius:100px;font-weight:600">${r.tag}</div>
+        <div class="rev-txt">${r.txt}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ════ MODAL NUEVO PLATILLO ════ */
+function openModal(){document.getElementById('modal-nuevo').style.display='flex';clearPhoto();}
+function closeModal(){document.getElementById('modal-nuevo').style.display='none';}
+function saveD(){
+  const nom=document.getElementById('d-nombre').value.trim();
+  if(!nom){showToast('El nombre del platillo es obligatorio');return;}
+  const newDish={
+    name:nom,
+    emoji:document.getElementById('d-emoji').value||'🍽',
+    color:document.getElementById('d-color').value+'33',
+    cal:parseInt(document.getElementById('d-cal').value)||400,
+    prot:parseInt(document.getElementById('d-prot').value)||25,
+    fat:12,carb:38,fiber:5,
+    gi:'Bajo–Moderado (45–52)',
+    ingredients:(document.getElementById('d-ing').value||'').split(',').map(s=>s.trim()).filter(Boolean),
+    vitamins:['Vitaminas del complejo B','Minerales esenciales'],
+    benefits:(document.getElementById('d-ben').value||'').split('\n').map(s=>s.trim()).filter(Boolean),
+    tags:(document.getElementById('d-tags').value||'').split(',').map(s=>s.trim()).filter(Boolean),
+  };
+  DB_FULL.push(newDish);
+  closeModal();
+  renderGrid();renderDPList();
+  showToast(`✓ "${newDish.name}" guardado en tu banco de platillos`);
+}
+function handlePhotoFile(file){
+  if(!file) return;
+  if(file.size>5*1024*1024){showToast('La imagen debe ser menor a 5 MB');return;}
+  const r=new FileReader();
+  r.onload=function(e){
+    currentPhoto=e.target.result;
+    document.getElementById('photo-img').src=currentPhoto;
+    document.getElementById('photo-name').textContent=file.name+' · '+(file.size/1024).toFixed(0)+' KB';
+    document.getElementById('photo-placeholder').style.display='none';
+    document.getElementById('photo-preview').style.display='flex';
+    document.getElementById('photo-drop').style.borderColor='var(--o)';
+  };
+  r.readAsDataURL(file);
+}
+function handleDrop(e){e.preventDefault();document.getElementById('photo-drop').style.borderColor='';handlePhotoFile(e.dataTransfer.files[0]);}
+function clearPhoto(){
+  currentPhoto=null;
+  document.getElementById('photo-input').value='';
+  document.getElementById('photo-img').src='';
+  document.getElementById('photo-name').textContent='';
+  document.getElementById('photo-placeholder').style.display='block';
+  document.getElementById('photo-preview').style.display='none';
+  document.getElementById('photo-drop').style.borderColor='';
+}
+
+/* ════ MODAL CLOSE ON BG ════ */
+['modal-nuevo','modal-det'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){if(e.target===this)this.style.display='none';});
+});
+
+/* ════ TOAST ════ */
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._to);t._to=setTimeout(()=>t.style.opacity='0',3200);
+}
+
+/* ════ INIT ════ */
+renderNinos(NINOS);
+</script>
+</body>
+</html>
