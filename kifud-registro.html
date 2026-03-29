@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro · Kifud</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,700;0,800;0,900;1,700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --y:#F0BC32;--yd:#A07A00;--yl:#FDF3D0;--ydk:#C9970A;
+  --r:#E8503A;--rl:#FDECEA;
+  --g:#3AAD5E;--gl:#E8F7EE;
+  --o:#F4721B;--ol:#FEF0E6;
+  --dark:#1C1612;--mid:#6B5E54;--light:#B8A99F;
+  --white:#FFFFFF;--off:#FFFDF6;--cream:#FFF9E8;
+  --border:rgba(0,0,0,.08);
+}
+body{font-family:'Nunito Sans',sans-serif;background:var(--off);color:var(--dark);min-height:100vh;display:grid;grid-template-columns:380px 1fr}
+
+/* ══ PANEL IZQUIERDO ══ */
+.left{background:var(--dark);display:flex;flex-direction:column;padding:40px 44px;position:sticky;top:0;height:100vh;overflow-y:auto}
+.left-logo{font-family:'Nunito',sans-serif;font-size:26px;color:#fff;font-weight:900;text-decoration:none;margin-bottom:52px;display:block;letter-spacing:-.02em}
+.left-logo span{color:var(--y)}
+.progress-steps{display:flex;flex-direction:column;gap:0;margin-bottom:48px}
+.pstep{display:flex;align-items:flex-start;gap:14px;padding:14px 0;position:relative}
+.pstep:not(:last-child)::after{content:'';position:absolute;left:15px;top:46px;width:1px;height:calc(100% - 18px);background:rgba(255,255,255,.1)}
+.pstep-num{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;flex-shrink:0;transition:.25s;position:relative;z-index:1}
+.pstep.done .pstep-num{background:var(--g);color:#fff}
+.pstep.active .pstep-num{background:var(--y);color:var(--dark);box-shadow:0 0 0 4px rgba(240,188,50,.2)}
+.pstep.pending .pstep-num{background:rgba(255,255,255,.08);color:rgba(255,255,255,.2)}
+.pstep-body{padding-top:4px}
+.pstep-title{font-size:14px;font-weight:700;transition:.25s}
+.pstep.done .pstep-title{color:rgba(255,255,255,.4)}
+.pstep.active .pstep-title{color:#fff}
+.pstep.pending .pstep-title{color:rgba(255,255,255,.2)}
+.pstep-sub{font-size:12px;margin-top:2px;font-weight:400}
+.pstep.done .pstep-sub,.pstep.pending .pstep-sub{color:rgba(255,255,255,.2)}
+.pstep.active .pstep-sub{color:rgba(255,255,255,.45)}
+.left-bottom{margin-top:auto}
+.left-quote{font-family:'Nunito',sans-serif;font-size:18px;font-style:italic;color:rgba(255,255,255,.45);line-height:1.55;margin-bottom:22px;font-weight:700}
+.left-quote em{color:var(--y);font-style:normal}
+.left-trust{display:flex;flex-direction:column;gap:8px}
+.lt-item{display:flex;align-items:center;gap:10px;font-size:12.5px;color:rgba(255,255,255,.3);font-weight:600}
+.lt-dot{width:5px;height:5px;border-radius:50%;background:var(--y);flex-shrink:0}
+
+/* ══ PANEL DERECHO ══ */
+.right{display:flex;flex-direction:column;min-height:100vh}
+.right-nav{display:flex;justify-content:space-between;align-items:center;padding:18px 52px;border-bottom:2px solid var(--y);background:var(--white);position:sticky;top:0;z-index:50}
+.rn-back{font-size:13.5px;color:var(--mid);text-decoration:none;display:flex;align-items:center;gap:6px;font-weight:600}
+.rn-back:hover{color:var(--dark)}
+.rn-step{font-size:12px;color:var(--light);font-weight:600}
+.right-body{flex:1;padding:52px}
+
+.step{display:none}
+.step.active{display:block;animation:fadeIn .3s ease both}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.step-eyebrow{font-size:11px;color:var(--o);text-transform:uppercase;letter-spacing:.13em;font-weight:800;margin-bottom:12px}
+.step-title{font-family:'Nunito',sans-serif;font-size:36px;color:var(--dark);line-height:1.1;margin-bottom:8px;font-weight:900}
+.step-title em{color:var(--r);font-style:italic}
+.step-sub{font-size:15px;color:var(--mid);line-height:1.7;font-weight:400;margin-bottom:36px;max-width:520px}
+
+/* ── CAMPOS ── */
+.field{margin-bottom:20px}
+.field label{display:block;font-size:11px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px}
+.field label .opt{font-weight:400;text-transform:none;letter-spacing:0;color:var(--light);font-size:11px}
+.field input,.field select{width:100%;padding:14px 16px;border:2px solid var(--border);border-radius:12px;font-size:15px;font-family:'Nunito Sans',sans-serif;color:var(--dark);background:var(--white);outline:none;transition:.15s;font-weight:600}
+.field input:focus,.field select:focus{border-color:var(--y);box-shadow:0 0 0 3px rgba(240,188,50,.15)}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field-hint{font-size:12px;color:var(--light);margin-top:6px;font-weight:600}
+
+/* ── RESUMEN HIJOS AGREGADOS ── */
+.hijos-agregados{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.hijo-card{background:var(--white);border:2px solid var(--g);border-radius:14px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px}
+.hijo-card-left{display:flex;align-items:center;gap:12px}
+.hijo-emoji{font-size:24px}
+.hijo-info{}
+.hijo-ciclo{font-size:14px;font-weight:800;color:var(--dark);font-family:'Nunito',sans-serif}
+.hijo-nutri{font-size:12px;color:var(--mid);margin-top:2px}
+.hijo-badge{font-size:11px;background:var(--gl);color:var(--g);padding:3px 10px;border-radius:100px;font-weight:800}
+
+/* ── PESTAÑAS NUTRIÓLOGAS ── */
+.nutri-tabs{display:flex;gap:10px;margin-bottom:24px;flex-wrap:wrap}
+.ntab{display:flex;align-items:center;gap:10px;padding:10px 18px;border-radius:100px;border:2px solid var(--border);background:var(--white);cursor:pointer;transition:.2s;font-family:'Nunito Sans',sans-serif;font-weight:700;font-size:13.5px;color:var(--mid)}
+.ntab:hover{border-color:var(--y);color:var(--dark)}
+.ntab.active{background:var(--yl);border-color:var(--y);color:var(--dark)}
+.ntab-av{width:28px;height:28px;border-radius:50%;background:var(--cream);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:11px;color:var(--yd);font-weight:900;flex-shrink:0;transition:.2s}
+.ntab.active .ntab-av{background:var(--y);color:var(--dark)}
+.ntab-dot{width:7px;height:7px;border-radius:50%;background:var(--border);margin-left:4px;transition:.2s;flex-shrink:0}
+.ntab.active .ntab-dot{background:var(--o)}
+
+/* ── CARD NUTRIÓLOGA ── */
+.nutri-panel{display:none}
+.nutri-panel.active{display:block;animation:fadeIn .2s ease both}
+.nutri-card{background:var(--white);border:2px solid var(--border);border-radius:16px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;gap:18px;transition:.2s}
+.nutri-card.selected{border-color:var(--y);background:var(--yl)}
+.nc-av{width:52px;height:52px;border-radius:50%;background:var(--yl);display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:18px;color:var(--yd);font-weight:900;flex-shrink:0}
+.nutri-card.selected .nc-av{background:var(--y)}
+.nc-body{flex:1}
+.nc-name{font-size:16px;font-weight:800;color:var(--dark);margin-bottom:3px;font-family:'Nunito',sans-serif}
+.nc-spec{font-size:13px;color:var(--mid);font-weight:400}
+.nutri-card.selected .nc-spec{color:var(--yd);font-weight:600}
+.nc-right{text-align:right;flex-shrink:0}
+.nc-rating{font-size:14px;font-weight:700;color:var(--o)}
+
+/* ── MENÚ ── */
+.menu-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.menu-label{font-size:11px;font-weight:800;color:var(--light);text-transform:uppercase;letter-spacing:.1em;display:flex;align-items:center;gap:8px;flex:1}
+.menu-label::after{content:'';flex:1;height:2px;background:var(--yl)}
+.menu-modify-nota{font-size:12px;color:var(--light);font-weight:600;font-style:italic;white-space:nowrap;margin-left:12px}
+
+.menu-dias{display:flex;flex-direction:column;gap:10px;margin-bottom:12px}
+.menu-dia{background:var(--white);border:2px solid var(--border);border-radius:14px;overflow:hidden;display:flex;align-items:stretch}
+.md-left{padding:14px 16px;background:var(--cream);border-right:2px solid var(--border);display:flex;flex-direction:column;justify-content:center;align-items:center;min-width:72px;flex-shrink:0}
+.md-dia-nombre{font-size:10px;font-weight:800;color:var(--mid);text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}
+.md-dia-emoji{font-size:26px}
+.md-body{padding:14px 18px;flex:1;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.md-platillo{font-size:14px;font-weight:700;color:var(--dark);line-height:1.35;font-family:'Nunito',sans-serif}
+.md-meta{display:flex;gap:10px;margin-top:4px}
+.md-beneficio{font-size:12px;color:var(--mid);font-weight:600;margin-top:3px;margin-bottom:4px;line-height:1.4}
+.md-cal{font-size:11px;color:var(--light);font-weight:700}
+.md-prot{font-size:11px;color:var(--g);font-weight:800}
+.md-badge{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--gl);border:2px solid var(--g);display:flex;align-items:center;justify-content:center}
+.md-check{font-size:10px;color:var(--g);font-weight:900}
+
+.menu-relax-nota{font-size:13px;color:var(--yd);line-height:1.6;background:var(--yl);border-radius:12px;padding:12px 16px;margin-bottom:24px;font-weight:600;border:1.5px solid var(--y);display:flex;align-items:center;gap:10px}
+
+/* ── CTAs PASO 2 ── */
+.paso2-ctas{display:flex;flex-direction:column;gap:10px;max-width:480px}
+.btn-primary{background:var(--r);color:#fff;border:none;padding:15px 36px;border-radius:100px;font-size:15px;font-weight:800;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%;transition:.15s}
+.btn-primary:hover{background:#c43e2a}
+.btn-add-hijo{background:var(--yl);color:var(--yd);border:2px solid var(--y);padding:14px 28px;border-radius:100px;font-size:14px;font-weight:800;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;transition:.15s}
+.btn-add-hijo:hover{background:var(--y);color:var(--dark)}
+.btn-ghost{background:transparent;color:var(--mid);border:2px solid var(--border);padding:15px 28px;border-radius:100px;font-size:15px;font-weight:700;cursor:pointer;font-family:'Nunito Sans',sans-serif;width:100%;transition:.15s}
+.btn-ghost:hover{border-color:var(--r);color:var(--r)}
+
+/* ── ÉXITO ── */
+.success-wrap{text-align:center;padding:60px 20px;max-width:540px}
+.success-icon{font-size:64px;margin-bottom:20px}
+.success-title{font-family:'Nunito',sans-serif;font-size:38px;color:var(--dark);margin-bottom:12px;line-height:1.1;font-weight:900}
+.success-title em{color:var(--r);font-style:italic}
+.success-sub{font-size:16px;color:var(--mid);line-height:1.75;font-weight:400;margin-bottom:28px}
+.success-hijos{display:flex;flex-direction:column;gap:10px;margin-bottom:20px;text-align:left}
+.success-hijo{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:12px}
+.sh-emoji{font-size:24px}
+.sh-ciclo{font-size:14px;font-weight:800;color:var(--dark);font-family:'Nunito',sans-serif}
+.sh-nutri{font-size:12px;color:var(--mid);margin-top:2px}
+.success-nota{background:var(--yl);border:2px solid var(--y);border-radius:12px;padding:16px 20px;font-size:14px;color:var(--yd);line-height:1.65;margin-bottom:28px;text-align:left;font-weight:600}
+.success-mama{background:var(--white);border:2px solid var(--border);border-radius:14px;padding:16px 20px;margin-bottom:20px;text-align:left;display:flex;flex-direction:column;gap:8px}
+.sm-row{display:flex;justify-content:space-between;font-size:13.5px}
+.sm-label{color:var(--mid)}
+.sm-val{font-weight:700;color:var(--dark)}
+
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--dark);color:#fff;padding:12px 24px;border-radius:100px;font-size:13px;z-index:9999;opacity:0;transition:opacity .3s;pointer-events:none;font-weight:700}
+</style>
+</head>
+<body>
+
+<!-- ══ PANEL IZQUIERDO ══ -->
+<div class="left">
+  <a href="kifud-index.html" class="left-logo">Ki<span>fud</span></a>
+  <div class="progress-steps">
+    <div class="pstep active" data-step="1">
+      <div class="pstep-num">1</div>
+      <div class="pstep-body">
+        <div class="pstep-title">Datos de la mamá</div>
+        <div class="pstep-sub">Nombre, WhatsApp y colegio</div>
+      </div>
+    </div>
+    <div class="pstep pending" data-step="2">
+      <div class="pstep-num">2</div>
+      <div class="pstep-body">
+        <div class="pstep-title">Elige el menú</div>
+        <div class="pstep-sub">Nutrióloga y platillos por hijo</div>
+      </div>
+    </div>
+  </div>
+  <div class="left-bottom">
+    <div class="left-quote">"La lonchera que tu hijo<br>va a pedir <em>de nuevo.</em>"</div>
+    <div class="left-trust">
+      <div class="lt-item"><div class="lt-dot"></div>Menú nuevo cada semana</div>
+      <div class="lt-item"><div class="lt-dot"></div>Diseñado por nutrióloga certificada</div>
+      <div class="lt-item"><div class="lt-dot"></div>Recoge la tarde anterior en Escápate</div>
+      <div class="lt-item"><div class="lt-dot"></div>Sin carreras en la mañana</div>
+      <div class="lt-item"><div class="lt-dot"></div>Puedes agregar más de un hijo</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PANEL DERECHO ══ -->
+<div class="right">
+  <div class="right-nav">
+    <a href="kifud-index.html" class="rn-back">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 3L5 8l5 5"/></svg>
+      Volver a Kifud
+    </a>
+    <div class="rn-step" id="rn-step">Paso 1 de 2</div>
+  </div>
+
+  <div class="right-body">
+
+    <!-- ══ PASO 1 — Datos mamá ══ -->
+    <div class="step active" id="step-1">
+      <div class="step-eyebrow">Paso 1 de 2</div>
+      <h1 class="step-title">Cuéntanos sobre <em>tu familia.</em></h1>
+      <p class="step-sub">Solo lo básico para crear tu cuenta y avisarte cuando la lonchera esté lista.</p>
+
+      <div class="field-row" style="max-width:480px">
+        <div class="field"><label>Nombre</label><input type="text" placeholder="Tu nombre" id="f-nombre"></div>
+        <div class="field"><label>Apellido</label><input type="text" placeholder="Tu apellido" id="f-apellido"></div>
+      </div>
+      <div class="field" style="max-width:480px">
+        <label>WhatsApp</label>
+        <input type="tel" placeholder="844 000 0000" id="f-whatsapp">
+        <div class="field-hint">Te avisamos aquí cuando la lonchera esté lista cada tarde.</div>
+      </div>
+      <div class="field" style="max-width:480px">
+        <label>Colegio</label>
+        <select id="f-colegio">
+          <option value="">Seleccionar colegio</option>
+          <option>Colegio Americano de Saltillo</option>
+          <option>Instituto Lux</option>
+          <option>Instituto Británico</option>
+          <option>Colegio Británico</option>
+          <option>Otro colegio privado</option>
+        </select>
+      </div>
+
+      <div style="max-width:480px">
+        <button class="btn-primary" onclick="goStep(2)">Continuar — Elegir menú →</button>
+      </div>
+    </div>
+
+    <!-- ══ PASO 2 — Hijo actual ══ -->
+    <div class="step" id="step-2">
+      <div class="step-eyebrow" id="hijo-eyebrow">Paso 2 de 2 · Primer hijo</div>
+      <h1 class="step-title">Elige el <em>menú.</em></h1>
+      <p class="step-sub" id="hijo-sub">Explora los menús de esta semana y elige la nutrióloga que más le convenza a tu hijo.</p>
+
+      <!-- Hijos ya agregados -->
+      <div class="hijos-agregados" id="hijos-agregados" style="display:none"></div>
+
+      <!-- Año escolar -->
+      <div class="field" style="max-width:320px">
+        <label>Ciclo escolar del niño o niña</label>
+        <select id="f-ciclo">
+          <option value="">Seleccionar ciclo</option>
+          <option value="maternal">Maternal (1–2 años)</option>
+          <option value="kinder1">Kinder 1 (3 años)</option>
+          <option value="kinder2">Kinder 2 (4 años)</option>
+          <option value="kinder3">Kinder 3 (5 años)</option>
+          <option value="1ro">1° Primaria (6 años)</option>
+          <option value="2do">2° Primaria (7 años)</option>
+          <option value="3ro">3° Primaria (8 años)</option>
+          <option value="4to">4° Primaria (9 años)</option>
+          <option value="5to">5° Primaria (10 años)</option>
+          <option value="6to">6° Primaria (11 años)</option>
+        </select>
+        <div class="field-hint">Nos ayuda a mostrarle el menú adecuado para su edad.</div>
+      </div>
+
+      <div class="field" style="max-width:320px">
+        <label>Nombre <span class="opt">(opcional)</span></label>
+        <input type="text" id="f-nino" placeholder="Nombre del niño o niña">
+        <div class="field-hint">Si lo indicas, aparecerá en la etiqueta de su lonchera.</div>
+      </div>
+
+      <!-- Pestañas nutriólogas -->
+      <div class="nutri-tabs">
+        <button class="ntab active" onclick="switchNutri(0,this)">
+          <div class="ntab-av">VR</div>Nut. Valeria Ríos<div class="ntab-dot"></div>
+        </button>
+        <button class="ntab" onclick="switchNutri(1,this)">
+          <div class="ntab-av">CM</div>Nut. Carmen Mejía<div class="ntab-dot"></div>
+        </button>
+        <button class="ntab" onclick="switchNutri(2,this)">
+          <div class="ntab-av">LP</div>Nut. Lucía Peña<div class="ntab-dot"></div>
+        </button>
+      </div>
+
+      <!-- Panel Valeria -->
+      <div class="nutri-panel active" id="panel-0">
+        <div class="nutri-card selected" id="header-0">
+          <div class="nc-av">VR</div>
+          <div class="nc-body">
+            <div class="nc-name">Nut. Valeria Ríos</div>
+            <div class="nc-spec">Nutrición pediátrica · platillos que los niños piden de nuevo</div>
+          </div>
+          <div class="nc-right"><div class="nc-rating">⭐ 4.9</div></div>
+        </div>
+        <div class="menu-header">
+          <div class="menu-label">Menú semana 31 mar – 4 abr</div>
+        </div>
+        <div class="menu-dias">
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Lun</div><div class="md-dia-emoji">🍋</div></div><div class="md-body"><div><div class="md-platillo">Pollo al limón con arroz integral y zanahoria</div><div class="md-beneficio">Proteína para crecer fuerte y energía estable toda la mañana</div><div class="md-meta"><span class="md-cal">310 kcal</span><span class="md-prot">22g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Mar</div><div class="md-dia-emoji">🥕</div></div><div class="md-body"><div><div class="md-platillo">Croquetitas de atún con puré de camote</div><div class="md-beneficio">Omega-3 para el cerebro y vitamina A para una vista sana</div><div class="md-meta"><span class="md-cal">270 kcal</span><span class="md-prot">21g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Mié</div><div class="md-dia-emoji">🌯</div></div><div class="md-body"><div><div class="md-platillo">Rollitos de pollo y espinaca en tortilla integral</div><div class="md-beneficio">Hierro y calcio para huesos fuertes y concentración en clase</div><div class="md-meta"><span class="md-cal">240 kcal</span><span class="md-prot">20g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Jue</div><div class="md-dia-emoji">🍔</div></div><div class="md-body"><div><div class="md-platillo">Mini hamburguesas de lentejas y queso</div><div class="md-beneficio">Proteína vegetal y calcio para un recreo con energía real</div><div class="md-meta"><span class="md-cal">290 kcal</span><span class="md-prot">15g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Vie</div><div class="md-dia-emoji">🍝</div></div><div class="md-body"><div><div class="md-platillo">Nidos de pasta integral con pollo y jitomate</div><div class="md-beneficio">Carbohidratos de lenta absorción para terminar la semana con energía</div><div class="md-meta"><span class="md-cal">270 kcal</span><span class="md-prot">20g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+        </div>
+      </div>
+
+      <!-- Panel Carmen -->
+      <div class="nutri-panel" id="panel-1">
+        <div class="nutri-card" id="header-1">
+          <div class="nc-av">CM</div>
+          <div class="nc-body">
+            <div class="nc-name">Nut. Carmen Mejía</div>
+            <div class="nc-spec">Alimentación infantil y platillos coloridos y creativos</div>
+          </div>
+          <div class="nc-right"><div class="nc-rating">⭐ 4.8</div></div>
+        </div>
+        <div class="menu-header">
+          <div class="menu-label">Menú semana 31 mar – 4 abr</div>
+        </div>
+        <div class="menu-dias">
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Lun</div><div class="md-dia-emoji">🥗</div></div><div class="md-body"><div><div class="md-platillo">Ensalada de pollo con frutas dulces y granola</div><div class="md-beneficio">Vitaminas y fibra para un sistema digestivo sano y feliz</div><div class="md-meta"><span class="md-cal">250 kcal</span><span class="md-prot">18g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Mar</div><div class="md-dia-emoji">🥔</div></div><div class="md-body"><div><div class="md-platillo">Tortitas de papa y brócoli con queso panela</div><div class="md-beneficio">Calcio y vitamina C para defensas fuertes y huesos sanos</div><div class="md-meta"><span class="md-cal">230 kcal</span><span class="md-prot">10g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Mié</div><div class="md-dia-emoji">🐟</div></div><div class="md-body"><div><div class="md-platillo">Mini pastelitos de salmón con papa y chícharos</div><div class="md-beneficio">Omega-3 para el desarrollo cerebral y la memoria en clase</div><div class="md-meta"><span class="md-cal">260 kcal</span><span class="md-prot">18g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Jue</div><div class="md-dia-emoji">🍗</div></div><div class="md-body"><div><div class="md-platillo">Nuggets caseros de pollo y avena con dip de yogur</div><div class="md-beneficio">Proteína real sin aditivos — lo que su cuerpo necesita para crecer</div><div class="md-meta"><span class="md-cal">240 kcal</span><span class="md-prot">20g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Vie</div><div class="md-dia-emoji">🎃</div></div><div class="md-body"><div><div class="md-platillo">Barquitos de calabacita rellenos de arroz y res</div><div class="md-beneficio">Hierro y zinc para terminar la semana con energía y ánimo</div><div class="md-meta"><span class="md-cal">210 kcal</span><span class="md-prot">18g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+        </div>
+      </div>
+
+      <!-- Panel Lucía -->
+      <div class="nutri-panel" id="panel-2">
+        <div class="nutri-card" id="header-2">
+          <div class="nc-av">LP</div>
+          <div class="nc-body">
+            <div class="nc-name">Nut. Lucía Peña</div>
+            <div class="nc-spec">Alta proteína y cero ultra-procesados para niños activos</div>
+          </div>
+          <div class="nc-right"><div class="nc-rating">⭐ 4.7</div></div>
+        </div>
+        <div class="menu-header">
+          <div class="menu-label">Menú semana 31 mar – 4 abr</div>
+        </div>
+        <div class="menu-dias">
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Lun</div><div class="md-dia-emoji">🥩</div></div><div class="md-body"><div><div class="md-platillo">Albóndigas de res en salsa de calabaza y arroz</div><div class="md-beneficio">Hierro para prevenir la fatiga y mantenerlo alerta en clases</div><div class="md-meta"><span class="md-cal">290 kcal</span><span class="md-prot">20g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Mar</div><div class="md-dia-emoji">🧀</div></div><div class="md-body"><div><div class="md-platillo">Quesadilla de pollo con espinaca y queso Oaxaca</div><div class="md-beneficio">Calcio y proteína completa para huesos y músculos en crecimiento</div><div class="md-meta"><span class="md-cal">310 kcal</span><span class="md-prot">22g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Mié</div><div class="md-dia-emoji">🫘</div></div><div class="md-body"><div><div class="md-platillo">Tacos de frijoles negros con guacamole y jícama</div><div class="md-beneficio">Fibra y grasas saludables para una digestión tranquila toda la tarde</div><div class="md-meta"><span class="md-cal">260 kcal</span><span class="md-prot">12g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Jue</div><div class="md-dia-emoji">🐟</div></div><div class="md-body"><div><div class="md-platillo">Atún empanizado con avena y puré de chícharo</div><div class="md-beneficio">Omega-3 y fibra para la concentración y el rendimiento escolar</div><div class="md-meta"><span class="md-cal">280 kcal</span><span class="md-prot">24g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+          <div class="menu-dia"><div class="md-left"><div class="md-dia-nombre">Vie</div><div class="md-dia-emoji">🍛</div></div><div class="md-body"><div><div class="md-platillo">Arroz con pollo y verduras en salsa de jitomate</div><div class="md-beneficio">Energía balanceada y vitaminas para cerrar la semana con todo</div><div class="md-meta"><span class="md-cal">300 kcal</span><span class="md-prot">22g prot</span></div></div><div class="md-badge"><div class="md-check">✓</div></div></div></div>
+        </div>
+      </div>
+
+      <!-- Nota sin presión -->
+      <div class="menu-relax-nota">
+        <span>💡</span>
+        <span>Puedes modificar esta selección más adelante desde tu portal — esto no es un compromiso de pago.</span>
+      </div>
+
+      <!-- CTAs -->
+      <div class="paso2-ctas">
+        <button class="btn-add-hijo" onclick="agregarHijo()">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 3v10M3 8h10"/></svg>
+          Agregar otro hijo
+        </button>
+        <button class="btn-primary" onclick="finalizarRegistro()">Crear mi cuenta →</button>
+        <button class="btn-ghost" onclick="goStep(1)">← Regresar</button>
+      </div>
+    </div>
+
+    <!-- ══ ÉXITO ══ -->
+    <div class="step" id="step-3">
+      <div class="success-wrap">
+        <div class="success-icon">🎉</div>
+        <h1 class="success-title">¡La cuenta<br><em>está lista!</em></h1>
+        <p class="success-sub" id="success-sub-text">Ya guardamos el menú. Para activar la suscripción entra al portal y selecciona <strong>Contratar</strong>.</p>
+
+        <div class="success-mama" id="success-mama"></div>
+        <div class="success-hijos" id="success-hijos"></div>
+
+        <div class="success-nota">
+          Los menús están guardados. Cuando estés lista para contratar, entra al portal y activa la suscripción de cada hijo. El precio aparecerá ahí.
+        </div>
+        <div style="max-width:360px;margin:0 auto;display:flex;flex-direction:column;gap:10px">
+          <button class="btn-primary" onclick="showToast('Abriendo tu portal...')">Ir al portal →</button>
+          <button class="btn-ghost" onclick="window.location.href='kifud-index.html'">Volver al inicio</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+let activeNutri = 0;
+const nutriNames = ['Nut. Valeria Ríos','Nut. Carmen Mejía','Nut. Lucía Peña'];
+const nutriEmojis = ['🍋','🌈','💪'];
+let hijosAgregados = [];
+
+function goStep(n) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  document.querySelectorAll('.pstep').forEach(p => {
+    const s = parseInt(p.dataset.step);
+    p.classList.remove('active','done','pending');
+    if (s < n) { p.classList.add('done'); p.querySelector('.pstep-num').textContent = '✓'; }
+    else if (s === n) { p.classList.add('active'); p.querySelector('.pstep-num').textContent = s; }
+    else { p.classList.add('pending'); p.querySelector('.pstep-num').textContent = s; }
+  });
+  const rn = document.getElementById('rn-step');
+  rn.textContent = n <= 2 ? `Paso ${n} de 2` : '¡Cuenta creada!';
+  window.scrollTo(0,0);
+}
+
+function switchNutri(idx, btn) {
+  document.querySelectorAll('.ntab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.nutri-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('panel-' + idx).classList.add('active');
+  document.querySelectorAll('.nutri-card').forEach(h => h.classList.remove('selected'));
+  document.getElementById('header-' + idx).classList.add('selected');
+  activeNutri = idx;
+}
+
+function agregarHijo() {
+  const ciclo = document.getElementById('f-ciclo').value;
+  const nino = document.getElementById('f-nino').value;
+  if (!ciclo) { showToast('Selecciona el ciclo escolar primero'); return; }
+
+  // Guardar este hijo
+  hijosAgregados.push({ ciclo, nino, nutri: activeNutri, nutriName: nutriNames[activeNutri] });
+
+  // Mostrar hijos agregados
+  renderHijosAgregados();
+
+  // Limpiar campos para el siguiente hijo
+  document.getElementById('f-ciclo').value = '';
+  document.getElementById('f-nino').value = '';
+  activeNutri = 0;
+  switchNutri(0, document.querySelectorAll('.ntab')[0]);
+
+  // Actualizar eyebrow
+  const num = hijosAgregados.length + 1;
+  const ordinal = num === 2 ? 'Segundo' : num === 3 ? 'Tercer' : `${num}°`;
+  document.getElementById('hijo-eyebrow').textContent = `Paso 2 de 2 · ${ordinal} hijo`;
+  document.getElementById('hijo-sub').textContent = `Ahora elige el menú para tu ${ordinal.toLowerCase()} hijo — puede ser de una nutrióloga diferente.`;
+
+  window.scrollTo(0, 0);
+  showToast('✓ Hijo agregado — ahora elige el menú del siguiente');
+}
+
+function renderHijosAgregados() {
+  const wrap = document.getElementById('hijos-agregados');
+  wrap.style.display = hijosAgregados.length ? 'flex' : 'none';
+  wrap.innerHTML = hijosAgregados.map((h, i) => `
+    <div class="hijo-card">
+      <div class="hijo-card-left">
+        <div class="hijo-emoji">🎒</div>
+        <div class="hijo-info">
+          <div class="hijo-ciclo">${h.nino ? h.nino + ' · ' : ''}${h.ciclo}</div>
+          <div class="hijo-nutri">${h.nutriName}</div>
+        </div>
+      </div>
+      <div class="hijo-badge">✓ Guardado</div>
+    </div>
+  `).join('');
+}
+
+function finalizarRegistro() {
+  const ciclo = document.getElementById('f-ciclo').value;
+  if (!ciclo) { showToast('Selecciona el ciclo escolar del hijo actual'); return; }
+
+  // Agregar el último hijo
+  const nino = document.getElementById('f-nino').value;
+  hijosAgregados.push({ ciclo, nino, nutri: activeNutri, nutriName: nutriNames[activeNutri] });
+
+  // Construir pantalla de éxito
+  const nombre = ((document.getElementById('f-nombre').value||'') + ' ' + (document.getElementById('f-apellido').value||'')).trim() || '—';
+  const wa = document.getElementById('f-whatsapp').value || '—';
+
+  document.getElementById('success-mama').innerHTML = `
+    <div class="sm-row"><span class="sm-label">Mamá</span><span class="sm-val">${nombre}</span></div>
+    <div class="sm-row"><span class="sm-label">WhatsApp</span><span class="sm-val">${wa}</span></div>
+    <div class="sm-row"><span class="sm-label">Menú guardado</span><span class="sm-val">Semana 31 mar – 4 abr</span></div>
+  `;
+
+  document.getElementById('success-hijos').innerHTML = hijosAgregados.map(h => `
+    <div class="success-hijo">
+      <div class="sh-emoji">🎒</div>
+      <div>
+        <div class="sh-ciclo">${h.nino ? h.nino + ' · ' : ''}${h.ciclo}</div>
+        <div class="sh-nutri">${h.nutriName}</div>
+      </div>
+    </div>
+  `).join('');
+
+  if (hijosAgregados.length > 1) {
+    document.getElementById('success-sub-text').innerHTML = `Ya guardamos los menús de tus <strong>${hijosAgregados.length} hijos</strong>. Para activar las suscripciones entra al portal y selecciona <strong>Contratar</strong>.`;
+  }
+
+  goStep(3);
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.opacity = 1;
+  setTimeout(() => t.style.opacity = 0, 2600);
+}
+
+// Init: primera nutrióloga seleccionada
+document.getElementById('header-0').classList.add('selected');
+</script>
+</body>
+</html>
